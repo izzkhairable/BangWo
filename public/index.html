@@ -37,6 +37,7 @@
 				margin: 0;
 				padding: 0;
 			}
+
 			#message {
 				background: white;
 				max-width: 360px;
@@ -44,23 +45,27 @@
 				padding: 32px 24px;
 				border-radius: 3px;
 			}
+
 			#message h2 {
 				color: #ffa100;
 				font-weight: bold;
 				font-size: 16px;
 				margin: 0 0 8px;
 			}
+
 			#message h1 {
 				font-size: 22px;
 				font-weight: 300;
 				color: rgba(0, 0, 0, 0.6);
 				margin: 0 0 16px;
 			}
+
 			#message p {
 				line-height: 140%;
 				margin: 16px 0 24px;
 				font-size: 14px;
 			}
+
 			#message a {
 				display: block;
 				text-align: center;
@@ -71,15 +76,18 @@
 				padding: 16px;
 				border-radius: 4px;
 			}
+
 			#message,
 			#message a {
 				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 			}
+
 			#load {
 				color: rgba(0, 0, 0, 0.4);
 				text-align: center;
 				font-size: 13px;
 			}
+
 			@media (max-width: 600px) {
 				body,
 				#message {
@@ -87,12 +95,14 @@
 					background: white;
 					box-shadow: none;
 				}
+
 				body {
 					border-top: 16px solid #ffa100;
 				}
 			}
 		</style>
 	</head>
+
 	<body>
 		<div id="message">
 			<h2>Welcome</h2>
@@ -149,7 +159,7 @@
 							document.getElementById(
 								'firebaseui-auth-container'
 							).innerHTML = `<button id="signOutBtn" onclick="signMeOut()">Sign Out</button>
-							<button ><a style="" href="./newUser.html">Add Name & Profile Pic</a></button>`;
+							<button style="margin-top:10px " id="secondStepBtn" ><a style="background:initial; padding:initial; width:initial; height:initial; color:black"  href="./newUser.html">Go to Step 2) Add Name & Profile Pic</a></button>`;
 
 							addNewUserPhone(user.phoneNumber, user.uid).then((msg) => {
 								alert(JSON.stringify(msg));
@@ -204,11 +214,29 @@
 					.httpsCallable('addNewUserPhone');
 
 				let msg = '';
-				await addNewUserPhoneFB({ uid: uid, phoneNo: phoneNo }).then(
-					(result) => {
-						msg = result.data;
+				await addNewUserPhoneFB({
+					uid: uid,
+					phoneNo: phoneNo,
+				}).then((result) => {
+					if (result.data.profileData.profilePicUrl) {
+						console.log('This is true');
+						document.getElementById('secondStepBtn').style.visibility =
+							'hidden';
+						document.getElementById(
+							'firebaseui-auth-container'
+						).innerHTML += `	<button style="margin-top:10px " id="ThirdStepBtn" ><a style="background:initial; padding:initial; width:initial; height:initial; color:black"  href="./newUser.html">Go to Last Step 3 ) Add Home Address</a></button>`;
 					}
-				);
+
+					if (result.data.profileData.address) {
+						console.log('This is true');
+						document.getElementById('ThirdStepBtn').style.visibility = 'hidden';
+						document.getElementsByTagName('h1')[0].innerText =
+							'YOUR BANG WO PROFILE IS COMPLETED with your 1) Name 2) Profile Pic 3) Address 4) Unit No!';
+					}
+
+					msg = result.data;
+				});
+
 				return msg;
 			}
 		</script>

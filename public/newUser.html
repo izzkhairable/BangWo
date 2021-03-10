@@ -32,8 +32,8 @@
 
 	<body>
 		<h1>
-			Welcome to BangWo we realised you are a new user, pls enter your name and
-			upload a profile picture :)
+			This is the second step of your Sign Up. You are a new user, pls enter
+			your name and upload a profile picture :)
 		</h1>
 		<p>Step 1) Please enter you name:</p>
 		<input type="text" id="username" />
@@ -43,16 +43,20 @@
 		<h2 id="descupload"></h2>
 		<p id="demo"></p>
 		<p>Step 3) Click the button below to submit profile</p>
-		<button id="finalBtn" onclick="submitProfile()">
-			Finish & Submit Profile!
+		<button id="finalBtn" onclick="submitProfile()">Update Profile!</button>
+		<br />
+		<button style="margin-top: 10px" id="finalBtn2" onclick="goAddress()">
+			Go to step 3, Final Step
 		</button>
 		<p id="results"></p>
 		<script>
 			document.addEventListener('DOMContentLoaded', function () {
 				let app = firebase.app();
 				document.getElementById('finalBtn').disabled = true;
+				document.getElementById('finalBtn2').disabled = true;
 				firebase.auth().onAuthStateChanged(function (user) {
 					if (!user) {
+						alert('Nice Try! You are not logged in!');
 						window.location.replace('./index.html');
 					}
 				});
@@ -138,6 +142,7 @@
 								document.getElementById('username').value !== null
 							) {
 								document.getElementById('finalBtn').disabled = false;
+								document.getElementById('finalBtn2').disabled = false;
 							}
 						});
 					}
@@ -145,6 +150,7 @@
 			}
 
 			async function submitProfile() {
+				document.getElementById('finalBtn').disabled = true;
 				await firebase.auth().onAuthStateChanged(async function (user) {
 					if (user) {
 						document.getElementById('results').innerHTML =
@@ -171,7 +177,12 @@
 				});
 				document.getElementById('results').innerHTML =
 					'This is your updated profile<br>' + JSON.stringify(msg);
+				document.getElementById('finalBtn').disabled = true;
 				return msg;
+			}
+
+			function goAddress() {
+				window.location.replace('./newUser2.html');
 			}
 		</script>
 	</body>
