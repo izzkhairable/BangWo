@@ -420,3 +420,30 @@ exports.addNewTask = functions.https.onCall(async (data, context) => {
       });
   return returnTask;     
 });
+
+// Volunteer retrieves elderly profile
+exports.getElderlyProfile = functions.https.onCall(async(data) => {
+  //const taskId = data.taskId;
+  const uid = data.uid;
+  //const task = firestore.collection("task").doc(taskId);
+  const elderlyUsers = firestore.collection("elderlyUsers").doc(uid);
+
+  const returnElderlyProfile = await elderlyUsers
+    .get()
+    .then((doc) => {
+      if(doc.exists) {
+        const result = doc.data();
+        return {
+          name: result.name, 
+          phoneNo: result.phoneNo,
+          profilePicUrl: result.profilePicUrl
+        }
+      } else {
+          console.log("Elderly does not exist");
+      }
+    })
+    .catch((error) => {
+      console.log("Error retrieving elderly profile", error);
+    })
+  return returnElderlyProfile;
+})
