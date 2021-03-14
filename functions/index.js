@@ -259,6 +259,7 @@ exports.addTaskName = functions.https.onCall(async (data) => {
   const taskId = Date.now().toString() + data.elderlyId;
   const taskName = data.taskName;
   const elderlyId = data.elderlyId;
+  const volunteerId = data.volunteerId;
   
   const returnTaskName = firestore
       .collection("task")
@@ -266,7 +267,8 @@ exports.addTaskName = functions.https.onCall(async (data) => {
       .set({
         taskId: taskId,
         taskName: taskName,
-        elderlyId: elderlyId
+        elderlyId: elderlyId,
+        volunteerId: volunteerId
       })
       .then(async(doc) => {
         console.log({
