@@ -293,7 +293,7 @@ exports.addTaskAddress = functions.https.onCall(async(data) => {
       })
       .then(async(doc) => {
         if (doc.exists) {
-          const returnTaskAddress = await user
+          const returnTaskAddress = await task
             .update({
               address: address,
               unitNo: unitNo,
@@ -342,7 +342,7 @@ exports.addTaskDetails = functions.https.onCall(async(data) => {
     })
     .then(async(doc) => {
       if(doc.exists) {
-        const returnStatus = await user
+        const returnStatus = await task
           .update({
             taskDescription: taskDescription,
             taskPhotoUrl: taskPhotoUrl
@@ -361,6 +361,26 @@ exports.addTaskDetails = functions.https.onCall(async(data) => {
       console.log("Error getting task, task may not have been created before.", error);
     })
   return status;
+})
+
+// Get task details
+exports.getTaskDetails = functions.https.onCall(async(data) => {
+  const taskId = data.taskId;
+  const task = firestore.collection("task").doc(taskId);
+
+  const returnTaskDetails = await task
+    .get()
+    .then((doc) => {
+      if(doc.exists) {
+        return doc.data();
+      } else {
+          console.log("The task does not exist");
+      }
+    })
+    .catch((error) => {
+      console.log("Error retrieving task details, task may not exist", error);
+    })
+  return returnTaskDetails;
 })
 
 
@@ -398,133 +418,3 @@ exports.addNewTask = functions.https.onCall(async (data, context) => {
       });
   return returnTask;     
 });
-
-// User Mainpage
-// exports.addNewTask = functions.https.onCall(async (data, context) => {
-//   const taskId = data.UID;
-//   const taskName = taskName;
-//   const taskDescription = taskDescription;
-//   const user = firestore.collection("elderlyUsers").doc(uid);
-
-//   const returnTask = firestore
-//       .collection("task")
-//       .doc(UID)
-//       .set({
-//         taskId = taskId,
-//         taskName = taskName,
-//         taskDescription = taskDescription,
-//         user = elderlyId,
-        
-//       })
-//       .then(async (doc) => {
-//         console.log({
-//           msg: "Task has been created",
-//           status: 200,
-//         });
-//       });
-//   return returnTask;     
-// });
-
-// // Get Location Page (Not at home)
-// exports.addNewTaskLocationNotAtHome = functions.https.onCall(async (data, context) => {
-//   const taskId = taskId;
-//   const user = firestore.collection("elderlyUsers").doc(uid);
-//   const address = data.address;
-//   const unitNo = data.unitNo;
-//   const postalCode = data.postalCode;
-  
-//   const task = await user
-//       .get()
-//       .then((doc) => { // if task exists from above
-//         return doc;
-//       })
-//       .then(async (doc) => {
-//         if (doc.exists) {
-//           const returnTask = await user
-//             .update({ // set address as follows
-//               address: address,
-//               unitNo: unitNo,
-//               postalCode: postalCode,
-//             })
-//             .then(() => {
-//               console.log("address, unitNo and postalCode updated!")
-//               return "address, unitNo and postalCode updated!";
-//             });
-//           return returnTask;
-//         }
-//       })
-//       .catch((error) => {
-//         console.log("Error getting task document: ", error);
-//       });    
-// });
-
-// // Get Location Page (At home)
-// exports.addNewTaskLocationAtHome = functions.https.onCall(async (data, context) => {
-//   const taskId = taskId;
-//   const user = firestore.collection("elderlyUsers").doc(uid);
-//   const address = firestore.collection("elderlyUsers").doc(address);
-//   const unitNo = firestore.collection("elderlyUsers").doc(unitNo);
-//   //const postalCode = firestore.collection("elderlyUsers").doc(postalCode); 
-//   // -> no postal code field for elderlyUsers currently
-  
-//   const task = await user
-//       .get()
-//       .then((doc) => { // if task exists from above
-//         return doc;
-//       })
-//       .then(async (doc) => {
-//         if (doc.exists) {
-//           const returnTask = await user
-//             .update({ // set address as follows
-//               address: address,
-//               unitNo: unitNo,
-//               //postalCode: postalCode,
-//             })
-//             .then(() => {
-//               console.log("You're at home, this is your address")
-//               return "You're at home, this is your address";
-//             });
-//           return returnTask;
-//         }
-//       })
-//       .catch((error) => {
-//         console.log("Error getting task document: ", error);
-//       });       
-// });
-
-// // Add new task description (todo)
-// exports.addNewTaskDescription = functions.https.onCall(async (data, context) => {
-//   const taskId = taskId;
-//   const taskName = taskName;
-//   const taskDescription = taskDescription;
-//   const taskPhotoUrl = taskPhotoUrl;
-//   const user = firestore.collection("elderlyUsers").doc(uid);
-//   const volunteer = firestore.collection("volunteerUsers").doc(uid); // 
-//   const address = data.address;
-//   const unitNo = data.unitNo;
-//   const postalCode = data.postalCode;
-  
-  
-
-//   const returnTask = firestore
-//       .collection("task")
-//       .doc(UID)
-//       .set({
-//         taskId = taskId,
-//         taskName = taskName,
-//         taskDescription = taskDescription,
-//         taskPhotoUrl = taskPhotoUrl,
-//         user = elderlyId,
-//         volunteer = volunteerId,
-//         address = address,
-//         unitNo = unitNo,
-//         postalCode = postalCode,
-//       })
-//       .then(async (doc) => {
-//         console.log({
-//           msg: "Task has been created",
-//           status: 200,
-//         });
-//       });
-//   return returnTask;     
-// });
