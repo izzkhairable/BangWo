@@ -423,9 +423,7 @@ exports.addNewTask = functions.https.onCall(async (data, context) => {
 
 // Volunteer retrieves elderly profile
 exports.getElderlyProfile = functions.https.onCall(async(data) => {
-  //const taskId = data.taskId;
   const uid = data.uid;
-  //const task = firestore.collection("task").doc(taskId);
   const elderlyUsers = firestore.collection("elderlyUsers").doc(uid);
 
   const returnElderlyProfile = await elderlyUsers
@@ -446,4 +444,71 @@ exports.getElderlyProfile = functions.https.onCall(async(data) => {
       console.log("Error retrieving elderly profile", error);
     })
   return returnElderlyProfile;
+})
+
+// Volunteer accepts task success
+exports.acceptTask = functions.https.onCall(async(data) => {
+  const volunteerId = data.volunteerId;
+  const taskId = data.taskId;
+  const task = firestore.collection("task").doc(taskId);
+
+  const accepted = await task
+    .get()
+    .then((doc) => {
+      return doc;
+    })
+    .then(async(doc) => {
+      if(doc.exists) {
+        const accepting = await task
+          .update({
+            volunteerId: volunteerId
+          })
+          .then(() => {
+            return "Yay! We found you a volunteer! (VolunteerId successfully updated to task)";
+          })
+          .catch((error) => {
+            console.error("Error accepting task ", error);
+            return "Error accepting task";
+          });
+        return accepting;
+      }
+    })
+    .catch((error) => {
+      console.log("Error getting task, task may not have been created before.", error);
+    })
+  return accepted;
+})
+
+// Volunteer arrives, task in progress
+exports.taskInProgress = functions.https.onCall(async(data) => {
+  const taskId = data.taskId;
+  const task = firestore.collection("task").doc(taskId);
+  const volunteerId = data.volunteerId;
+
+  const inProgress = await task
+    .get()
+    .then((doc) => {
+      return doc;
+    })
+    .then(async(doc) => {
+      if(doc.exists) {
+        const arriving = await task
+          .update({
+            status: "In Progress"
+            //volunteerId: volunteerId
+          })
+          .then(() => {
+            return "Volunteer Help In Progress (Volunteer has successfully reached destination)";
+          })
+          .catch((error) => {
+            console.error("Error reaching destination ", error);
+            return "Error reaching destination";
+          });
+        return arriving;
+      }
+    })
+    .catch((error) => {
+      console.log("Error changing status, task may not have been created before.", error);
+    })
+  return inProgress;
 })
