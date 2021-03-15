@@ -4,10 +4,9 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-		<!-- update the version number as needed -->
+		<title>Select Task</title>
+
 		<script defer src="/__/firebase/8.2.10/firebase-app.js"></script>
-		<!-- include only the Firebase features as you need -->
 		<script defer src="/__/firebase/8.2.10/firebase-auth.js"></script>
 		<script defer src="/__/firebase/8.2.10/firebase-database.js"></script>
 		<script defer src="/__/firebase/8.2.10/firebase-firestore.js"></script>
@@ -25,29 +24,27 @@
 		/>
 		<script defer src="/__/firebase/init.js?useEmulator=true"></script>
 	</head>
+
 	<body>
-		<h1>Third step of your Sign Up. Pls enter your address and unitNo :)</h1>
-		<br />
-
-		<p>Field 3) Please enter your address:</p>
-		<input type="text" id="addressInput" />
-		<br />
-
-		<p>Field 4) Please enter your unit number (optional):</p>
-		<input type="text" id="unitNoInput" />
-		<br />
-
-		<button style="margin-top: 10px" id="submitBtn" onclick="submitAddress()">
-			Finish & Submit Profile!
+		<h1>What do you need help with ah?</h1>
+		<button>
+			<a href="./createNewTaskStep1.html?task=carrying Items">
+				Carrying Items
+			</a>
 		</button>
-		<br />
-
-		<button style="margin-top: 10px" id="homeBtn" onclick="goHome()">
-			Back to home page
+		<button>
+			<a href="./createNewTaskStep1.html?task=Changing Light Bulbs">
+				Changing Light Bulbs
+			</a>
 		</button>
-
-		<p id="resultPara"></p>
-
-		<script src="./javascript/signUpStep3.js"></script>
+		<button>
+			<a href="./createNewTaskStep1.html?task=Gardening"> Gardening </a>
+		</button>
+		<button>
+			<a href="./createNewTaskStep1.html?task=Spring Cleaning">
+				Spring Cleaning
+			</a>
+		</button>
 	</body>
+	<script src="./javascript/selectTask.js"></script>
 </html>
