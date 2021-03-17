@@ -2,6 +2,7 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const { user } = require("firebase-functions/lib/providers/auth");
+const { ExportBundleInfo } = require("firebase-functions/lib/providers/analytics");
 admin.initializeApp();
 const firestore = admin.firestore();
 
@@ -471,13 +472,32 @@ exports.acceptTask = functions.https.onCall(async(data) => {
             return "Error accepting task";
           });
         return accepting;
-      }
+      } 
     })
     .catch((error) => {
       console.log("Error getting task, task may not have been created before.", error);
     })
   return accepted;
 })
+
+// Unable to find volunteer after 30 seconds
+// exports.noVolunteer = functions.https.onCall(async(data) => {
+//   const currentTime = Date.now();
+//   const taskId = data.taskId;
+//   const task = firestore.collection("task").doc(uid);
+//   const volunteerId = data.volunteerId;
+
+//   const waiting = await task 
+//     .get()
+//     .then((doc) => {
+//       const nextTime = Date.now();
+//       if (nextTime - currentTime >= 30000) { // 30 seconds, able to change
+//         console.log("We couldn't find you a volunteer");
+//         return "We couldn't find you a volunteer";
+//       } 
+//     })
+//   return waiting;
+// })
 
 // Volunteer arrives, task in progress
 exports.taskInProgress = functions.https.onCall(async(data) => {
@@ -511,4 +531,43 @@ exports.taskInProgress = functions.https.onCall(async(data) => {
       console.log("Error changing status, task may not have been created before.", error);
     })
   return inProgress;
+})
+
+// Elderly give sticker
+exports.addSticker = functions.https.onCall(async(data) => {
+  const taskId = data.taskId;
+  const task = firestore.collection("task").doc(taskId);
+  const volunteerId = data.volunteerId;
+  const volunteer = firestore.collection("volunteerUsers").doc(volunteerId);
+
+  const addSticker = await volunteer
+    .get()
+    .then((doc) => {
+      return doc;
+    })
+    .then(async(doc) => {
+      if(doc.exists) {
+        // pull quantity of each sticker in to a variable
+        const award = await volunteer
+          .update({
+            stickerMap: {
+              stickerName: "verygood",
+              quantity: 100
+            }
+          })
+          .then(() => {
+            console.log("You have given a verygood sticker!");
+            return "You have given a verygood sticker!";
+          })
+          .catch((error) => {
+            console.error("Error giving sticker ", error);
+            return "Error giving sticker";
+          })
+        return award;
+      }
+    })
+    .catch((error) => {
+      console.log("Could not find sticker, perhaps sticker does not exist");
+    })
+  return addSticker;
 })
