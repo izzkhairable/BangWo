@@ -279,3 +279,22 @@ exports.taskInProgress = functions.https.onCall(async (data) => {
       });
   return inProgress;
 });
+
+// Unable to find volunteer after 30 seconds (not tested yet)
+// exports.noVolunteer = functions.https.onCall(async(data) => {
+//   const currentTime = Date.now();
+//   const taskId = data.taskId;
+//   const task = firestore.collection("task").doc(uid);
+//   const volunteerId = data.volunteerId;
+
+//   const waiting = await task 
+//     .get()
+//     .then((doc) => {
+//       const nextTime = Date.now();
+//       if (nextTime - currentTime >= 30000) { // 30 seconds, able to change
+//         console.log("We couldn't find you a volunteer");
+//         return "We couldn't find you a volunteer";
+//       } 
+//     })
+//   return waiting;
+// })
