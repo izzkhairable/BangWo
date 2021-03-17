@@ -1,60 +1,12 @@
-/* eslint-disable max-len */
-const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const { user } = require("firebase-functions/lib/providers/auth");
 const { ExportBundleInfo } = require("firebase-functions/lib/providers/analytics");
 admin.initializeApp();
-const firestore = admin.firestore();
+exports.signUpElderly = require("./signUpElderly");
+exports.signUpVolunteer = require("./signUpVolunteer");
+exports.tasks = require("./tasks");
+exports.checkAccountType=require("./checkAccountType");
 
-// This API will check if the elderly is existing one or not
-// If it is a new user, would be specified in the return message
-// Also, new user would be redirected to input step 2
-exports.loginORsignUpElderlyStep1 = functions.https.onCall((data) => {
-  const uid = data.uid;
-  const phoneNo = data.phoneNo;
-  const user = firestore.collection("elderlyUsers").doc(uid);
-  const returnData = user
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          const data = doc.data();
-          const finalMsg={
-            status: 200,
-            msg: "You are an existing user",
-            isPreviouslyUser: true,
-            isSignUpCompleted: Boolean(doc.data().address),
-            profileData: data,
-          };
-          return finalMsg;
-        } else {
-          const newUserReturnData = firestore
-              .collection("elderlyUsers")
-              .doc(uid)
-              .set({
-                elderlyId: uid,
-                phoneNo: phoneNo,
-              })
-              .then(() => {
-                const finalMsg={
-                  status: 200,
-                  msg: "You are new elderly user, your (Auto-Generated)UID and PhoneNo added to our database",
-                  isPreviouslyUser: false,
-                  isSignUpCompleted: false,
-                  profileData: {
-                    elderlyId: uid,
-                    PhoneNo: phoneNo,
-                  },
-                };
-                return finalMsg;
-              });
-          return newUserReturnData;
-        }
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      });
-  return returnData;
-});
 
 // This is the second step of signing up
 // The elderly is have to insert their name and upload their profile picture

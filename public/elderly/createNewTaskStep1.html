@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-		<!-- update the version number as needed -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Welcome to Firebase Hosting</title>
+
 		<script defer src="/__/firebase/8.2.10/firebase-app.js"></script>
-		<!-- include only the Firebase features as you need -->
 		<script defer src="/__/firebase/8.2.10/firebase-auth.js"></script>
 		<script defer src="/__/firebase/8.2.10/firebase-database.js"></script>
 		<script defer src="/__/firebase/8.2.10/firebase-firestore.js"></script>
@@ -23,31 +21,20 @@
 			rel="stylesheet"
 			href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css"
 		/>
-		<!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
 		<script defer src="/__/firebase/init.js?useEmulator=true"></script>
-		<style media="screen">
-			body {
-				background: #eceff1;
-				color: rgba(0, 0, 0, 0.87);
-				font-family: Roboto, Helvetica, Arial, sans-serif;
-				margin: 0;
-				padding: 0;
-			}
-		</style>
 	</head>
+
 	<body>
-		<h1>Hello You Are Signed In!</h1>
-		<script>
-			document.addEventListener('DOMContentLoaded', function () {
-				firebase.auth().onAuthStateChanged(function (user) {
-					if (!user) {
-						window.location.replace('./index.html');
-					}
-				});
-			});
-		</script>
+		<div id="message">
+			<h2>Welcome Elderly</h2>
+			<h1>You at home ah?</h1>
+		</div>
+		<button>
+			<a id="aAtHome"">Yes Lah</a>
+		</button>
+		<button>
+			<a id="aNotHome">No Ley</a>
+		</button>
+		<script src="./javascript/createNewTaskStep1.js"></script>
 	</body>
 </html>

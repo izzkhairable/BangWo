@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | BangWo</title>
+	<link href="./assets/fontawesome/css/all.css" rel="stylesheet">
+	<link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+	<style type="text/css">
+		.bg-orange {
+			background-color:#f2994a !important;
+		}
+		
+		.profile-picture {
+			width: 35px;
+			height: 35px;
+			border-radius: 50%;
+		}
+    </style>
+</head>
+<body>
+	<nav class="navbar nav-fill navbar-dark bg-orange">
+		<span class="navbar-brand nav-item mb-0 h1" id="welcome"></span>
+		<span class="navbar-brand nav-item">
+			<img alt="" id="profile" class="profile-picture">
+		</span>
+	</nav>
+	<main class="container text-center">
+		<div class="container">
+			<img alt="" class="img-fluid" id="logo">
+		</div>
+		<div class="container">
+			<img alt="" class="img-fluid" id="notaskimage">
+		</div>
+		<div class="container" id="volunteer-task-section">
+			<h2 id="volunteer-task-header"></h2>
+			<div id="volunteer-task-list">
+			</div>
+		</div>
+		<div class="container-fluid">
+			<button type="button" class="btn btn-dark btn-block">Test Notification <i class="far fa-bell"></i></button>
+		</div>
+	</main>
+
+	<script src="./assets/js/bootstrap.bundle.min.js"></script>
+</body>
+
+<script src="javascript/welcome.js"></script>
+<script src="javascript/volunteer-task-section.js"></script>
+</html>

@@ -28,152 +28,24 @@
 
 	<body>
 		<h1>
-			This is the second step of your Sign Up. You are a new volunteer, pls
-			enter your name and upload a profile picture :)
+			Second step of your Sign Up. Pls enter your name and upload a profile
+			picture :)
 		</h1>
-		<p>Step 1) Please enter you name:</p>
-		<input type="text" id="username" />
-		<p>Step 2) Please Upload your profile picture:</p>
-		<input type="file" id="myFile" accept="image/png, image/jpeg" />
-		<button onclick="getFileDetails()">Upload The Profile Pic</button>
-		<h2 id="descupload"></h2>
-		<p id="demo"></p>
-		<p>Step 3) Click the button below to submit profile</p>
-		<button id="finalBtn" onclick="submitProfile()">Update Profile!</button>
+		<p>Field 1) Please enter your name:</p>
+		<input type="text" id="usernameInput" />
+
+		<p id="step2Para">Field 2) Please Upload your profile picture:</p>
+		<input type="file" id="fileInput" accept="image/png, image/jpeg" />
+		<button onclick="getFileDetails()">Upload Profile Image</button>
+		<p id="uploadResult"></p>
+
+		<p>Click the button below to submit profile</p>
+		<button id="submitBtn" onclick="submitProfile()">Update Profile!</button>
 		<br />
-		<button style="margin-top: 10px" id="finalBtn2" onclick="goAddress()">
-			Go to step 3, Final Step
+		<button style="margin-top: 10px" id="homeBtn" onclick="goHome()">
+			Go Home
 		</button>
-		<p id="results"></p>
-		<script>
-			document.addEventListener('DOMContentLoaded', function () {
-				let app = firebase.app();
-				document.getElementById('finalBtn').disabled = true;
-				document.getElementById('finalBtn2').disabled = true;
-				firebase.auth().onAuthStateChanged(function (user) {
-					if (!user) {
-						alert('Nice Try! You are not logged in!');
-						window.location.replace('./index.html');
-					}
-				});
-			});
-
-			function getFileDetails() {
-				var x = document.getElementById('myFile');
-				var txt = '';
-				if ('files' in x) {
-					if (x.files.length == 0) {
-						txt = 'Select one or more files.';
-					} else {
-						for (var i = 0; i < x.files.length; i++) {
-							uploadFile(x.files[i]);
-						}
-					}
-				} else {
-					if (x.value == '') {
-						txt += 'Select one or more files.';
-					} else {
-						txt += 'The files property is not supported by your browser!';
-						txt += '<br>The path of the selected file: ' + x.value; // If the browser does not support the files property, it will return the path of the selected file instead.
-					}
-				}
-			}
-
-			function uploadFile(file) {
-				// Create the file metadata
-				const storageRef = firebase.storage().ref();
-				var metadata = {
-					contentType: 'image/jpeg',
-				};
-
-				// Upload file and metadata to the object 'images/mountains.jpg'
-				var uploadTask = storageRef
-					.child('images/' + file.name)
-					.put(file, metadata);
-
-				// Listen for state changes, errors, and completion of the upload.
-				uploadTask.on(
-					firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-					(snapshot) => {
-						// Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-						var progress =
-							(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-						console.log('Upload is ' + progress + '% done');
-						switch (snapshot.state) {
-							case firebase.storage.TaskState.PAUSED: // or 'paused'
-								console.log('Upload is paused');
-								break;
-							case firebase.storage.TaskState.RUNNING: // or 'running'
-								console.log('Upload is running');
-								break;
-						}
-					},
-					(error) => {
-						// A full list of error codes is available at
-						// https://firebase.google.com/docs/storage/web/handle-errors
-						switch (error.code) {
-							case 'storage/unauthorized':
-								break;
-							case 'storage/canceled':
-								break;
-							case 'storage/unknown':
-								break;
-						}
-					},
-					() => {
-						// Upload completed successfully, now we can get the download URL
-						uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-							console.log('File available at', downloadURL);
-							document.getElementById('descupload').innerHTML =
-								'Your profile pic have been uploaded to the URL below:';
-							document.getElementById('demo').innerHTML = downloadURL;
-							if (
-								document.getElementById('username').value !== '' ||
-								document.getElementById('username').value !== null
-							) {
-								document.getElementById('finalBtn').disabled = false;
-								document.getElementById('finalBtn2').disabled = false;
-							}
-						});
-					}
-				);
-			}
-
-			async function submitProfile() {
-				document.getElementById('finalBtn').disabled = true;
-				await firebase.auth().onAuthStateChanged(async function (user) {
-					if (user) {
-						document.getElementById('results').innerHTML =
-							'Please wait updating your profile...';
-						await pushProfile(user);
-					}
-				});
-			}
-
-			async function pushProfile(user) {
-				const addNewUserFinalStep = firebase
-					.functions()
-					.httpsCallable('signUpElderlyStep2');
-
-				const profilePicUrl = document.getElementById('demo').innerText;
-				const name = document.getElementById('username').value;
-				// let msg = '';
-				const msg = await addNewUserFinalStep({
-					uid: user.uid,
-					name: name,
-					profilePicUrl: profilePicUrl,
-				}).then((result) => {
-					return result.data;
-				});
-				document.getElementById('results').innerHTML =
-					'This is your updated profile<br>' + JSON.stringify(msg);
-				document.getElementById('finalBtn').disabled = true;
-				return msg;
-			}
-
-			function goAddress() {
-				window.location.replace('./signUpStep3.html');
-			}
-		</script>
+		<p id="resultsPara"></p>
+		<script src="./javascript/signUpStep2.js"></script>
 	</body>
 </html>
