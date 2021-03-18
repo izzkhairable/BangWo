@@ -13,7 +13,7 @@ const step3btn=`<button style="margin-top:10px " id="ThirdStepBtn" >
                 </button>`
 
 const addTaskBtn=`<button style="margin-top:10px " id="ThirdStepBtn" >
-<a href="./selectTask.html">
+<a href="../main-senior.html">
    Add New Task
 </a>
 </button>`
