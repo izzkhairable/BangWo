@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     var perf = firebase.performance();
+
+
+
     firebase.auth().onAuthStateChanged(function (user) {
         if (!user) {
             alert("You are not logged in. Redirecting to sign up page....")
@@ -17,20 +20,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     window.location.replace('./Testing/loginORsignUpStep1.html');
                     return
                 }
-                const iframeEl=document.getElementById("iframeEl");
-                const addressEl=document.getElementById("addressEl");
-                const unitNoEl=document.getElementById("unitNoEl");
+                getLocation();
 
-                
-                addressEl.innerHTML= addressEl.innerHTML+`<p id="addresDataEl">${address}</p>`;
-                unitNoEl.innerHTML=unitNoEl.innerHTML+`<p id="unitNoDataEl">${unitNo}</p>`;
-                const url=`https://www.google.com/maps/embed/v1/place?key=AIzaSyBUcwKDHwnPlhLlJBZCNulc-abORf42qdA&q=${address.split(" ").join("+")},Singapore`
-                console.log(url);
-                iframeEl.src=url;
-                // const winUrlStr=window.location.href;
-                // const winUrl=new URL(winUrlStr);
-                // const taskid=winUrl.searchParams.get("taskId");
-                // document.getElementById("aNotHome").href=`./taskDescription.html?taskid=${taskid}`;
             });
         } 
     });
@@ -50,7 +41,40 @@ async function getElderlyProfile(uid) {
     return msg;
 }
 
-async function createTaskStep2A() {
+function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+      x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+  }
+  
+  function showPosition(position) {
+    displayMap(position.coords.latitude,position.coords.longitude)
+    listLocation(position.coords.latitude,position.coords.longitude)
+  }
+
+function listLocation(lat,long){
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyBUcwKDHwnPlhLlJBZCNulc-abORf42qdA`)
+    .then(response => response.json())
+    .then(data =>  document.getElementById('displayAddressEl').innerText=data.results[0].formatted_address);
+}
+
+function displayMap(lat, long){
+    const url=`https://www.google.com/maps/embed/v1/place?key=AIzaSyBUcwKDHwnPlhLlJBZCNulc-abORf42qdA&q=${lat},${long}`;
+    const iframeEl=document.getElementById("iframeEl");
+    console.log(url);
+    iframeEl.src=url;
+}
+
+function goToNotAtNgps(){
+    const urlStr=window.location.href;
+    const url=new URL(urlStr);
+    const taskId=url.searchParams.get("taskId");
+    window.location.replace(`./not-at-home_n_gps.html?taskId=${taskId}`)
+}
+
+async function createTaskStep2B() {
     const createTaskStep2FB = firebase
         .functions()
         .httpsCallable('tasks-createTaskStep2');
@@ -58,8 +82,8 @@ async function createTaskStep2A() {
     const urlStr=window.location.href;
     const url=new URL(urlStr);
     const taskId=url.searchParams.get("taskId");
-    const address=document.getElementById("addressEl").innerText;
-    const unitNo=document.getElementById("unitNoEl").innerText;
+    const address=document.getElementById("displayAddressEl").innerText;
+    const unitNo=document.getElementById("unitNo").value;
 
     await createTaskStep2FB ({
         taskId: taskId,
@@ -67,8 +91,8 @@ async function createTaskStep2A() {
         unitNo: unitNo
     }).then((result) => {
         console.log(result)
-        console.log(result)
-        // window.location.replace(`./taskDescription.html?taskId=${taskId}`)
+        // window.location.replace(`./createNewTaskStep3.html?taskId=${taskId}`)
     });
     return
 }
+

@@ -2,15 +2,10 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>User Mainpage | Senior</title>
-		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Select Task</title>
 
-		<!--  -->
-		<!--Firebase Stuff -->
+		<!-- Start of firebase stuff -->
 		<script defer src="/__/firebase/8.2.10/firebase-app.js"></script>
 		<script defer src="/__/firebase/8.2.10/firebase-auth.js"></script>
 		<script defer src="/__/firebase/8.2.10/firebase-database.js"></script>
@@ -28,98 +23,65 @@
 			href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css"
 		/>
 		<script defer src="/__/firebase/init.js?useEmulator=true"></script>
-		<!--End of  Firebase Stuff -->
-		<!--  -->
+		<!-- End of firebase stuff -->		
+		</script>
 
 		<link href="../assets/fontawesome/css/all.css" rel="stylesheet" />
 		<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
 		<style type="text/css">
-			.bg-orange {
-				background-color: #f2994a !important;
-			}
-
-			.bg-creme {
-				background-color: #ffbd12 !important;
-			}
-
-			.bg-green {
-				background-color: #00c6ae !important;
-			}
-
-			.bg-pink {
-				background-color: #ff89bb !important;
-			}
-
-			.bg-purple {
-				background-color: #9b51e0 !important;
-			}
-
-			.profile {
-				width: 35px;
-				height: 35px;
-				border-radius: 50%;
-			}
-
-			.card {
-				border-radius: 0.8rem;
-			}
-
 			.btn {
 				border-radius: 0.8rem;
 			}
 		</style>
+		<title>Bang Wo</title>
 	</head>
 	<body>
-		<nav class="navbar nav-fill navbar-dark bg-orange">
-			<span class="navbar-brand nav-item mb-0 h1" id="welcome"></span>
-			<span class="navbar-brand nav-item">
-				<img alt="" id="profile" class="profile" />
-			</span>
-		</nav>
-		<main class="container text-center">
-			<div class="container">
+		<div class="container">
+			<div class="d-flex justify-content-between align-items-center">
+				<a href="main-senior.html">
+					<i class="fas fa-2x fa-chevron-circle-left" style="color: black"></i>
+				</a>
 				<img src="../assets/images/logo.svg" />
+				<div></div>
 			</div>
-			<div class="container">
-				<h2 id="header-text"></h2>
-			</div>
-			<div
-				id="cat-carousel"
-				data-interval="false"
-				class="carousel pause container"
-			>
-				<div class="carousel-inner container" id="task-category"></div>
-			</div>
-			<div class="container-fluid">
-				<div class="row justify-content-md-center">
-					<div class="col text-left">
-						<a class="left" href="#cat-carousel" data-slide="prev">
-							<i class="fas fa-2x fa-chevron-circle-left"></i>
-						</a>
-					</div>
-					<div class="col page-indicator" id="page-indicator"></div>
-					<div class="col text-right">
-						<a class="right" href="#cat-carousel" data-slide="next">
-							<i class="fas fa-2x fa-chevron-circle-right"></i>
-						</a>
-					</div>
-				</div>
-			</div>
-		</main>
-		<footer class="container-fluid footer text-center">
-			<div class="d-grid gap-2">
-				<a
-					href="get-location.html?cat=null"
-					type="button"
-					class="btn btn-lg btn-dark btn-block"
-					>I need help with something else</a
+			<div class="text-center">
+				<h1 class="mt-3">Are you here right now?</h1>
+				<h2>This address: <span id="displayAddressEl"><span></h2>
+				<iframe
+					width="500"
+					id="iframeEl"
+					height="250"
+					style="border-radius: 25px"
+					loading="lazy"
+					allowfullscreen
+					src=""
 				>
+				</iframe>
+				<form>
+                    <div class="form-group mt-3">
+                      <input type="text" class="form-control" id="unitNo" placeholder="Ender your unit address (optional)">
+                    </div>
+                </form>
+			<div class="d-grid gap-2 mt-3">
+				<button
+					id="aNotHome"
+					class="btn btn-lg btn-dark btn-block"
+					onclick="createTaskStep2B()"
+				>
+					Yes Correct
+				</button>
 			</div>
-			<div id="footer-text">
-				Don't Understand?
-				<a href="#" class="text-danger">Click Here</a>
+			<div class="d-grid gap-2 mt-3">
+				<button
+					id="aNotHome"
+					class="btn btn-lg btn-dark btn-block"
+					onclick="goToNotAtNgps()"
+				>
+					No Lah
+				</button>
 			</div>
-		</footer>
+		</div>
+
 		<script
 			src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -135,9 +97,8 @@
 			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 			crossorigin="anonymous"
 		></script>
+		<script src="javascript/not-at-home.js"></script>
 		<script src="../assets/js/bootstrap.bundle.min.js"></script>
-		<script src="./javascript/welcome.js"></script>
-		<script src="./javascript/task-category.js"></script>
-		<script src="./javascript/footer.js"></script>
+		
 	</body>
 </html>
