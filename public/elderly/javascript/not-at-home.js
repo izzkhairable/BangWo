@@ -71,7 +71,7 @@ function goToNotAtNgps(){
     const urlStr=window.location.href;
     const url=new URL(urlStr);
     const taskId=url.searchParams.get("taskId");
-    window.location.replace(`./not-at-home_n_gps.html?taskId=${taskId}`)
+    window.location.replace(`./not-At-Home_n_GPS.html?taskId=${taskId}`)
 }
 
 async function createTaskStep2B() {
