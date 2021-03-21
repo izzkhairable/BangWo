@@ -1,11 +1,11 @@
-`<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Current Task | BangWo</title>
 </head>
-<body>
+<body onload="getLocation()">
 	
 	<div>
 		
@@ -14,6 +14,25 @@
 		<div id="task-details-section">
 			<p id="name"></p>
 			<p id="age"></p>
+			
+			<br>
+			
+			<div id="map">
+				<h2>Your Directions</h2>
+				
+				<!-- Make sure <body> tag has onload="getLocation()" -->
+				
+				<iframe
+				id="map-display"
+				width="600"
+				height="450"
+				style="border:0"
+				loading="lazy"
+				allowfullscreen>
+				</iframe>
+				
+			</div>
+			
 			<p id="address"></p>
 			<p id="task_name"></p>
 			<p id="task_description"></p>
@@ -36,5 +55,6 @@
 </body>
 
 <script src="javascript/task-details.js"></script>
+<script src="../map-javascript/map.js"></script>
 
 </html>
