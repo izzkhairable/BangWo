@@ -5,8 +5,6 @@ const firestore = admin.firestore();
 
 // Elderly give sticker
 exports.addSticker = functions.https.onCall(async (data) => {
-  // const taskId = data.taskId;
-  // const task = firestore.collection("task").doc(taskId);
   const volunteerId = data.volunteerId;
   const volunteer = firestore.collection("volunteerUsers").doc(volunteerId);
 
