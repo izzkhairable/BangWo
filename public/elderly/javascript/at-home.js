@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // const winUrl=new URL(winUrlStr);
                 // const taskid=winUrl.searchParams.get("taskId");
                 // document.getElementById("aNotHome").href=`./taskDescription.html?taskid=${taskid}`;
+                document.getElementById("header-text").innerHTML = "So you at home ah?";
             });
         } 
     });

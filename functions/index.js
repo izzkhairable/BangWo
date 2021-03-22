@@ -1,7 +1,9 @@
-const admin = require("firebase-admin");
-admin.initializeApp();
-exports.signUpElderly = require("./signUpElderly");
-exports.signUpVolunteer = require("./signUpVolunteer");
-exports.tasks = require("./tasks");
-exports.checkAccountType=require("./checkAccountType");
-exports.stickers = require("./stickers");
+const functions = require("firebase-functions");
+
+// // Create and Deploy Your First Cloud Functions
+// // https://firebase.google.com/docs/functions/write-firebase-functions
+//
+// exports.helloWorld = functions.https.onRequest((request, response) => {
+//   functions.logger.info("Hello logs!", {structuredData: true});
+//   response.send("Hello from Firebase!");
+// });
