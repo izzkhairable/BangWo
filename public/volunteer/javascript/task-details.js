@@ -43,3 +43,17 @@ function retrieveVolunteerAdvice() {
 	
 	return advice_array;
 }
+
+function userArrived() {
+	//Updates elderly that volunteer has arrived
+	
+	//Uses location.replace to redirect, preventing users from clicking "Back" button
+	window.location.replace("task-arrived.html");
+}
+
+function taskComplete() {
+	//Update db that task has been completed
+	
+	//Redirect using location.replace so user cannot click back button
+	window.location.replace("task-complete.html");
+}
