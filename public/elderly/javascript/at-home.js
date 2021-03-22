@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // const winUrl=new URL(winUrlStr);
                 // const taskid=winUrl.searchParams.get("taskId");
                 // document.getElementById("aNotHome").href=`./taskDescription.html?taskid=${taskid}`;
+                document.getElementById("header-text").innerHTML = "So you at home ah?";
             });
         } 
     });
@@ -68,7 +69,15 @@ async function createTaskStep2A() {
     }).then((result) => {
         console.log(result)
         console.log(result)
-        // window.location.replace(`./taskDescription.html?taskId=${taskId}`)
+        const urlStr=window.location.href;
+        const url=new URL(urlStr);
+        const taskId=url.searchParams.get("taskId");
+        window.location.replace(`./add-description.html?taskId=${taskId}`)
     });
     return
 }
+
+
+function goBack() {
+    window.history.back();
+  }

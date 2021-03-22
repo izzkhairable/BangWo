@@ -1,104 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<!-- Start of firebase stuff -->
-		<script defer src="/__/firebase/8.2.10/firebase-app.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-auth.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-database.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-firestore.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-functions.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-messaging.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-storage.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-analytics.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-remote-config.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-performance.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
-		<link
-			type="text/css"
-			rel="stylesheet"
-			href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css"
-		/>
-		<script defer src="/__/firebase/init.js?useEmulator=true"></script>
-		<!-- End of firebase stuff -->
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<script src="./javascript/googleMapsAutoComplete.js">
-		
-		</script>
+	<!-- Start of firebase stuff -->
+	<script defer src="/__/firebase/8.2.10/firebase-app.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-auth.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-database.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-firestore.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-functions.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-messaging.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-storage.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-analytics.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-remote-config.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-performance.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
+	<script defer src="/__/firebase/init.js?useEmulator=true"></script>
+	<!-- End of firebase stuff -->
 
-		<link href="../assets/fontawesome/css/all.css" rel="stylesheet" />
-		<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
-		<style type="text/css">
-			.btn {
-				border-radius: 0.8rem;
-			}
-		</style>
-		<title>Bang Wo</title>
-	</head>
-	<body>
-		<div class="container">
-			<div class="d-flex justify-content-between align-items-center">
-				<a href="main-senior.html">
-					<i class="fas fa-2x fa-chevron-circle-left" style="color: black"></i>
-				</a>
-				<img src="../assets/images/logo.svg" />
-				<div></div>
-			</div>
-			<div class="text-center">
-				<h1 class="mt-3">So where are you ah?</h1>
-                <form>
-                    <div class="form-group">
-                      <input type="text" class="form-control"  id="currentAddress" placeholder="Enter you current location" onblur="displayMap()">
-                    </div>
-                    <div class="form-group mt-3">
-                      <input type="text" class="form-control" id="unitNo" placeholder="Ender your unit address (optional)">
-                    </div>
-                </form>
-				<iframe
-					width="500"
-					id="iframeEl"
-					height="250"
-					style="border-radius: 25px"
-					loading="lazy"
-					allowfullscreen
-					src=""
-				>
-				</iframe>
+	<script src="./javascript/googleMapsAutoComplete.js">
+
+	</script>
+
+	<link href="../assets/fontawesome/css/all.css" rel="stylesheet" />
+	<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+	<style type="text/css">
+		.btn {
+			border-radius: 0.8rem;
+		}
+	</style>
+	<title>Bang Wo</title>
+</head>
+
+<body>
+	<div class="container">
+		<div class="d-flex justify-content-between align-items-center">
+			<a onclick="goBack()">
+				<i class="fas fa-2x fa-chevron-circle-left" style="color: black"></i>
+			</a>
+			<img src="../assets/images/logo.svg" />
+			<div></div>
+		</div>
+		<div class="text-center">
+			<h1 class="mt-3">So where are you ah?</h1>
+			<form>
+				<div class="form-group">
+					<input type="text" class="form-control" id="currentAddress" placeholder="Enter you current location"
+						onblur="displayMap()">
+				</div>
+				<div class="form-group mt-3">
+					<input type="text" class="form-control" id="unitNo"
+						placeholder="Ender your unit address (optional)">
+				</div>
+			</form>
+			<iframe width="500" id="iframeEl" height="250" style="border-radius: 25px" loading="lazy" allowfullscreen
+				src="">
+			</iframe>
 			<div class="d-grid gap-2 mt-3">
-				<button
-					id="aNotHome"
-					class="btn btn-lg btn-dark btn-block"
-					onclick="createTaskStep2B()"
-				>
+				<button id="aNotHome" class="btn btn-lg btn-dark btn-block" onclick="createTaskStep2B()">
 					Yes Correct
 				</button>
 			</div>
-		</div>
+			<div id="footer-text" class="text-center">
+				Don't Understand? <a href="#" class="text-danger">Click Here</a>
+			</div>
 
-		<script
-			src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		</div>
+		<script src="./javascript/footer.js"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-			crossorigin="anonymous"
-		></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+			crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-			crossorigin="anonymous"
-		></script>
-		<script
-			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+			crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-			crossorigin="anonymous"
-		></script>
+			crossorigin="anonymous"></script>
 		<script src="javascript/not-at-home_n_gps.js"></script>
 		<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI9woWgSBM-4ZR5JpxjibS-pIALzZo4WU&callback=initAutocomplete&libraries=places&v=weekly"
-		async
-	  	></script>
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI9woWgSBM-4ZR5JpxjibS-pIALzZo4WU&callback=initAutocomplete&libraries=places&v=weekly"
+			async></script>
 		<script src="../assets/js/bootstrap.bundle.min.js"></script>
-		
-	</body>
+		<script src="./javascript/footer.js"></script>
+
+</body>
+
 </html>

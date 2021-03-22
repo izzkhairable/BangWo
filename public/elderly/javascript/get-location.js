@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const url=new URL(urlStr);
             const taskName=url.searchParams.get("taskname");
             createTaskStep1(user.uid,taskName);
-            document.getElementById("header-text").innerHTML = "You at home ah?";
+            document.getElementById("header-text").innerHTML = "Are you at home?";
         } 
     });
 });
@@ -58,3 +58,7 @@ async function createTaskStep1(elderlyId, taskName) {
     console.log(resultData)
     return resultData;
 }
+
+function goBack() {
+    window.history.back();
+  }
