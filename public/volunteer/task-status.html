@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Current Task | BangWo</title>
 </head>
-<body onload="getLocation()">
+<body onload='getLocation("directions")'>
 	
 	<div>
 		
@@ -40,7 +40,7 @@
 		</div>
 		
 		<div id="task-status-buttons">
-			<button id="user-arrived">I've arrived</button>
+			<button id="user-arrived" onclick="userArrived()">I've arrived</button>
 			<button id="chat-button">Chat</button>
 		</div>
 		

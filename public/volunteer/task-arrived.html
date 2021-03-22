@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Current Task | BangWo</title>
 </head>
-<body>
+<body onload='getLocation("user-location")'>
 	
 	<div>
 		
@@ -23,7 +23,16 @@
 		<div id="map-section">
 			<h2>You have arrived</h2>
 			
-			<!-- Map location section -->
+			<!-- Make sure <body> tag has onload="getLocation()" -->
+			
+			<iframe
+			id="map-display"
+			width="600"
+			height="450"
+			style="border:0"
+			loading="lazy"
+			allowfullscreen>
+			</iframe>
 			
 		</div>
 		
@@ -45,5 +54,6 @@
 </body>
 
 <script src="javascript/task-details.js"></script>
+<script src="../map-javascript/map.js"></script>
 
 </html>
