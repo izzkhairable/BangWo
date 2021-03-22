@@ -67,8 +67,14 @@ async function createTaskStep2B() {
         unitNo: unitNo
     }).then((result) => {
         console.log(result)
-        // window.location.replace(`./createNewTaskStep3.html?taskId=${taskId}`)
+        const urlStr=window.location.href;
+        const url=new URL(urlStr);
+        const taskId=url.searchParams.get("taskId");
+        window.location.replace(`./add-description.html?taskId=${taskId}`)
     });
     return
 }
 
+function goBack() {
+    window.history.back();
+  }

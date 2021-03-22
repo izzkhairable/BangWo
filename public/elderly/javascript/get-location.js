@@ -58,3 +58,7 @@ async function createTaskStep1(elderlyId, taskName) {
     console.log(resultData)
     return resultData;
 }
+
+function goBack() {
+    window.history.back();
+  }
