@@ -124,6 +124,49 @@ exports.createTaskStep3 = functions.https.onCall(async (data) => {
   return status;
 });
 
+// Add task name, description and photos
+exports.createTaskStep3wName = functions.https.onCall(async (data) => {
+  const taskId = data.taskId;
+  const taskDescription = data.taskDescription;
+  const taskPhotoUrls = data.taskPhotoUrls;
+  const taskName = data.taskName;
+  const task = firestore.collection("task").doc(taskId);
+  
+  const status = await task
+      .get()
+      .then((doc) => {
+        return doc;
+      })
+      .then(async (doc) => {
+        if (doc.exists) {
+          const returnStatus = await task
+              .update({
+                taskDescription: taskDescription,
+                taskPhotoUrls: taskPhotoUrls,
+                taskName: taskName
+              })
+              .then(() => {
+                return "Successfully updated task with task description and photo";
+              })
+              .catch((error) => {
+                console.error(
+                    "Error updating task with description and/or photo ",
+                    error,
+                );
+                return "Error updating task with description and/or photo";
+              });
+          return returnStatus;
+        }
+      })
+      .catch((error) => {
+        console.log(
+            "Error getting task, task may not have been created before.",
+            error,
+        );
+      });
+  return status;
+});
+
 // Get task details
 exports.getTaskDetails = functions.https.onCall(async (data) => {
   const taskId = data.taskId;

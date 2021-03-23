@@ -1,3 +1,5 @@
+let taskName=""
+let imageCount=0
 document.addEventListener('DOMContentLoaded', function () {
     var perf = firebase.performance();
     firebase.auth().onAuthStateChanged(function (user) {
@@ -6,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
             window.location.replace('./Testing/loginORsignUpStep1.html');
             return
         }else{
-
+            document.getElementById("overallCarousel").style.display="none"
             getElderlyProfile(user.uid).then(async (msg) => {
                 var name=msg.name;
                 var profilePicUrl=msg.profilePicUrl;
@@ -17,11 +19,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     window.location.replace('./Testing/loginORsignUpStep1.html');
                     return
                 }
-
+                const taskNameInput=document.getElementById('allTaskName');
+                taskNameInput.style.display = "none";
                 const urlStr=window.location.href;
                 const url=new URL(urlStr);
                 const taskId=url.searchParams.get("taskId");
-                const taskName=await getTaskDetails(taskId)
+                taskName=await getTaskDetails(taskId)
+                if(taskName==null){
+                    taskName="other stuff"
+                    taskNameInput.style.display = "block";
+                }
                 const headerTaskName=document.getElementById('headerTaskName')
                 headerTaskName.innerText=headerTaskName.innerText+" "+taskName
             });
@@ -47,6 +54,7 @@ async function getElderlyProfile(uid) {
 
 function getFileDetails() {
     let files = document.getElementById('fileInput');
+    document.getElementById("overallCarousel").style.display="block"
     let txt=''
     if ('files' in files) {
         if (files.files.length == 0) {
@@ -107,13 +115,20 @@ function uploadFile(file) {
         },
         () => {
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                imageCount+=1
                let uploadResult= document.getElementById('uploadResult');
-               uploadResult.innerHTML=uploadResult.innerHTML+'<b>Your task photos have been uploaded to the URL below:</b><br>';
-               uploadResult.innerHTML= uploadResult.innerHTML+ `<p class="photosUrl">${downloadURL}</p>`;
+               uploadResult.innerHTML= uploadResult.innerHTML+ `<p class="photosUrl" hidden>${downloadURL}</p>`;
                const mainCarousel=document.getElementById("main-carousel")
-               mainCarousel.innerHTML= mainCarousel.innerHTML+`	<div class="carousel-item active">
-               <img src="${downloadURL}" class="d-block w-50" alt="...">
-           </div>`
+               if(imageCount==1){
+                mainCarousel.innerHTML= mainCarousel.innerHTML+`	<div class="carousel-item active">
+                <img src="${downloadURL}" class="d-block w-25 mx-auto" alt="...">
+            </div>`
+               }else{
+                mainCarousel.innerHTML= mainCarousel.innerHTML+`	<div class="carousel-item">
+                <img src="${downloadURL}" class="d-block w-25 mx-auto" alt="...">
+            </div>`
+               }
+           
             });
         }
     );
@@ -128,6 +143,9 @@ async function createTaskStep3() {
     const createTaskStep3FB = firebase
         .functions()
         .httpsCallable('tasks-createTaskStep3');
+    const createTaskStep3FBwName = firebase
+        .functions()
+        .httpsCallable('tasks-createTaskStep3wName');
     const messageInput = document.getElementById('messageInput').value;
     const photosUrl=document.getElementsByClassName('photosUrl');
 
@@ -140,14 +158,28 @@ async function createTaskStep3() {
     const urlStr=window.location.href;
     const url=new URL(urlStr);
     const taskId=url.searchParams.get("taskId");
+    let msg;
+    if(taskName=="other stuff"){
+        const taskNameInput=document.getElementById('taskNameInput')
+        let taskNameValue=taskNameInput.value;
+         msg = await createTaskStep3FBwName({
+            taskId: taskId,
+            taskDescription: messageInput,
+            taskPhotoUrls:photosUrlArr,
+            taskName: taskNameValue
+        }).then((result) => {
+            return result.data;
+        });
+    }else{
+         msg = await createTaskStep3FB({
+            taskId: taskId,
+            taskDescription: messageInput,
+            taskPhotoUrls:photosUrlArr,
+        }).then((result) => {
+            return result.data;
+        });
+    }
 
-    const msg = await createTaskStep3FB({
-        taskId: taskId,
-        taskDescription: messageInput,
-        taskPhotoUrls:photosUrlArr,
-    }).then((result) => {
-        return result.data;
-    });
     window.location.replace(`./statusWaiting.html?taskId=${taskId}`); 
     return msg;
 }
