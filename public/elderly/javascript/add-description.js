@@ -148,7 +148,7 @@ async function createTaskStep3() {
     }).then((result) => {
         return result.data;
     });
-    window.location.replace(`./Testing/statusWaiting.html?taskId=${taskId}`); 
+    window.location.replace(`./statusWaiting.html?taskId=${taskId}`); 
     return msg;
 }
 
