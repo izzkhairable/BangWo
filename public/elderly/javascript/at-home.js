@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const coverDiv=document.getElementById('coverDiv');
+    coverDiv.style.display='block';
     var perf = firebase.performance();
     firebase.auth().onAuthStateChanged(function (user) {
         if (!user) {
@@ -27,14 +29,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 const url=`https://www.google.com/maps/embed/v1/place?key=AIzaSyBUcwKDHwnPlhLlJBZCNulc-abORf42qdA&q=${address.split(" ").join("+")},Singapore`
                 console.log(url);
                 iframeEl.src=url;
-                // const winUrlStr=window.location.href;
-                // const winUrl=new URL(winUrlStr);
-                // const taskid=winUrl.searchParams.get("taskId");
-                // document.getElementById("aNotHome").href=`./taskDescription.html?taskid=${taskid}`;
-                document.getElementById("header-text").innerHTML = "So you at home ah?";
             });
         } 
     });
+    coverDiv.style.display='none';
 });
 
 async function getElderlyProfile(uid) {
