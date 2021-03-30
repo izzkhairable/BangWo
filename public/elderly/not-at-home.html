@@ -72,54 +72,78 @@
 			height: 60px;
 			line-height: 50px;
 		}
+
+		.coverDiv {
+			background: rgba(0, 0, 0, .9) no-repeat;
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 999;
+		}
 	</style>
 	<title>Bang Wo</title>
 </head>
 
 <body>
-	<nav class="navbar nav-fill navbar-dark">
-		<span class="navbar-brand nav-item mb-0 h1" id="welcome"></span>
-		<span class="navbar-brand nav-item">
-			<img alt="" id="profile" class="nothing" />
-		</span>
-	</nav>
-	<main class="container">
-		<div class="d-flex justify-content-between align-items-center">
-			<a onclick="goBack()">
-				<i class="fas fa-2x fa-chevron-circle-left" style="color: black"></i>
-			</a>
-			<img src="../assets/images/logo.svg" />
-			<div></div>
-		</div>
-		<div class="container">
-			<h1 class="mt-3 text-center">So you here ah?</h1>
-			<iframe width="100%" id="iframeEl" height="250" style="border-radius: 25px" loading="lazy" allowfullscreen
-				src="">
-			</iframe>
-			<div class="address-box">
-				<h2>Street & Building Name</h2>
-				<span id="displayAddressEl"></span>
-			</div>
-			<div class="form-group mt-3">
-				<input type="text" class="form-control" id="unitNo" placeholder="Ender your unit address (optional)">
+	<div class="overallDiv">
+		<div class="coverDiv" id="coverDiv">
+			<div class="d-flex justify-content-center align-items-center w-100 h-100">
+				<div class="spinner-border text-primary" style="width:3rem; height: 3rem; margin-bottom:10px"
+					role="status">
+				</div>
+				<p class="fs-1 fw-bold text-light pl-2" style="margin-left: 10px;">
+					Loading...
+				</p>
 			</div>
 		</div>
-		<div class="d-grid gap-2 mt-3">
-			<button id="aNotHome" class="btn btn-lg btn-danger btn-block" onclick="goToNotAtNgps()">
-				No lah, I'm not there &nbsp;&nbsp;<i class="fas fa-chevron-right"></i>
-			</button>
-		</div>
-		<div class="d-grid gap-2 mt-3">
-			<button id="aNotHome" class="btn btn-lg btn-dark btn-block" onclick="createTaskStep2B()">
-				Yes, I'm there &nbsp;&nbsp;<i class="fas fa-chevron-right"></i>
-			</button>
-		</div>
-	</main>
-	<footer class="footer container text-center mb-2">
-		<div id="footer-text">
-			Don't Understand? <a href="#" class="text-danger">Click Here</a>
-		</div>
-	</footer>
+		<nav class="navbar nav-fill navbar-dark">
+			<span class="navbar-brand nav-item mb-0 h1" id="welcome"></span>
+			<span class="navbar-brand nav-item">
+				<img alt="" id="profile" class="nothing" />
+			</span>
+		</nav>
+		<main class="container">
+			<div class="d-flex justify-content-between align-items-center">
+				<a onclick="goBack()">
+					<i class="fas fa-2x fa-chevron-circle-left" style="color: black"></i>
+				</a>
+				<img src="../assets/images/logo.svg" />
+				<div></div>
+			</div>
+			<div class="container">
+				<h1 class="mt-3 text-center">So you here ah?</h1>
+				<iframe width="100%" id="iframeEl" height="250" style="border-radius: 25px" loading="lazy"
+					allowfullscreen src="">
+				</iframe>
+				<div class="address-box">
+					<h2>Street & Building Name</h2>
+					<span id="displayAddressEl"></span>
+				</div>
+				<div class="form-group mt-3">
+					<input type="text" class="form-control" id="unitNo"
+						placeholder="Ender your unit address (optional)">
+				</div>
+			</div>
+			<div class="d-grid gap-2 mt-3">
+				<button id="aNotHome" class="btn btn-lg btn-danger btn-block" onclick="goToNotAtNgps()">
+					No lah, I'm not there &nbsp;&nbsp;<i class="fas fa-chevron-right"></i>
+				</button>
+			</div>
+			<div class="d-grid gap-2 mt-3">
+				<button id="aNotHome" class="btn btn-lg btn-dark btn-block" onclick="createTaskStep2B()">
+					Yes, I'm there &nbsp;&nbsp;<i class="fas fa-chevron-right"></i>
+				</button>
+			</div>
+		</main>
+		<footer class="container text-center mb-2">
+			<div id="footer-text">
+				Don't Understand? <a href="#" class="text-danger">Click Here</a>
+			</div>
+		</footer>
+	</div>
+
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
 		</script>

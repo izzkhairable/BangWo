@@ -29,10 +29,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 const url=`https://www.google.com/maps/embed/v1/place?key=AIzaSyBUcwKDHwnPlhLlJBZCNulc-abORf42qdA&q=${address.split(" ").join("+")},Singapore`
                 console.log(url);
                 iframeEl.src=url;
+                coverDiv.style.display='none';
             });
         } 
     });
-    coverDiv.style.display='none';
+    
 });
 
 async function getElderlyProfile(uid) {
