@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const coverDiv=document.getElementById('coverDiv');
+    coverDiv.style.display='block';
     var perf = firebase.performance();
-
-
-
     firebase.auth().onAuthStateChanged(function (user) {
         if (!user) {
             alert("You are not logged in. Redirecting to sign up page....")
@@ -20,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     window.location.replace('./Testing/loginORsignUpStep1.html');
                     return
                 }
-
+                coverDiv.style.display='none';
             });
         } 
     });

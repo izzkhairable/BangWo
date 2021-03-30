@@ -32,9 +32,11 @@
 		.nothing {
 			height: 35px;
 		}
+
 		.btn {
 			border-radius: 0.8rem;
 		}
+
 		.footer {
 			position: absolute;
 			bottom: 0;
@@ -42,65 +44,91 @@
 			height: 120px;
 			line-height: 50px;
 		}
+
 		.card {
 			border-radius: 0.8rem;
 			overflow: clip;
+		}
+
+		.coverDiv {
+			background: rgba(0, 0, 0, .9) no-repeat;
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 999;
 		}
 	</style>
 	<title>Bang Wo</title>
 </head>
 
 <body>
-	<nav class="navbar nav-fill navbar-dark">
-		<span class="navbar-brand nav-item mb-0 h1" id="welcome"></span>
-		<span class="navbar-brand nav-item">
-			<img alt="" id="profile" class="nothing" />
-		</span>
-	</nav>
-	<div class="container">
-		<div class="d-flex justify-content-between align-items-center">
-			<a onclick="goBack()">
-				<i class="fas fa-2x fa-chevron-circle-left" style="color: black"></i>
-			</a>
-			<img src="../assets/images/logo.svg" />
-			<div></div>
-		</div>
-		<div class="text-center">
-			<h1 class="mt-3">Where are you then?</h1>
-			<form>
-				<div class="input-group mb-2">
-					<span class="input-group-text border-dark"><i class="fas fa-map-marker-alt"></i></span>
-					<input type="text" class="form-control border-dark" id="currentAddress" placeholder="Street/Road Name" onblur="displayMap()">
+	<div class="overallDiv">
+		<div class="coverDiv" id="coverDiv">
+			<div class="d-flex justify-content-center align-items-center w-100 h-100">
+				<div class="spinner-border text-primary" style="width:3rem; height: 3rem; margin-bottom:10px"
+					role="status">
 				</div>
-				<!-- <div class="form-group">
-					<input type="text" class="form-control" id="currentAddress" placeholder="Enter you current location"
-						onblur="displayMap()">
-				</div> -->
-				<div class="input-group mb-2">
-					<span class="input-group-text border-dark"><i class="fas fa-map-marker-alt"></i></span>
-					<input type="text" class="form-control border-dark" id="unitNo" placeholder="Unit No (Optional)">
-				</div>
-				<!-- <div class="form-group mt-3">
-					<input type="text" class="form-control" id="unitNo"
-						placeholder="Ender your unit address (optional)">
-				</div> -->
-			</form>
-			<div class="card border-dark">
-				<iframe width="500" id="iframeEl" height="100%" loading="lazy" allowfullscreen src="">
-				</iframe>
+				<p class="fs-1 fw-bold text-light pl-2" style="margin-left: 10px;">
+					Loading...
+				</p>
 			</div>
 		</div>
+		<nav class="navbar nav-fill navbar-dark">
+			<span class="navbar-brand nav-item mb-0 h1" id="welcome"></span>
+			<span class="navbar-brand nav-item">
+				<img alt="" id="profile" class="nothing" />
+			</span>
+		</nav>
+		<div class="container">
+			<div class="d-flex justify-content-between align-items-center">
+				<a onclick="goBack()">
+					<i class="fas fa-2x fa-chevron-circle-left" style="color: black"></i>
+				</a>
+				<img src="../assets/images/logo.svg" />
+				<div></div>
+			</div>
+			<div class="text-center">
+				<h1 class="mt-3">Where are you then?</h1>
+				<form>
+					<div class="input-group mb-2">
+						<span class="input-group-text border-dark"><i class="fas fa-map-marker-alt"></i></span>
+						<input type="text" class="form-control border-dark" id="currentAddress"
+							placeholder="Street/Road Name" onblur="displayMap()">
+					</div>
+					<!-- <div class="form-group">
+						<input type="text" class="form-control" id="currentAddress" placeholder="Enter you current location"
+							onblur="displayMap()">
+					</div> -->
+					<div class="input-group mb-2">
+						<span class="input-group-text border-dark"><i class="fas fa-map-marker-alt"></i></span>
+						<input type="text" class="form-control border-dark" id="unitNo"
+							placeholder="Unit No (Optional)">
+					</div>
+					<!-- <div class="form-group mt-3">
+						<input type="text" class="form-control" id="unitNo"
+							placeholder="Ender your unit address (optional)">
+					</div> -->
+				</form>
+				<div class="card border-dark">
+					<iframe id="iframeEl" loading="lazy" allowfullscreen src="">
+					</iframe>
+				</div>
+			</div>
+		</div>
+		<footer class="footer container text-center">
+			<div class="d-grid gap-2 mt-3">
+				<button id="aNotHome" class="btn btn-lg btn-dark btn-block" onclick="createTaskStep2B()">
+					Next Step
+				</button>
+			</div>
+			<div id="footer-text">
+				Don't Understand? <a href="#" class="text-danger">Click Here</a>
+			</div>
+		</footer>
 	</div>
-	<footer class="footer container text-center">
-		<div class="d-grid gap-2 mt-3">
-			<button id="aNotHome" class="btn btn-lg btn-dark btn-block" onclick="createTaskStep2B()">
-				Next Step
-			</button>	
-		</div>
-		<div id="footer-text">
-			Don't Understand? <a href="#" class="text-danger">Click Here</a>
-		</div>
-	</footer>
+
 	<script src="./javascript/footer.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
