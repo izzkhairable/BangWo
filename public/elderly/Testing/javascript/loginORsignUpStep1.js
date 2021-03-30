@@ -1,22 +1,26 @@
-const signOutBtn=`<button id="signOutBtn" onclick="signMeOut()">Sign Out</button>`
+const signOutBtn=`<button class="btn btn-primary" id="signOutBtn" onclick="signMeOut()">Sign Out</button>`
 
-const step2btn=` <button style="margin-top:10px " id="secondStepBtn" >
-                        <a href="./signUpStep2.html">
-                            Go to Step 2) Add Name & Profile Pic
-                        </a>
-                 </button>`
+const step2btn=`      <a href="./signUpStep2.html">
+                        <button class="btn btn-primary" id="secondStepBtn" >
+                            Add Name & Profile Picture
+                        </button>
+                        </a>`
 
-const step3btn=`<button style="margin-top:10px " id="ThirdStepBtn" >
+const step3btn=`
                     <a  href="./signUpStep3.html">
-                        Go to Last Step 3 ) Add Home Address
+                        <button class="btn btn-primary" id="ThirdStepBtn" >
+                        Add Home Address
+                        </button>
                     </a>
-                </button>`
+                `
 
-const addTaskBtn=`<button style="margin-top:10px " id="ThirdStepBtn" >
+const addTaskBtn=`
 <a href="../main-senior.html">
+<button class="btn btn-primary">
    Add New Task
+</button>
 </a>
-</button>`
+`
 
 function signMeOut() {
     firebase
@@ -51,7 +55,11 @@ async function loginORsignUpStep1(phoneNo, uid) {
             document.getElementById('ThirdStepBtn').remove();
             document.getElementById('mainContainer').innerHTML+=addTaskBtn;
         }
-        msg = result.data;
+        if(result.data.isSignUpCompleted){
+            msg="Your profile is completed!"
+        }else{
+            msg="Your profile is not completed!"
+        }
     });
 
     return msg;
@@ -90,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         loginORsignUpStep1(user.phoneNumber, user.uid).then((msg) => {
                             document.getElementById(
                                 'resultsPara'
-                            ).innerText = JSON.stringify(msg);
+                            ).innerText = msg;
                         });
                     }
                 })
