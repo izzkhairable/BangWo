@@ -231,5 +231,4 @@ function goBack() {
 
 function displayCarousel(){
     const mainCarousel=document.getElementsById("main-carousel")
-
 }
