@@ -1,6 +1,8 @@
 let taskName=""
 let imageCount=0
 document.addEventListener('DOMContentLoaded', function () {
+    const coverDiv=document.getElementById('coverDiv');
+    coverDiv.style.display='block';
     var perf = firebase.performance();
     firebase.auth().onAuthStateChanged(function (user) {
         if (!user) {
@@ -8,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function () {
             window.location.replace('./Testing/loginORsignUpStep1.html');
             return
         }else{
-            document.getElementById("overallCarousel").style.display="none"
             getElderlyProfile(user.uid).then(async (msg) => {
                 var name=msg.name;
                 var profilePicUrl=msg.profilePicUrl;
@@ -34,6 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         } 
     });
+
+    coverDiv.style.display='none';
 });
 
 async function getElderlyProfile(uid) {
@@ -54,16 +57,29 @@ async function getElderlyProfile(uid) {
 
 function getFileDetails() {
     let files = document.getElementById('fileInput');
-    document.getElementById("overallCarousel").style.display="block"
     let txt=''
+    document.getElementById('step3Para').innerHTML=''
     if ('files' in files) {
         if (files.files.length == 0) {
             txt = 'Select at least one image';
         } else {
-            for (var i = 0; i < files.files.length; i++) {
-                uploadFile(files.files[i]);
+     
+            if(imageCount+files.files.length>3){
+                console.log("I am running")
+                document.getElementById('step3Para').innerHTML=`<div class="alert alert-danger" role="alert">
+                Maximum 3 Photos Only! Please Select Image Again.
+              </div>`
+                return
             }
-            
+         
+            for (var i = 0; i < files.files.length; i++) {
+                document.getElementById('step3Para').innerHTML=`
+                <div class="spinner-border" role="status">
+                    <span class=""></span>
+                </div>`
+                uploadFile(files.files[i]);
+               
+            }
         }
     } else {
         if (files.value == '') {
@@ -116,23 +132,32 @@ function uploadFile(file) {
         () => {
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
                 imageCount+=1
-               let uploadResult= document.getElementById('uploadResult');
-               uploadResult.innerHTML= uploadResult.innerHTML+ `<p class="photosUrl" hidden>${downloadURL}</p>`;
-               const mainCarousel=document.getElementById("main-carousel")
+               const mainCarousel=document.getElementById("uploadedImagesDiv")
+               document.getElementById('step3Para').innerHTML=``
+            
                if(imageCount==1){
-                mainCarousel.innerHTML= mainCarousel.innerHTML+`	<div class="carousel-item active">
-                <img src="${downloadURL}" class="d-block w-25 mx-auto" alt="...">
-            </div>`
+                mainCarousel.innerHTML=`
+                <div class="img-wrap w-25 mx-3 mb-2" id="imgDiv${imageCount}">
+                <button id="clear" class="btn btn-secondary btn-sm" onclick="deleteImage('imgDiv${imageCount}')">X</button>
+                <img src="${downloadURL}" class="w-100 photosUrl" alt="...">
+                </div>
+                `
                }else{
-                mainCarousel.innerHTML= mainCarousel.innerHTML+`	<div class="carousel-item">
-                <img src="${downloadURL}" class="d-block w-25 mx-auto" alt="...">
-            </div>`
+                mainCarousel.innerHTML= mainCarousel.innerHTML+`
+                <div class="img-wrap w-25 mx-3 mb-2" id="imgDiv${imageCount}">
+                <button id="clear" class="btn btn-secondary btn-sm" onclick="deleteImage('imgDiv${imageCount}')">X</button>
+                <img src="${downloadURL}" class="w-100 photosUrl" alt="...">
+                </div>
+                `
                }
-           
             });
         }
     );
 }
+
+function deleteImage(el) {
+    document.getElementById(el).remove()
+  }
 
 async function submitTask() {
     document.getElementById('resultsPara').innerHTML ='Please wait creating your task request..';
@@ -152,8 +177,7 @@ async function createTaskStep3() {
     let photosUrlArr=[]
     console.log(photosUrl)
     for(photoUrl of photosUrl){
-        console.log(photoUrl.innerText, "hello")
-        photosUrlArr.push(photoUrl.innerText)
+        photosUrlArr.push(photoUrl.src)
     }
     const urlStr=window.location.href;
     const url=new URL(urlStr);
