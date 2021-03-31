@@ -64,10 +64,10 @@ function getFileDetails() {
             txt = 'Select at least one image';
         } else {
      
-            if(imageCount+files.files.length>3){
+            if(imageCount+files.files.length>4){
                 console.log("I am running")
                 document.getElementById('step3Para').innerHTML=`<div class="alert alert-danger" role="alert">
-                Maximum 3 Photos Only! Please Select Image Again.
+                Maximum 4 Photos Only! Please Select Image Again.
               </div>`
                 return
             }
@@ -137,18 +137,39 @@ function uploadFile(file) {
             
                if(imageCount==1){
                 mainCarousel.innerHTML=`
-                <div class="img-wrap w-25 mx-3 mb-2" id="imgDiv${imageCount}">
-                <button id="clear" class="btn btn-secondary btn-sm" onclick="deleteImage('imgDiv${imageCount}')">X</button>
-                <img src="${downloadURL}" class="w-100 photosUrl" alt="...">
+                <div class="w-25" id="image1">
+                    <div class="card border-dark image rounder" id="imgDiv${imageCount}">
+                        <img src="${downloadURL}" class="card-img photosUrl" alt="...">
+                        <div class="img-wrap">
+                            <button id="clear" class="btn btn-secondary btn-sm rounder" onclick="deleteImage('image${imageCount}')">X</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-25" id="image2">
+                </div>
+                <div class="w-25" id="image3">
+                </div>
+                <div class="w-25" id="image4">
                 </div>
                 `
                }else{
-                mainCarousel.innerHTML= mainCarousel.innerHTML+`
-                <div class="img-wrap w-25 mx-3 mb-2" id="imgDiv${imageCount}">
-                <button id="clear" class="btn btn-secondary btn-sm" onclick="deleteImage('imgDiv${imageCount}')">X</button>
-                <img src="${downloadURL}" class="w-100 photosUrl" alt="...">
+                var add = "image"+imageCount.toString();
+                // var add = add.concat(toString(imageCount));
+                // console.log(toString(imageCount));
+                document.getElementById(add).innerHTML=`
+                <div class="card border-dark image rounder" id="imgDiv${imageCount}">
+                    <img src="${downloadURL}" class="card-img photosUrl" alt="...">
+                    <div class="img-wrap">
+                        <button id="clear" class="btn btn-secondary btn-sm rounder" onclick="deleteImage('image${imageCount}')">X</button>
+                    </div>
                 </div>
                 `
+                // mainCarousel.innerHTML= mainCarousel.innerHTML+'
+                // <div class="img-wrap w-25 mx-3 mb-2" id="imgDiv${imageCount}">
+                // <button id="clear" class="btn btn-secondary btn-sm" onclick="deleteImage('imgDiv${imageCount}')">X</button>
+                // <img src="${downloadURL}" class="w-100 photosUrl" alt="...">
+                // </div>
+                // `
                }
             });
         }
@@ -157,6 +178,29 @@ function uploadFile(file) {
 
 function deleteImage(el) {
     document.getElementById(el).remove()
+    //document.getElementById(el).innerHTML=``
+    imageCount-=1;
+    if(imageCount==0){
+        document.getElementById("uploadedImagesDiv").innerHTML=`
+        <div class="w-25">
+            <div class="card border-dark image rounder">
+                <label for="fileInput" id="inputGroupFileAddon04">
+                    <div class="card-img-overlay text-center">
+                        <i class="fas fa-plus card-text center"></i>
+                    </div>
+                </label>	
+            </div>
+        </div>
+        <div class="col d-flex">
+            <div class="">
+            </div>
+            <div class="">
+            </div>
+            <div class="">
+            </div>
+        </div>
+        `
+       }
   }
 
 async function submitTask() {
