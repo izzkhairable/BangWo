@@ -44,9 +44,15 @@ async function getTaskDetails(taskId) {
         console.log(result)
         const taskDetailsContainer=document.getElementById("taskDetailsContainer")
         const resultData=result.data
-        for(label in resultData){
-            taskDetailsContainer.innerHTML=taskDetailsContainer.innerHTML+`<p>${label}: ${resultData[label]}</p>`
-        }
+        // for(label in resultData){
+        // //     taskDetailsContainer.innerHTML=taskDetailsContainer.innerHTML+`<p>${label}: ${resultData[label]}</p>`    
+        // console.log(label);
+        // }
+        taskDetailsContainer.innerHTML=`
+        <h4 class="mb-3">Task: ${resultData.taskName}</h4>
+        <p><b>Comments:</b> ${resultData.taskDescription}</p>
+        <p><b>Your Address:</b> ${resultData.address}</p>
+        `
         var address=result.data.address;
         const iframeEl=document.getElementById("iframeEl");
         const url=`https://www.google.com/maps/embed/v1/place?key=AIzaSyBUcwKDHwnPlhLlJBZCNulc-abORf42qdA&q=${address.split(" ").join("+")},Singapore`

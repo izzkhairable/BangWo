@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>Status Waiting Hello</title>
+	<title>Status Waiting</title>
 
 	<!-- Start of firebase stuff -->
 	<script defer src="/__/firebase/8.2.10/firebase-app.js"></script>
@@ -41,6 +41,11 @@
 
 		.card {
 			border-radius: 0.8rem;
+			overflow: clip;
+		}
+
+		.card iframe {
+			height: 35vh;
 		}
 
 		.btn {
@@ -55,7 +60,7 @@
 			position: absolute;
 			bottom: 0;
 			width: 100%;
-			height: 130px;
+			height: 115px;
 			line-height: 50px;
 		}
 
@@ -66,28 +71,20 @@
 </head>
 
 <body class="text-white">
-	<nav class="navbar nav-fill navbar-dark">
-		<span class="navbar-brand nav-item mb-0 h1" id="welcome"></span>
-		<span class="navbar-brand nav-item">
-			<img alt="" id="profile" class="nothing" />
-		</span>
-	</nav>
-	<main class="container text-center">
+	<main class="container text-center mt-3">
 		<img src="../assets/images/logo.svg" />
-		<div class="container">
-			<h2 id="header-text"></h2>
-		</div>
 	</main>
 	<div id="message" class="container text-center">
-		<h3>Finding you a volunteer nearby</h3>
+		<h1>Finding you a volunteer nearby</h1>
 	</div>
-	<div class="container card border-dark">
-		<iframe id="iframeEl" height="100%" loading="lazy" allowfullscreen src=""></iframe>
+	<div class="text-center container">
+		<div class="card border-dark">
+			<iframe id="iframeEl" height="100%" loading="lazy" allowfullscreen src="">
+			</iframe>
+		</div>
 	</div>
-	<div class="container" id="taskDetailsContainer"></div>
-
-
-	<footer class="container text-center">
+	<div id="taskDetailsContainer" class="container mt-3"></div>
+	<footer class="container-fluid footer text-center">
 		<div class="d-grid gap-2 mt-3">
 			<button id="aNotHome" class="btn btn-lg btn-dark btn-block" onclick="createTaskStep2A()">
 				Customer Service &nbsp;&nbsp;<i class="far fa-user"></i>
