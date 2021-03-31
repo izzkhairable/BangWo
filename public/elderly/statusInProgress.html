@@ -60,7 +60,7 @@
 		}
 
 		body {
-			background-color: #2D9CDB;
+			background-color: #27AE60;
 		}
 	</style>
 </head>
@@ -79,15 +79,13 @@
 		</div>
 	</main>
 	<div id="message" class="container text-center">
-		<h3>Finding you a volunteer nearby</h3>
+		<h3>Your Task is in progress</h3>
 	</div>
 	<div class="container card border-dark">
 		<iframe id="iframeEl" height="100%" loading="lazy" allowfullscreen src=""></iframe>
 	</div>
-	<div class="container" id="taskDetailsContainer"></div>
-
-
-	<footer class="container text-center">
+	<div id="taskDetailsContainer"></div>
+	<footer class="container-fluid footer text-center">
 		<div class="d-grid gap-2 mt-3">
 			<button id="aNotHome" class="btn btn-lg btn-dark btn-block" onclick="createTaskStep2A()">
 				Customer Service &nbsp;&nbsp;<i class="far fa-user"></i>
@@ -109,7 +107,7 @@
 		crossorigin="anonymous"></script>
 	<script src="../assets/js/bootstrap.bundle.min.js"></script>
 	<script src="./javascript/footer.js"></script>
-	<script src="./javascript/statusWaiting.js"></script>
+	<script src="./javascript/statusInProgress.js"></script>
 </body>
 
 </html>

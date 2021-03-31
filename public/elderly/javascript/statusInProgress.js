@@ -11,26 +11,18 @@ document.addEventListener('DOMContentLoaded', function () {
         const url=new URL(urlStr);
         const taskId=url.searchParams.get("taskId");
         getTaskDetails(taskId);
-
-       
     });
-    let totalSecond=0
+
     setInterval(async function() {
-        totalSecond+=1
         const urlStr=window.location.href;
         const url=new URL(urlStr);
         const taskId=url.searchParams.get("taskId");
         const task=await getTaskStatus(taskId)
         console.log("Task data",task)
-        if(task.data.taskStatus!="finding"){
-            window.location.replace('./statusAccepted.html?taskId='+taskId); 
-        }
-
-        if(totalSecond>15){
-            window.location.replace('./statusFail.html?taskId='+taskId); 
+        if(task.data.taskStatus!="inProgress"){
+            window.location.replace('./statusCompleted.html?taskId='+taskId); 
         }
     }, 1000);
-
 });
 
 async function getTaskDetails(taskId) {
@@ -47,6 +39,7 @@ async function getTaskDetails(taskId) {
         for(label in resultData){
             taskDetailsContainer.innerHTML=taskDetailsContainer.innerHTML+`<p>${label}: ${resultData[label]}</p>`
         }
+
         var address=result.data.address;
         const iframeEl=document.getElementById("iframeEl");
         const url=`https://www.google.com/maps/embed/v1/place?key=AIzaSyBUcwKDHwnPlhLlJBZCNulc-abORf42qdA&q=${address.split(" ").join("+")},Singapore`

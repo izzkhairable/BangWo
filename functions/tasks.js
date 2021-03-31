@@ -101,6 +101,7 @@ exports.createTaskStep3 = functions.https.onCall(async (data) => {
               .update({
                 taskDescription: taskDescription,
                 taskPhotoUrls: taskPhotoUrls,
+                taskStatus: "finding",
               })
               .then(() => {
                 return "Successfully updated task with task description and photo";
@@ -131,7 +132,7 @@ exports.createTaskStep3wName = functions.https.onCall(async (data) => {
   const taskPhotoUrls = data.taskPhotoUrls;
   const taskName = data.taskName;
   const task = firestore.collection("task").doc(taskId);
-  
+
   const status = await task
       .get()
       .then((doc) => {
@@ -143,7 +144,8 @@ exports.createTaskStep3wName = functions.https.onCall(async (data) => {
               .update({
                 taskDescription: taskDescription,
                 taskPhotoUrls: taskPhotoUrls,
-                taskName: taskName
+                taskName: taskName,
+                taskStatus: "finding",
               })
               .then(() => {
                 return "Successfully updated task with task description and photo";

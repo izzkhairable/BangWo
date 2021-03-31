@@ -78,7 +78,6 @@ function getFileDetails() {
                     <span class=""></span>
                 </div>`
                 uploadFile(files.files[i]);
-               
             }
         }
     } else {
