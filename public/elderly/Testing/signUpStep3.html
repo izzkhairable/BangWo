@@ -1,53 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-		<!-- update the version number as needed -->
-		<script defer src="/__/firebase/8.2.10/firebase-app.js"></script>
-		<!-- include only the Firebase features as you need -->
-		<script defer src="/__/firebase/8.2.10/firebase-auth.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-database.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-firestore.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-functions.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-messaging.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-storage.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-analytics.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-remote-config.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-performance.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
-		<link
-			type="text/css"
-			rel="stylesheet"
-			href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css"
-		/>
-		<script defer src="/__/firebase/init.js?useEmulator=true"></script>
-	</head>
-	<body>
-		<h1>Third step of your Sign Up. Pls enter your address and unitNo :)</h1>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<!-- update the version number as needed -->
+	<script defer src="/__/firebase/8.2.10/firebase-app.js"></script>
+	<!-- include only the Firebase features as you need -->
+	<script defer src="/__/firebase/8.2.10/firebase-auth.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-database.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-firestore.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-functions.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-messaging.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-storage.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-analytics.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-remote-config.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-performance.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
+	<script defer src="/__/firebase/init.js?useEmulator=true"></script>
+	<link href="../../assets/fontawesome/css/all.css" rel="stylesheet" />
+	<link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
+	<style type="text/css">
+		.nothing {
+			height: 35px;
+		}
+
+		.btn {
+			border-radius: 0.8rem;
+		}
+
+		.image-button {
+			margin: 10px;
+		}
+
+		.footer {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			height: 120px;
+			line-height: 50px;
+		}
+
+		.img-wrap {
+			position: relative;
+			float: left;
+		}
+
+		.img-wrap #clear {
+			position: absolute;
+			top: 2px;
+			right: 2px;
+			z-index: 100;
+
+		}
+
+
+		.coverDiv {
+			background: rgba(0, 0, 0, .9) no-repeat;
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 999;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container text-center">
+		<img src="../../assets/images/logo.svg" />
+		<h2>Sign Up - Step 2</h2>
+	</div>
+	<br />
+
+	<div class="container d-flex flex-column">
+		<div>
+			<label class="text-left form-label">What is your address?</label>
+			<div class="input-group mb-2">
+				<span class="input-group-text border-dark"><i class="fas fa-map-marker-alt"></i></span>
+				<input type="text" class="form-control border-dark" id="addressInput" placeholder="Enter your address">
+			</div>
+		</div>
+		<br>
+		<div>
+			<label class="text-left form-label">What is your unit number? (optional)</label>
+			<div class="input-group mb-2">
+				<span class="input-group-text border-dark"><i class="fas fa-door-closed"></i></span>
+				<input type="text" class="form-control border-dark" id="unitNoInput"
+					placeholder="Enter your unit number">
+			</div>
+		</div>
 		<br />
 
-		<p>Field 3) Please enter your address:</p>
-		<input type="text" id="addressInput" />
-		<br />
-
-		<p>Field 4) Please enter your unit number (optional):</p>
-		<input type="text" id="unitNoInput" />
-		<br />
-
-		<button style="margin-top: 10px" id="submitBtn" onclick="submitAddress()">
-			Finish & Submit Profile!
+		<button class="btn btn-dark" style="margin-top: 10px" id="homeBtn" onclick="finishUp()">
+			Complete Sign Up
 		</button>
-		<br />
+	</div>
 
-		<button style="margin-top: 10px" id="homeBtn" onclick="goHome()">
-			Back to home page
-		</button>
 
-		<p id="resultPara"></p>
+	<p id="resultPara"></p>
 
-		<script src="./javascript/signUpStep3.js"></script>
-	</body>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+	<script src="../../assets/js/bootstrap.bundle.min.js"></script>
+	<script src="./javascript/signUpStep3.js"></script>
+</body>
+
 </html>
