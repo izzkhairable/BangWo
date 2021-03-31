@@ -25,10 +25,12 @@ async function pushAddress(user) {
     }).then((result) => {
         return result.data;
     });
-    document.getElementById('submitBtn').disabled = true;
-    document.getElementById('homeBtn').disabled = false;
-    document.getElementById('resultPara').innerHTML ='Here is your fully completed profile<br>' + JSON.stringify(msg);
+    goHome();
     return msg;
+}
+
+async function finishUp(){
+    await submitAddress()
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -38,6 +40,5 @@ document.addEventListener('DOMContentLoaded', function () {
             window.location.replace('./loginORsignUpStep1.html');
         }
     });
-    document.getElementById('homeBtn').disabled = true;
 });
 

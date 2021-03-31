@@ -1,3 +1,4 @@
+let imageCount=0
 function getFileDetails() {
     let file = document.getElementById('fileInput');
     let txt=''
@@ -55,12 +56,18 @@ function uploadFile(file) {
             }
         },
         () => {
-            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-               let uploadResult= document.getElementById('uploadResult');
-               uploadResult.innerHTML= uploadResult.innerHTML+ downloadURL;
-                if (document.getElementById('usernameInput').value !== '' ||document.getElementById('username').value !== null) {
-                    document.getElementById('submitBtn').disabled = false;
-                    document.getElementById('step3Btn').disabled = true;
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {        
+                imageCount+=1
+                const mainCarousel=document.getElementById("uploadedImagesDiv")
+                document.getElementById('step2Para').innerHTML=``
+             
+                if(imageCount==1){
+                 mainCarousel.innerHTML=`
+                 <div class="img-wrap w-25 mx-3 mb-2" id="imgDiv${imageCount}">
+                 <button id="clear" class="btn btn-secondary btn-sm" onclick="deleteImage('imgDiv${imageCount}')">X</button>
+                 <img src="${downloadURL}" class="w-100 photosUrl" alt="...">
+                 </div>
+                 `
                 }
             });
         }
@@ -68,8 +75,6 @@ function uploadFile(file) {
 }
 
 async function submitProfile() {
-    document.getElementById('submitBtn').disabled = true;
-
     await firebase.auth().onAuthStateChanged(async function (user) {
         if (user) {
             document.getElementById('resultsPara').innerHTML =
@@ -83,19 +88,17 @@ async function pushProfile(user) {
     const addNewUserFinalStep = firebase
         .functions()
         .httpsCallable('signUpElderly-signUpStep2');
+    const photoUrl=document.getElementsByClassName('photosUrl')[0].src;
 
-    const profilePicUrl = document.getElementById('uploadResult').innerText;
     const name = document.getElementById('usernameInput').value;
     const msg = await addNewUserFinalStep({
         uid: user.uid,
         name: name,
-        profilePicUrl: profilePicUrl,
+        profilePicUrl: photoUrl,
     }).then((result) => {
         return result.data;
     });
-    document.getElementById('resultsPara').innerHTML ='This is your updated profile<br>' + JSON.stringify(msg);
-    document.getElementById('submitBtn').disabled = true;
-    document.getElementById('step3Btn').disabled = false;
+    goAddress();
     return msg;
 }
 
@@ -103,10 +106,11 @@ function goAddress() {
     window.location.replace('./signUpStep3.html');
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('submitBtn').disabled = true;
-    document.getElementById('step3Btn').disabled = true;
+async function finishUp(){
+    await submitProfile()
+}
 
+document.addEventListener('DOMContentLoaded', function () {
     firebase.auth().onAuthStateChanged(function (user) {
         if (!user) {
             window.location.replace('./loginORsignUpStep1.html');
