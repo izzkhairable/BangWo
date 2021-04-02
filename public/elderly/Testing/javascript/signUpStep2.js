@@ -6,6 +6,10 @@ function getFileDetails() {
         if (file.files.length == 0) {
             txt = 'Select at least one image';
         } else {
+            document.getElementById('step2Para').innerHTML=`
+            <div class="spinner-border" role="status">
+                <span class=""></span>
+            </div>`
             uploadFile(file.files[0]);
         }
     } else {
@@ -83,6 +87,33 @@ async function submitProfile() {
         }
     });
 }
+
+function deleteImage(el) {
+    document.getElementById(el).remove()
+    //document.getElementById(el).innerHTML=``
+    imageCount-=1;
+    if(imageCount==0){
+        document.getElementById("uploadedImagesDiv").innerHTML=`
+        <div class="w-25">
+            <div class="card border-dark image rounder">
+                <label for="fileInput" id="inputGroupFileAddon04">
+                    <div class="card-img-overlay text-center">
+                        <i class="fas fa-plus card-text center"></i>
+                    </div>
+                </label>	
+            </div>
+        </div>
+        <div class="col d-flex">
+            <div class="">
+            </div>
+            <div class="">
+            </div>
+            <div class="">
+            </div>
+        </div>
+        `
+       }
+  }
 
 async function pushProfile(user) {
     const addNewUserFinalStep = firebase
