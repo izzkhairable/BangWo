@@ -26,10 +26,6 @@ async function getTaskDetails(taskId) {
         console.log(result)
         const taskDetailsContainer=document.getElementById("taskDetailsContainer")
         const resultData=result.data
-        // for(label in resultData){
-        // //     taskDetailsContainer.innerHTML=taskDetailsContainer.innerHTML+`<p>${label}: ${resultData[label]}</p>`    
-        // console.log(label);
-        // }
         taskDetailsContainer.innerHTML=`
         <h4 class="mb-3">Task: ${resultData.taskName}</h4>
         <p><b>Comments:</b> ${resultData.taskDescription}</p>
@@ -56,4 +52,12 @@ async function getTaskStatus(taskId) {
         resultData=result
     });
     return resultData;
+}
+
+
+function retryFindVolunteer(){
+    const urlStr=window.location.href;
+    const url=new URL(urlStr);
+    const taskId=url.searchParams.get("taskId");
+    window.location.replace(`./statusWaiting.html?taskId=${taskId}`)
 }
