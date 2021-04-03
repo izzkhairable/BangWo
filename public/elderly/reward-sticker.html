@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Start of firebase stuff -->
+    <script defer src="/__/firebase/8.2.10/firebase-app.js"></script>
+    <script defer src="/__/firebase/8.2.10/firebase-auth.js"></script>
+    <script defer src="/__/firebase/8.2.10/firebase-database.js"></script>
+    <script defer src="/__/firebase/8.2.10/firebase-firestore.js"></script>
+    <script defer src="/__/firebase/8.2.10/firebase-functions.js"></script>
+    <script defer src="/__/firebase/8.2.10/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/8.2.10/firebase-storage.js"></script>
+    <script defer src="/__/firebase/8.2.10/firebase-analytics.js"></script>
+    <script defer src="/__/firebase/8.2.10/firebase-remote-config.js"></script>
+    <script defer src="/__/firebase/8.2.10/firebase-performance.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <!-- End of firebase stuff -->
+
+    <script src="./javascript/googleMapsAutoComplete.js"></script>
+
+    <link href="../assets/fontawesome/css/all.css" rel="stylesheet" />
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <style type="text/css">
+        .nothing {
+            height: 35px;
+        }
+
+        .rounder {
+            border-radius: 0.8rem;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 120px;
+            line-height: 50px;
+            background-color: white
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .img-wrap {
+            position: relative;
+            float: left;
+        }
+
+        .img-wrap #clear {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            z-index: 100;
+        }
+
+        .coverDiv {
+            background: rgba(0, 0, 0, .9) no-repeat;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+        }
+
+        .center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        .image {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 100%;
+        }
+
+        .image img {
+            position: absolute;
+            min-height: 100%;
+            min-width: 100%;
+        }
+
+        .bg-orange {
+            background-color: #f2994a !important;
+        }
+
+        .bg-creme {
+            background-color: #ffbd12 !important;
+        }
+
+        .bg-green {
+            background-color: #00c6ae !important;
+        }
+
+        .bg-pink {
+            background-color: #ff89bb !important;
+        }
+
+        .bg-purple {
+            background-color: #9b51e0 !important;
+        }
+
+        .profile {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+        }
+
+        .card {
+            border-radius: 0.8rem;
+        }
+
+        .btn {
+            border-radius: 0.8rem;
+        }
+    </style>
+    <title>Bang Wo</title>
+</head>
+
+<body>
+    <div class="overallDiv">
+        <div class="coverDiv" id="coverDiv">
+            <div class="d-flex justify-content-center align-items-center w-100 h-100">
+                <div class="spinner-border text-primary" style="width:3rem; height: 3rem; margin-bottom:10px"
+                    role="status">
+                </div>
+                <p class="fs-1 fw-bold text-light pl-2" style="margin-left: 10px;">
+                    Loading...
+                </p>
+            </div>
+        </div>
+        <div class="alert alert-danger fixed-top d-none" id="no-select-alert" role="alert">
+            Please select a sticker before continuing...
+        </div>
+        <div class="container">
+            <div class="text-center">
+                <h2 class="">Reward the volunteer</h2>
+                <h1 class="fw-bold">Choose a sticker</h1>
+            </div>
+            <div id="category-page" class="carousel-item col card-deck active text-center">
+                <div id="page-row" class="row">
+                    <div class="sticker card col m-2 text-white border-dark bg-creme" id="Do-Corrightly"
+                        onclick="stickerSelected('Do Corrightly')">
+                        <img src="../assets/images/done-amico.svg" class="category-image d-block card-img-top">
+                        <div class="sticker-name card-title">
+                            <h5 class="card-text">Do Corrightly</h5>
+                        </div>
+                    </div>
+                    <div class="sticker card col m-2 text-white border-dark bg-green" id="Steady-pom-pi-pi"
+                        onclick="stickerSelected('Steady pom pi pi')"><img src="../assets/images/city-girl-pana.svg"
+                            class="category-image d-block card-img-top">
+                        <div class="sticker-name card-title">
+                            <h5 class="card-text">Steady pom pi pi</h5>
+                        </div>
+                    </div>
+                </div>
+                <div id="page-row" class="row">
+                    <div class="sticker card col m-2 text-white border-dark bg-pink" id="Powderful"
+                        onclick="stickerSelected('Powderful')"><img src="../assets/images/superhero-pana.svg"
+                            class="category-image d-block card-img-top">
+                        <div class="sticker-name card-title">
+                            <h5 class="card-text">Powderful</h5>
+                        </div>
+                    </div>
+                    <div class="sticker card col m-2 text-white border-dark bg-purple" id="Chop-Chop-Do"
+                        onclick="stickerSelected('Chop Chop Do')"><img src="../assets/images/messenger-amico.svg"
+                            class="category-image d-block card-img-top">
+                        <div class="sticker-name card-title">
+                            <h5 class="card-text">Chop Chop Do</h5>
+                        </div>
+                    </div>
+                </div>
+                <div id="page-row" class="row">
+                    <div class="sticker card col m-2 text-white border-dark bg-creme" id="Help-Extra"
+                        onclick="stickerSelected('Help Extra')"><img src="../assets/images/add-user-bro.svg"
+                            class="category-image d-block card-img-top">
+                        <div class="sticker-name card-title">
+                            <h5 class="card-text">Help Extra</h5>
+                        </div>
+                    </div>
+                    <div class="sticker card col m-2 text-white border-dark bg-green" id="Reach-on-time"
+                        onclick="stickerSelected('Reach on time')"><img
+                            src="../assets/images/time-management-rafiki.svg"
+                            class="category-image d-block card-img-top">
+                        <div class="sticker-name card-title">
+                            <h5 class="card-text">Reach on time</h5>
+                        </div>
+                    </div>
+                </div>
+                <div id="page-row" class="row">
+                    <div class="sticker card col m-2 text-white border-dark bg-pink" id="Very-Kilat"
+                        onclick="stickerSelected('Very Kilat')"><img src="../assets/images/young-and-happy-rafiki.svg"
+                            class="category-image d-block card-img-top">
+                        <div class="sticker-name card-title">
+                            <h5 class="card-text">Very Kilat</h5>
+                        </div>
+                    </div>
+                    <div class="sticker card col m-2 text-white border-dark bg-purple" id="Made-my-Day"
+                        onclick="stickerSelected('Made my Day')"><img src="../assets/images/calendar-bro.svg"
+                            class="category-image d-block card-img-top">
+                        <div class="sticker-name card-title">
+                            <h5 class="card-text">Made my Day</h5>
+                        </div>
+                    </div>
+                </div>
+                <div id="page-row" class="row">
+                    <div class="sticker card col m-2 text-white border-dark bg-creme" id="Easy-to-chit-chat"
+                        onclick="stickerSelected('Easy to chit chat')"><img src="../assets/images/interview-cuate.svg"
+                            class="category-image d-block card-img-top">
+                        <div class="sticker-name card-title">
+                            <h5 class="card-text">Easy to chit chat</h5>
+                        </div>
+                    </div>
+                    <div class="sticker card col m-2 text-white border-dark bg-green" id="Follow-me-say"
+                        onclick="stickerSelected('Follow me say')"><img src="../assets/images/pay-attention-bro.svg"
+                            class="category-image d-block card-img-top">
+                        <div class="sticker-name card-title">
+                            <h5 class="card-text">Follow me say</h5>
+                        </div>
+                    </div>
+                </div>
+                <div id="page-row" class="row">
+                    <div class="sticker card col m-2 text-white border-dark bg-pink" id="So-smart-lah"
+                        onclick="stickerSelected('So smart lah')"><img
+                            src="../assets/images/processing-thoughts-amico.svg"
+                            class="category-image d-block card-img-top">
+                        <div class="sticker-name card-title">
+                            <h5 class="card-text">So smart lah</h5>
+                        </div>
+                    </div>
+                    <div class="sticker card col m-2 text-white border-dark bg-purple" id="Kena-the-best"
+                        onclick="stickerSelected('Kena the best')"><img src="../assets/images/winners-pana.svg"
+                            class="category-image d-block card-img-top">
+                        <div class="sticker-name card-title">
+                            <h5 class="card-text">Kena the best</h5>
+                        </div>
+                    </div>
+                    <div id="page-row" class="row mb-5 pb-5">
+                        <div class="card col m-2 text-white border-dark bg-pink"></div>
+                        <div class="card col m-2 text-white border-dark bg-pink"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="footer text-center d-flex border-top justify-content-around align-items-center">
+            <div class="d-flex justify-content-around align-items-baseline ">
+                <img src="../assets/images/happy-sticker.svg" class="" style="margin-right:10px" />
+                <p class="fw-bold fs-3" id="sticker-display">Select Sticker</p>
+            </div>
+            <button href="get-location.html?taskName=null" style="z-index:100" type="button" class="btn btn-dark btn-lg"
+                onclick="addSticker()">Reward Sticker</button>
+
+        </footer>
+        <script src="./javascript/footer.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+        <script src="javascript/reward-sticker.js"></script>
+
+        <script src="../assets/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

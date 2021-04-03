@@ -6,35 +6,43 @@ const firestore = admin.firestore();
 // Elderly give sticker
 exports.addSticker = functions.https.onCall(async (data) => {
   const volunteerId = data.volunteerId;
+  const stickerName=data.stickerName;
   const volunteer = firestore.collection("volunteerUsers").doc(volunteerId);
-
   const addSticker = await volunteer
       .get()
-      .then((doc) => {
-        return doc;
-      })
       .then(async (doc) => {
         if (doc.exists) {
           // pull quantity of each sticker in to a variable
-          const award = await volunteer
-              .update({
-                stickerMap: {
-                  stickerName: "verygood",
-                  quantity: 100,
-                },
-              })
-              .then(() => {
-                console.log("You have given a verygood sticker!");
-                return "You have given a verygood sticker!";
-              })
-              .catch((error) => {
-                console.error("Error giving sticker ", error);
-                return "Error giving sticker";
-              });
+          const award = await volunteer.get().then((doc)=>{
+            console.log(doc.data());
+            let stickers=[];
+            if (doc.data().stickers) {
+              stickers=doc.data().stickers;
+            }
+            stickers.push(stickerName);
+            volunteer.update({
+              stickers: stickers,
+            })
+                .then(() => {
+                  console.log("You have given a verygood sticker!");
+                  return {
+                    status: 200,
+                    msg: stickers,
+                  };
+                })
+                .catch((error) => {
+                  console.error("Error giving sticker ", error);
+                  return "Error giving sticker";
+                });
+          }).catch((err)=>{
+            console.error("Error giving sticker ");
+            return "Error giving sticker";
+          });
           return award;
         }
       })
       .catch((error) => {
+        console.log(error);
         console.log("Could not find sticker, perhaps sticker does not exist");
       });
   return addSticker;
