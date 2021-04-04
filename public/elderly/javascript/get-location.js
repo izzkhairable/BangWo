@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const url=new URL(urlStr);
             const taskName=url.searchParams.get("taskname");
             createTaskStep1(user.uid,taskName);
-            document.getElementById("header-text").innerHTML = "Are you at home?";
+            // document.getElementById("header-text").innerHTML = "Are you at home?";
         } 
     });
 });
