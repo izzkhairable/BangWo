@@ -111,6 +111,14 @@
             background-color: #9b51e0 !important;
         }
 
+        .bg-red {
+            background-color: #F95A2C !important;
+        }
+        
+        .bg-blue {
+            background-color: #2C6BDB !important;
+        }
+
         .profile {
             width: 35px;
             height: 35px;
@@ -143,126 +151,123 @@
         <div class="alert alert-danger fixed-top d-none" id="no-select-alert" role="alert">
             Please select a sticker before continuing...
         </div>
-        <div class="container">
+        <div class="container mt-3">
             <div class="text-center">
                 <h2 class="">Reward the volunteer</h2>
-                <h1 class="fw-bold">Choose a sticker</h1>
+                <h1 class="fw-bold">Choose a Sticker</h1>
             </div>
-            <div id="category-page" class="carousel-item col card-deck active text-center">
-                <div id="page-row" class="row">
-                    <div class="sticker card col m-2 text-white border-dark bg-creme" id="Do-Corrightly"
-                        onclick="stickerSelected('Do Corrightly')">
+        </div>
+        <div class="container">
+            <div id="category-page" class="carousel-item col card-deck active text-center d-flex justify-content-center">
+                <div id="page-row" class="row row-cols-2 col-lg-8">
+                    <div class="col" id="Do-Corrightly" onclick="stickerSelected('Do Corrightly')">
+                        <div class="sticker card m-2 text-white border-dark bg-red" >
                         <img src="../assets/images/done-amico.svg" class="category-image d-block card-img-top">
+                        </div>
                         <div class="sticker-name card-title">
                             <h5 class="card-text">Do Corrightly</h5>
                         </div>
                     </div>
-                    <div class="sticker card col m-2 text-white border-dark bg-green" id="Steady-pom-pi-pi"
-                        onclick="stickerSelected('Steady pom pi pi')"><img src="../assets/images/city-girl-pana.svg"
-                            class="category-image d-block card-img-top">
+                    <div class="col" id="Steady-pom-pi-pi" onclick="stickerSelected('Steady pom pi pi')">
+                        <div class="sticker card m-2 text-white border-dark bg-green" >
+                        <img src="../assets/images/city-girl-pana.svg" class="category-image d-block card-img-top">
+                        </div>
                         <div class="sticker-name card-title">
                             <h5 class="card-text">Steady pom pi pi</h5>
                         </div>
                     </div>
-                </div>
-                <div id="page-row" class="row">
-                    <div class="sticker card col m-2 text-white border-dark bg-pink" id="Powderful"
-                        onclick="stickerSelected('Powderful')"><img src="../assets/images/superhero-pana.svg"
-                            class="category-image d-block card-img-top">
+                    <div class="col" id="Powderful" onclick="stickerSelected('Powderful')">
+                        <div class="sticker card m-2 text-white border-dark bg-purple" >
+                        <img src="../assets/images/superhero-pana.svg" class="category-image d-block card-img-top">
+                        </div>
                         <div class="sticker-name card-title">
                             <h5 class="card-text">Powderful</h5>
                         </div>
                     </div>
-                    <div class="sticker card col m-2 text-white border-dark bg-purple" id="Chop-Chop-Do"
-                        onclick="stickerSelected('Chop Chop Do')"><img src="../assets/images/messenger-amico.svg"
-                            class="category-image d-block card-img-top">
+                    <div class="col" id="Chop-Chop-Do" onclick="stickerSelected('Chop Chop Do')">
+                        <div class="sticker card m-2 text-white border-dark bg-blue" >
+                        <img src="../assets/images/messenger-amico.svg" class="category-image d-block card-img-top">
+                        </div>
                         <div class="sticker-name card-title">
                             <h5 class="card-text">Chop Chop Do</h5>
                         </div>
                     </div>
-                </div>
-                <div id="page-row" class="row">
-                    <div class="sticker card col m-2 text-white border-dark bg-creme" id="Help-Extra"
-                        onclick="stickerSelected('Help Extra')"><img src="../assets/images/add-user-bro.svg"
-                            class="category-image d-block card-img-top">
+                    <div class="col" id="Help-Extra" onclick="stickerSelected('Help Extra')">
+                        <div class="sticker card m-2 text-white border-dark bg-creme" >
+                        <img src="../assets/images/add-user-bro.svg" class="category-image d-block card-img-top">
+                        </div>
                         <div class="sticker-name card-title">
                             <h5 class="card-text">Help Extra</h5>
                         </div>
                     </div>
-                    <div class="sticker card col m-2 text-white border-dark bg-green" id="Reach-on-time"
-                        onclick="stickerSelected('Reach on time')"><img
-                            src="../assets/images/time-management-rafiki.svg"
-                            class="category-image d-block card-img-top">
+                    <div class="col" id="Reach-on-time" onclick="stickerSelected('Reach on time')">
+                        <div class="sticker card m-2 text-white border-dark bg-pink" >
+                        <img src="../assets/images/time-management-rafiki.svg" class="category-image d-block card-img-top">
+                        </div>
                         <div class="sticker-name card-title">
                             <h5 class="card-text">Reach on time</h5>
                         </div>
                     </div>
-                </div>
-                <div id="page-row" class="row">
-                    <div class="sticker card col m-2 text-white border-dark bg-pink" id="Very-Kilat"
-                        onclick="stickerSelected('Very Kilat')"><img src="../assets/images/young-and-happy-rafiki.svg"
-                            class="category-image d-block card-img-top">
+                    <div class="col" id="Very-Kilat" onclick="stickerSelected('Very Kilat')">
+                        <div class="sticker card m-2 text-white border-dark bg-red" >
+                        <img src="../assets/images/young-and-happy-rafiki.svg" class="category-image d-block card-img-top">
+                        </div>
                         <div class="sticker-name card-title">
                             <h5 class="card-text">Very Kilat</h5>
                         </div>
                     </div>
-                    <div class="sticker card col m-2 text-white border-dark bg-purple" id="Made-my-Day"
-                        onclick="stickerSelected('Made my Day')"><img src="../assets/images/calendar-bro.svg"
-                            class="category-image d-block card-img-top">
+                    <div class="col" id="Made-my-Day" onclick="stickerSelected('Made my Day')">
+                        <div class="sticker card m-2 text-white border-dark bg-green" >
+                        <img src="../assets/images/calendar-bro.svg" class="category-image d-block card-img-top">
+                        </div>
                         <div class="sticker-name card-title">
                             <h5 class="card-text">Made my Day</h5>
                         </div>
                     </div>
-                </div>
-                <div id="page-row" class="row">
-                    <div class="sticker card col m-2 text-white border-dark bg-creme" id="Easy-to-chit-chat"
-                        onclick="stickerSelected('Easy to chit chat')"><img src="../assets/images/interview-cuate.svg"
-                            class="category-image d-block card-img-top">
+                    <div class="col" id="Easy-to-chit-chat" onclick="stickerSelected('Easy to chit chat')">
+                        <div class="sticker card m-2 text-white border-dark bg-purple" >
+                        <img src="../assets/images/interview-cuate.svg" class="category-image d-block card-img-top">
+                        </div>
                         <div class="sticker-name card-title">
                             <h5 class="card-text">Easy to chit chat</h5>
                         </div>
                     </div>
-                    <div class="sticker card col m-2 text-white border-dark bg-green" id="Follow-me-say"
-                        onclick="stickerSelected('Follow me say')"><img src="../assets/images/pay-attention-bro.svg"
-                            class="category-image d-block card-img-top">
+                    <div class="col" id="Follow-me-say" onclick="stickerSelected('Follow me say')">
+                        <div class="sticker card m-2 text-white border-dark bg-blue" >
+                        <img src="../assets/images/pay-attention-bro.svg" class="category-image d-block card-img-top">
+                        </div>
                         <div class="sticker-name card-title">
                             <h5 class="card-text">Follow me say</h5>
                         </div>
                     </div>
-                </div>
-                <div id="page-row" class="row">
-                    <div class="sticker card col m-2 text-white border-dark bg-pink" id="So-smart-lah"
-                        onclick="stickerSelected('So smart lah')"><img
-                            src="../assets/images/processing-thoughts-amico.svg"
-                            class="category-image d-block card-img-top">
+                    <div class="col" id="So-smart-lah" onclick="stickerSelected('So smart lah')">
+                        <div class="sticker card m-2 text-white border-dark bg-creme" >
+                        <img src="../assets/images/processing-thoughts-amico.svg" class="category-image d-block card-img-top">
+                        </div>
                         <div class="sticker-name card-title">
                             <h5 class="card-text">So smart lah</h5>
                         </div>
                     </div>
-                    <div class="sticker card col m-2 text-white border-dark bg-purple" id="Kena-the-best"
-                        onclick="stickerSelected('Kena the best')"><img src="../assets/images/winners-pana.svg"
-                            class="category-image d-block card-img-top">
+                    <div class="col" id="Kena-the-best" onclick="stickerSelected('Kena the best')">
+                        <div class="sticker card m-2 text-white border-dark bg-pink" >
+                        <img src="../assets/images/winners-pana.svg" class="category-image d-block card-img-top">
+                        </div>
                         <div class="sticker-name card-title">
                             <h5 class="card-text">Kena the best</h5>
                         </div>
                     </div>
-                    <div id="page-row" class="row mb-5 pb-5">
-                        <div class="card col m-2 text-white border-dark bg-pink"></div>
-                        <div class="card col m-2 text-white border-dark bg-pink"></div>
-                    </div>
+                    <div class="col" style="min-height: 16vh;"></div>
                 </div>
             </div>
-
         </div>
 
-        <footer class="footer text-center d-flex border-top justify-content-around align-items-center">
+        <footer class="footer text-center d-flex border-top border-3 border-dark justify-content-around align-items-center">
             <div class="d-flex justify-content-around align-items-baseline ">
                 <img src="../assets/images/happy-sticker.svg" class="" style="margin-right:10px" />
                 <p class="fw-bold fs-3" id="sticker-display">Select Sticker</p>
             </div>
             <button href="get-location.html?taskName=null" style="z-index:100" type="button" class="btn btn-dark btn-lg"
-                onclick="addSticker()">Reward Sticker</button>
-
+                onclick="addSticker()"><b>Give Sticker</b></button>
         </footer>
         <script src="./javascript/footer.js"></script>
 
