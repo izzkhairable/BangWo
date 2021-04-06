@@ -262,9 +262,19 @@
         </div>
 
         <footer class="footer text-center d-flex border-top border-3 border-dark justify-content-around align-items-center">
-            <div class="d-flex justify-content-around align-items-baseline ">
+            <!-- <div class="d-flex justify-content-around align-items-baseline ">
                 <img src="../assets/images/happy-sticker.svg" class="" style="margin-right:10px" />
                 <p class="fw-bold fs-3" id="sticker-display">Select Sticker</p>
+            </div> -->
+            <div class="card bg-light">
+                <div class="row g-0">
+                    <div class="col-">
+                        <img src="../assets/images/happy-sticker.svg"/>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="card-title fw-bold" id="sticker-display">Select Sticker</h5>
+                    </div>
+                </div>
             </div>
             <button href="get-location.html?taskName=null" style="z-index:100" type="button" class="btn btn-dark btn-lg"
                 onclick="addSticker()"><b>Give Sticker</b></button>
