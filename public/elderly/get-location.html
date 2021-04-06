@@ -24,7 +24,11 @@
 
 	<link href="../assets/fontawesome/css/all.css" rel="stylesheet" />
 	<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 	<style type="text/css">
+		* {
+			font-family: 'Montserrat', sans-serif;
+		}
 		.bg-orange {
 			background-color: #f2994a !important;
 		}
@@ -51,10 +55,6 @@
 			border-radius: 50%;
 		}
 
-		.nothing {
-			height: 35px;
-		}
-
 		.card {
 			border-radius: 0.8rem;
 		}
@@ -66,7 +66,7 @@
 			margin-top: 10vh;
 		}
 		.footer {
-			position: absolute;
+			position: fixed;
 			bottom: 0;
 			width: 100%;
 			height: 60px;
@@ -91,7 +91,7 @@
 			<div></div>
 		</div>
 		<div class="container">
-			<h1 id="header-text">Are you at home?</h1>
+			<h1 id="header-text" class="fw-bold">Are you at home?</h1>
 		</div>
 		<div class="container button-group">
 			<div class="d-grid gap-2">

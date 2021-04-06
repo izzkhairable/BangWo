@@ -28,9 +28,10 @@
 
 	<link href="../assets/fontawesome/css/all.css" rel="stylesheet" />
 	<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 	<style type="text/css">
-		.nothing {
-			height: 35px;
+		* {
+			font-family: 'Montserrat', sans-serif;
 		}
 
 		.btn {
@@ -38,7 +39,7 @@
 		}
 
 		.footer {
-			position: absolute;
+			position: fixed;
 			bottom: 0;
 			width: 100%;
 			height: 120px;
@@ -75,13 +76,7 @@
 				</p>
 			</div>
 		</div>
-		<nav class="navbar nav-fill navbar-dark">
-			<span class="navbar-brand nav-item mb-0 h1" id="welcome"></span>
-			<span class="navbar-brand nav-item">
-				<img alt="" id="profile" class="nothing" />
-			</span>
-		</nav>
-		<div class="container">
+		<div class="container mt-4">
 			<div class="d-flex justify-content-between align-items-center">
 				<a onclick="goBack()">
 					<i class="fas fa-2x fa-chevron-circle-left" style="color: black"></i>
@@ -109,7 +104,7 @@
 				</div>
 			</div>
 		</div>
-		<footer class=" container text-center">
+		<footer class="footer container text-center">
 			<div class="d-grid gap-2 mt-3">
 				<button id="aNotHome" class="btn btn-lg btn-dark btn-block" onclick="createTaskStep2B()">
 					Next Step &nbsp;&nbsp;<i class="fas fa-chevron-right"></i>

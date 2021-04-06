@@ -52,7 +52,7 @@ if (task_category == null) {
 
 		var tile_words = document.createElement("div");
 		tile_words.className = "category-name card-title";
-		var tile_name = document.createElement("h5")
+		var tile_name = document.createElement("h6")
 		tile_name.className = "card-text";
 		tile_name.innerHTML = category[1];
 		tile_words.appendChild(tile_name);
