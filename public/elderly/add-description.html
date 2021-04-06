@@ -42,8 +42,9 @@
 			height: 120px;
 			line-height: 50px;
 		}
+
 		.hidden {
-			display:none;
+			display: none;
 		}
 
 		.img-wrap {
@@ -76,17 +77,18 @@
 			-ms-transform: translate(-50%, -50%);
 			transform: translate(-50%, -50%);
 		}
-		.image{
-			position:relative;
-			overflow:hidden;
-			padding-bottom:100%;
-		}
-		.image img{
-			position:absolute;
-			min-height: 100%; 
-			min-width: 100%;
+
+		.image {
+			position: relative;
+			overflow: hidden;
+			padding-bottom: 100%;
 		}
 
+		.image img {
+			position: absolute;
+			min-height: 100%;
+			min-width: 100%;
+		}
 	</style>
 	<title>Bang Wo</title>
 </head>
@@ -136,16 +138,22 @@
 					placeholder="Example: Hello, pls bring trolley can"></textarea>
 			</div>
 			<label class="text-left form-label mt-3">Any photos want send?</label>
-			<div id="step3Para" class="text-center"></div>
+
 			<div class="card border-dark container rounder">
-				<div id="uploadedImagesDiv" class="row mt-2">
+				<div id="step3Para" class="text-center"></div>
+				<input type="file" id="fileInput" accept="image/png, image/jpeg" placeholder="Upload Image"
+					onchange="getFileDetails()" multiple hidden />
+				<label class="btn btn-secondary mt-2 mb-2" for="fileInput" id="inputGroupFileAddon04">
+					<i class="fas fa-file-upload"></i>&nbsp; Upload Images
+				</label>
+				<div id="uploadedImagesDiv" class="row my-2">
 					<div class="w-25">
 						<div class="card border-dark image rounder">
 							<label for="fileInput" id="inputGroupFileAddon04">
 								<div class="card-img-overlay text-center">
 									<i class="fas fa-plus card-text center"></i>
 								</div>
-							</label>	
+							</label>
 						</div>
 					</div>
 					<div class="col d-flex">
@@ -157,11 +165,7 @@
 						</div>
 					</div>
 				</div>
-				<input type="file" id="fileInput" accept="image/png, image/jpeg" placeholder="Upload Image"
-					onchange="getFileDetails()" multiple hidden />
-				<label class="btn btn-secondary mt-2 mb-2" for="fileInput" id="inputGroupFileAddon04">
-					<i class="fas fa-file-upload"></i>&nbsp; Upload Images
-				</label>
+
 			</div>
 		</div>
 		<footer class="container text-center">

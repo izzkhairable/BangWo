@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Get Location | Senior</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Status Waiting Hello</title>
 
 	<!-- Start of firebase stuff -->
 	<script defer src="/__/firebase/8.2.10/firebase-app.js"></script>
@@ -29,25 +29,9 @@
 			background-color: #f2994a !important;
 		}
 
-		.bg-creme {
-			background-color: #ffbd12 !important;
-		}
-
-		.bg-green {
-			background-color: #00c6ae !important;
-		}
-
-		.bg-pink {
-			background-color: #ff89bb !important;
-		}
-
-		.bg-purple {
-			background-color: #9b51e0 !important;
-		}
-
 		.profile {
-			width: 35px;
-			height: 35px;
+			width: 55px;
+			height: 55px;
 			border-radius: 50%;
 		}
 
@@ -57,56 +41,78 @@
 
 		.card {
 			border-radius: 0.8rem;
+			overflow: clip;
+		}
+
+		.card iframe {
+			height: 30vh;
 		}
 
 		.btn {
 			border-radius: 0.8rem;
 		}
+
 		.button-group {
 			margin-top: 10vh;
 		}
+
 		.footer {
 			position: absolute;
 			bottom: 0;
 			width: 100%;
-			height: 60px;
+			height: 115px;
 			line-height: 50px;
+		}
+
+		body {
+			background-color: #9B51E0;
 		}
 	</style>
 </head>
 
-<body>
-	<nav class="navbar nav-fill navbar-dark">
-		<span class="navbar-brand nav-item mb-0 h1" id="welcome"></span>
-		<span class="navbar-brand nav-item">
-			<img alt="" id="profile" class="nothing" />
-		</span>
-	</nav>
-	<main class="container text-center">
-		<div class="d-flex justify-content-between align-items-center">
-			<a onclick="goBack()">
-				<i class="fas fa-2x fa-chevron-circle-left" style="color: black"></i>
-			</a>
-			<img src="../assets/images/logo.svg" />
-			<div></div>
-		</div>
-		<div class="container">
-			<h1 id="header-text">Are you at home?</h1>
-		</div>
-		<div class="container button-group">
-			<div class="d-grid gap-2">
-				<a id="aAtHome" class="btn btn-lg btn-dark btn-block">Yes Lah &nbsp;&nbsp;<i class="fas fa-chevron-right"></i></a>
-			</div>
-			<div class="d-grid gap-2 mt-3">
-				<a id="aNotHome" class="btn btn-lg btn-dark btn-block">No Leh &nbsp;&nbsp;<i class="fas fa-chevron-right"></i></a>
-			</div>
-		</div> 
+<body class="text-white">
+	<main class="container text-center mt-3">
+		<img src="../assets/images/logo.svg" />
 	</main>
+	<div id="message" class="container text-center">
+		<h1>Yay! We found you a volunteer</h1>
+	</div>
+	<div id="volunteerDetailsContainer" class="container mt-3">
+		<!-- Volunteer name and profile pic code to be inserted here -->
+		<div class="container mt-3">
+			<div class="row justify-content-md-center">
+				<div class="col text-center col-md-auto">
+					<h5 class="">Katrisa Feona</h5>
+					<p>Housewife</p>
+				</div>
+				<div class="col col-md-auto">
+					<img src="../assets/images/logo.svg" class="profile" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="text-center container mt-2">
+		<div class="card border-dark">
+			<div class="card-header text-body border-dark">
+				<!-- Volunteer is __ away code to be inserted here-->
+				<b>Volunteer is <span id="volunteerTimeAway">5</span> minutes away</b>
+			</div>
+				<iframe id="iframeEl" height="100%" loading="lazy" allowfullscreen src="">
+				</iframe>
+		</div>
+	</div>
+	<div id="taskDetailsContainer" class="container mt-3"></div>
 	<footer class="container-fluid footer text-center">
+		<div class="d-grid gap-2 mt-3">
+			<button id="aNotHome" class="btn btn-lg btn-dark btn-block" onclick="createTaskStep2A()">
+				Chat with Volunteer &nbsp;&nbsp;<i class="far fa-comment-alt"></i>
+			</button>
+		</div>
 		<div id="footer-text">
-			Don't Understand? <a href="#" class="text-danger">Click Here</a>
+			Cancel Help Request <a href="#" class="text-white">Click Here</a>
 		</div>
 	</footer>
+
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 		crossorigin="anonymous"></script>
@@ -117,9 +123,8 @@
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
 	<script src="../assets/js/bootstrap.bundle.min.js"></script>
-	<!-- <script src="../javascript/welcome.js"></script> -->
-	<script src="./javascript/get-location.js"></script>
 	<script src="./javascript/footer.js"></script>
+	<script src="./javascript/statusAccepted.js"></script>
 </body>
 
 </html>

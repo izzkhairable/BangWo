@@ -1,20 +1,40 @@
-var task_details = getTaskDetails();
-document.getElementById("name").innerHTML = task_details.name;
-document.getElementById("age").innerHTML = task_details.age;
-document.getElementById("task_name").innerHTML = task_details.taskName;
-document.getElementById("task_description").innerHTML = task_details.taskDescription;
-document.getElementById("address").innerHTML = task_details.address;
+getTaskDetails(getTaskId());
 
-function getTaskDetails() {
-	var task_details = {
-		name: "MC Hammer",
-		age: 60,
-		taskName: "Hammer Time",
-		taskDescription: "Move your body move your body",
-		address: "123 Sesame Street",
-		postalCode: 420690
-	}
-	return task_details;
+function getTaskId() {
+	//Currently returns placeholder value for testing task
+	return "1616556880702-zmETkZXqo2SwqwyGXD4sG9hHUSh2";
+}
+
+function getTaskDetails(task_id) {
+		const data = {
+		"data": {
+			"taskId": task_id
+		}
+	};
+	
+	fetch('https://us-central1-bangwo-d7640.cloudfunctions.net/tasks-getTaskDetails', {
+		method: 'POST', // or 'PUT'
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(data),
+	})
+	.then( response => response.json())
+	.then(data => {
+		console.log('Success:', data);
+		displayTaskDetails(data);
+	})
+	.catch((error) => {
+		console.error('Error:', error);
+	});
+}
+
+function displayTaskDetails(task_details) {
+	//document.getElementById("name").innerHTML = task_details.name;
+	//document.getElementById("age").innerHTML = task_details.age;
+	document.getElementById("task_name").innerHTML = task_details.result.taskName;
+	document.getElementById("task_description").innerHTML = task_details.result.taskDescription;
+	document.getElementById("address").innerHTML = task_details.result.address + ", " + task_details.result.unitNo;
 }
 
 function displayVolunteerAdvice() {
