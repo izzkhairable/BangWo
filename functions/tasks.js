@@ -222,7 +222,7 @@ exports.addNewTask = functions.https.onCall(async (data, context) => {
         taskStatus: taskStatus,
         date: date,
         startTime: startTime,
-        endTime: endTime
+        endTime: endTime,
       })
       .then(async (doc) => {
         console.log({
@@ -278,7 +278,7 @@ exports.acceptTask = functions.https.onCall(async (data) => {
               .update({
                 status: "accepted",
                 volunteerId: volunteerId,
-                startTime: new Date().getHours().toString() + ":" + new Date().getMinutes().toString()
+                startTime: new Date().getHours().toString() + ":" + new Date().getMinutes().toString(),
               })
               .then(() => {
                 return "Yay! We found you a volunteer! (VolunteerId successfully updated to task)";
@@ -350,7 +350,7 @@ exports.taskCompleted = functions.https.onCall(async (data) => {
           const completing = await task
               .update({
                 status: "completed",
-                endTime: endTime
+                endTime: endTime,
               })
               .then(() => {
                 return "Yay! Task completed!";
@@ -373,7 +373,6 @@ exports.taskCompleted = functions.https.onCall(async (data) => {
 
 // Retrieve all tasks that are currently unfulfilled (i.e. not work in progress and not completed)
 exports.getAvailableTasks = functions.https.onCall(async (data) => {
-  const taskId = data.taskId;
   const taskStatus = "finding";
   const tasks = firestore.collection("task").where("taskStatus", "==", taskStatus);
   const result = [];
@@ -381,14 +380,15 @@ exports.getAvailableTasks = functions.https.onCall(async (data) => {
   const returnAvailableTasks = await tasks
       .get()
       .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            console.log(doc.id, "=>", doc.data());
-            result.push(doc.data());
-          })
-          return result;
+        querySnapshot.forEach((doc) => {
+          console.log(doc.id, "=>", doc.data());
+          result.push(doc.data());
+        });
+        return result;
       })
       .catch((error) => {
         console.log("Error retrieving task", error);
       });
   return returnAvailableTasks;
 });
+

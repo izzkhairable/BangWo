@@ -9,31 +9,16 @@
 </head>
 
 <body>
+  <button onclick="notifyMe()">Notify me!</button>
+
+
   <script>
-    // let data = {
-    //   "data": {
-    //     "taskId": "1616556880702-zmETkZXqo2SwqwyGXD4sG9hHUSh2"
-    //   }
-    // }
-
-    // let response = await fetch('https://us-central1-bangwo-d7640.cloudfunctions.net/tasks-getTaskDetails', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(data)
-    // });
-
-    // let result = response.json();
-    // console.log(result.message);
-
-
     const data = {
       "data": {
         "taskId": "1616556880702-zmETkZXqo2SwqwyGXD4sG9hHUSh2"
       }
     };
-
+    let returnData;
     fetch('https://us-central1-bangwo-d7640.cloudfunctions.net/tasks-getTaskDetails', {
       method: 'POST', // or 'PUT'
       headers: {
@@ -43,12 +28,16 @@
     })
       .then(response => response.json())
       .then(data => {
-        console.log('Success:', data);
+        // console.log('Success:', data);
+        returnData = data
+        return data
       })
       .catch((error) => {
         console.error('Error:', error);
       });
+    console.log(returnData)
   </script>
+
 </body>
 
 </html>
