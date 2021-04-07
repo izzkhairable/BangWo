@@ -192,8 +192,7 @@ exports.getTaskDetails = functions.https.onCall(async (data) => {
 // Elderly mainpage: Create task (One-time update, not in figma)
 exports.addNewTask = functions.https.onCall(async (data, context) => {
   // Unique taskId generator
-  const taskId = new Date().toString();
-  +data.elderlyId;
+  const taskId = new Date().toString() + data.elderlyId;
   const taskName = data.taskName;
   const taskDescription = data.taskDescription;
   const taskPhotoUrl = data.taskPhotoUrl;
@@ -201,6 +200,12 @@ exports.addNewTask = functions.https.onCall(async (data, context) => {
   const volunteerId = data.volunteerId;
   const address = data.address;
   const unitNo = data.unitNo;
+  const taskStatus = data.taskStatus;
+  // 2021-04-07
+  const date = new Date().getFullYear().toString + "-" + new Date().getMonth().toString + "-" + new Date().getDate().toString();
+  // e.g 14:00
+  const startTime = new Date().getHours().toString() + ":" + new Date().getMinutes().toString();
+  const endTime = data.endTime;
 
   const returnTask = firestore
       .collection("task")
@@ -214,6 +219,10 @@ exports.addNewTask = functions.https.onCall(async (data, context) => {
         taskPhotoUrl: taskPhotoUrl,
         unitNo: unitNo,
         volunteerId: volunteerId,
+        taskStatus: taskStatus,
+        date: date,
+        startTime: startTime,
+        endTime: endTime
       })
       .then(async (doc) => {
         console.log({
@@ -267,7 +276,9 @@ exports.acceptTask = functions.https.onCall(async (data) => {
         if (doc.exists) {
           const accepting = await task
               .update({
+                status: "accepted",
                 volunteerId: volunteerId,
+                startTime: new Date().getHours().toString() + ":" + new Date().getMinutes().toString()
               })
               .then(() => {
                 return "Yay! We found you a volunteer! (VolunteerId successfully updated to task)";
@@ -292,7 +303,6 @@ exports.acceptTask = functions.https.onCall(async (data) => {
 exports.taskInProgress = functions.https.onCall(async (data) => {
   const taskId = data.taskId;
   const task = firestore.collection("task").doc(taskId);
-  // const volunteerId = data.volunteerId;
 
   const inProgress = await task
       .get()
@@ -303,8 +313,7 @@ exports.taskInProgress = functions.https.onCall(async (data) => {
         if (doc.exists) {
           const arriving = await task
               .update({
-                status: "In Progress",
-                // volunteerId: volunteerId
+                status: "inProgress",
               })
               .then(() => {
                 return "Volunteer Help In Progress (Volunteer has successfully reached destination)";
@@ -325,21 +334,87 @@ exports.taskInProgress = functions.https.onCall(async (data) => {
   return inProgress;
 });
 
-// Unable to find volunteer after 30 seconds (not tested yet)
-// exports.noVolunteer = functions.https.onCall(async(data) => {
-//   const currentTime = Date.now();
-//   const taskId = data.taskId;
-//   const task = firestore.collection("task").doc(uid);
-//   const volunteerId = data.volunteerId;
+// Task completed
+exports.taskCompleted = functions.https.onCall(async (data) => {
+  const taskId = data.taskId;
+  const task = firestore.collection("task").doc(taskId);
+  const endTime = new Date().getHours().toString() + "-" + new Date().getMinutes().toString();
 
-//   const waiting = await task
-//     .get()
-//     .then((doc) => {
-//       const nextTime = Date.now();
-//       if (nextTime - currentTime >= 30000) { // 30 seconds, able to change
-//         console.log("We couldn't find you a volunteer");
-//         return "We couldn't find you a volunteer";
-//       }
-//     })
-//   return waiting;
-// })
+  const completed = await task
+      .get()
+      .then((doc) => {
+        return doc;
+      })
+      .then(async (doc) => {
+        if (doc.exists) {
+          const completing = await task
+              .update({
+                status: "completed",
+                endTime: endTime
+              })
+              .then(() => {
+                return "Yay! Task completed!";
+              })
+              .catch((error) => {
+                console.error("Error completing task ", error);
+                return "Error completing task";
+              });
+          return completing;
+        }
+      })
+      .catch((error) => {
+        console.log(
+            "Error completing task, task may not exist in the first place",
+            error,
+        );
+      });
+  return completed;
+});
+
+// Retrieve all tasks that are currently unfulfilled (i.e. not work in progress and not completed)
+exports.getAvailableTasks = functions.https.onCall(async (data) => {
+  const taskId = data.taskId;
+  const taskStatus = "finding";
+  const tasks = firestore.collection("task").where("taskStatus", "==", taskStatus);
+  const result = [];
+
+  const returnAvailableTasks = await tasks
+      .get()
+      .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            console.log(doc.id, "=>", doc.data());
+            result.push(doc.data());
+          })
+          return result;
+      })
+      .catch((error) => {
+        console.log("Error retrieving task", error);
+      });
+  return returnAvailableTasks;
+});
+
+// Retrieve all tasks volunteer has completed
+exports.getCompletedTasksByVolunteer = functions.https.onCall(async (data) => {
+  const taskId = data.taskId;
+  const task = firestore.collection("task").doc(taskId);
+  const volunteerId = data.volunteerId;
+
+  const returnCompletedTasksByVolunteer = await task
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const result = doc.data();
+          if (result.taskStatus.equals("completed") && result.volunteerId.equals(volunteerId)) {
+            return {
+              taskId: result.taskId,
+            };
+          }
+        } else {
+          console.log("Volunteer does not exist");
+        }
+      })
+      .catch((error) => {
+        console.log("Error retrieving volunteer profile", error);
+      });
+  return returnCompletedTasksByVolunteer;
+});

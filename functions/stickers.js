@@ -47,3 +47,26 @@ exports.addSticker = functions.https.onCall(async (data) => {
       });
   return addSticker;
 });
+
+// Get all stickers by volunteer
+exports.getStickersByVolunteer = functions.https.onCall(async (data) => {
+  const volunteerId = data.volunteerId;
+  const volunteer = firestore.collection("volunteerUsers").doc(volunteerId);
+
+  const returnStickersByVolunteer = await volunteer
+      .get()
+      .then((doc) => {
+          if (doc.exists) {
+              const result = doc.data();
+              return {
+                  stickers: result.stickers
+              }
+          } else {
+              console.log("This volunteer has no stickers yet!");
+          }
+      })
+      .catch((error) => {
+          console.log("Error retrieving this volunteer", error);
+      })
+  return returnStickersByVolunteer;   
+})
