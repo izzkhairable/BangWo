@@ -28,6 +28,30 @@
 			background-color: #f2994a !important;
 		}
 
+        .bg-creme {
+            background-color: #ffbd12 !important;
+        }
+
+        .bg-green {
+            background-color: #00c6ae !important;
+        }
+
+        .bg-pink {
+            background-color: #ff89bb !important;
+        }
+
+        .bg-purple {
+            background-color: #9b51e0 !important;
+        }
+
+        .bg-red {
+            background-color: #F95A2C !important;
+        }
+        
+        .bg-blue {
+            background-color: #2C6BDB !important;
+        }
+
 		.profile {
 			width: 35px;
 			height: 35px;
@@ -62,32 +86,80 @@
 		body {
 			background-color: #FFFFFF;
 		}
+		
+		.scroll-area {
+			height:70vh;
+			width:50vh;
+		}
+
+		.coverDiv {
+            background: rgba(0, 0, 0, .5) no-repeat;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999999;
+        }
 	</style>
 </head>
 
 <body class="">
-	<main class="container text-center mt-3">
-		<img src="../assets/images/completed.svg" style="height:40vh;"/>
-	</main>
-	<div id="message" class="container text-center mt-3">
-		<img src="../assets/images/tick.svg" />
-		<h1 class="mt-4">Yay! Your volunteer task is completed</h1>
-		<h4 class="mt-2">
-			Hope you had a great time helping out the elderly :)
-		</h4>
+	<div class="coverDiv" id="coverDiv">
+		<div class="d-flex justify-content-center align-items-center w-100 h-100">
+			<div class="card border border-dark border-2 text-center">
+				<div class="card-body container">
+					<h5 class="card-title">
+						Congratulations! You were awarded a Sticker 
+					</h5>
+					<p class="card-text">
+						This sticker is awarded by the elderly you helped
+					</p>
+					<div class="row" style="">
+                        <div class="col col-xs card m-2 text-white border-dark border-2 bg-green" >
+                            <img src="../assets/images/city-girl-pana.svg" class="category-image d-block card-img-top">
+                        </div>
+                        <div class="sticker-name card-title">
+                            <h4 class="card-text fw-bold">Steady pom pi pi</h4>
+                        </div>
+                    </div>
+					<div class="row mt-3">
+						<a href="taskAccepted.html?taskName=null" type="button" class="btn btn-lg btn-light border-dark border-2 col mx-4">
+							Check Profile
+						</a>
+						<a href="get-location.html?taskName=null" type="button" class="btn btn-lg btn-dark col mx-4">
+							Back
+						</a>
+					</div>
+				</div>
+				
+			</div>
+		</div>
 	</div>
-	<footer class="container-fluid fixed-bottom text-center mb-3">
-		<div class="d-grid gap-2 m-3">
-			<button id="aNotHome" class="btn btn-lg btn-primary btn-block" onclick="goToAddSticker()">
-				Advise Other Volunteers &nbsp;&nbsp;<i class="far fa-comments"></i>
-			</button>
+	<main class="">
+		<div class="container text-center mt-3">
+			<img src="../assets/images/completed.svg" style="height:40vh;"/>
 		</div>
-		<div class="d-grid gap-2 m-3">
-			<button id="aNotHome" class="btn btn-lg btn-dark btn-block" onclick="goToHome()">
-				Back to Home &nbsp;&nbsp;<i class="fas fa-home"></i>
-			</button>
+		<div id="message" class="container text-center mt-3">
+			<img src="../assets/images/tick.svg" />
+			<h1 class="mt-4">Yay! Your volunteer task is completed</h1>
+			<h4 class="mt-2">
+				Hope you had a great time helping out the elderly :)
+			</h4>
 		</div>
-	</footer>
+		<footer class="container-fluid fixed-bottom text-center mb-3">
+			<div class="d-grid gap-2 m-3">
+				<button id="aNotHome" class="btn btn-lg btn-primary btn-block" onclick="goToAddSticker()">
+					Advise Other Volunteers &nbsp;&nbsp;<i class="far fa-comments"></i>
+				</button>
+			</div>
+			<div class="d-grid gap-2 m-3">
+				<button id="aNotHome" class="btn btn-lg btn-dark btn-block" onclick="goToHome()">
+					Back to Home &nbsp;&nbsp;<i class="fas fa-home"></i>
+				</button>
+			</div>
+		</footer>
+	</main>
 
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
