@@ -11,7 +11,7 @@ chatClient.connectUser(
   {
     id: 'billowing-tree-2',
     name: 'billowing-tree-2',
-    image: 'https://companionsforseniors.com/wp-content/uploads/2019/04/2019-4-17-Are-Mood-Swings-in-the-Elderly-a-Sign-of-Something-More.jpg',
+    image: 'https://companionsforsenioras.com/wp-content/uploads/2019/04/2019-4-17-Are-Mood-Swings-in-the-Elderly-a-Sign-of-Something-More.jpg',
   },
   userToken,
 );

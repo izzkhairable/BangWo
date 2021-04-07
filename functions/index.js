@@ -6,3 +6,4 @@ exports.tasks = require("./tasks");
 exports.checkAccountType=require("./checkAccountType");
 exports.stickers = require("./stickers");
 exports.chats = require("./chats");
+exports.advice = require("./advice");
