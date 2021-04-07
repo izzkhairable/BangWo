@@ -392,29 +392,3 @@ exports.getAvailableTasks = functions.https.onCall(async (data) => {
       });
   return returnAvailableTasks;
 });
-
-// Retrieve all tasks volunteer has completed
-exports.getCompletedTasksByVolunteer = functions.https.onCall(async (data) => {
-  const taskId = data.taskId;
-  const task = firestore.collection("task").doc(taskId);
-  const volunteerId = data.volunteerId;
-
-  const returnCompletedTasksByVolunteer = await task
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          const result = doc.data();
-          if (result.taskStatus.equals("completed") && result.volunteerId.equals(volunteerId)) {
-            return {
-              taskId: result.taskId,
-            };
-          }
-        } else {
-          console.log("Volunteer does not exist");
-        }
-      })
-      .catch((error) => {
-        console.log("Error retrieving volunteer profile", error);
-      });
-  return returnCompletedTasksByVolunteer;
-});
