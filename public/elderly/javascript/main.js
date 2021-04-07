@@ -23,6 +23,45 @@
 // }
 
 // Signs-out of Friendly Chat.
+let elderlyName;
+let elderlyProfilePicUrl;
+document.addEventListener('DOMContentLoaded',async function () {
+    // console.log("hello")
+    // const getElderlyProfileFB =firebase
+    // .functions()
+    // .httpsCallable('tasks-getElderlyProfile');
+    // let msg = '';
+
+    // await getElderlyProfileFB({
+    // elderlyId: '4m5MOEalOLgizAVasEkYG4HjVZo2',
+    // }).then((result) => {
+    // msg = result;
+    // console.log(msg)
+    // });
+    // console.log(msg)
+    // return msg;
+
+      // Default options are marked with *
+  
+  const response = await fetch("http://localhost:5001/bangwo-d7640/us-central1/tasks-getElderlyProfile", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({"data":{"elderlyId":'4m5MOEalOLgizAVasEkYG4HjVZo2'}}) // body data type must match "Content-Type" header
+  }).then(response => response.json())
+  .then(data => {
+    console.log(data.result.name)
+    console.log(data.result.profilePicUrl)
+    elderlyName=data.result.name
+    elderlyProfilePicUrl=data.result.profilePicUrl
+  });
+
+  
+})
+
+
+
 function signOut() {
   // Sign out of Firebase.
   firebase.auth().signOut();
@@ -40,9 +79,15 @@ function getProfilePicUrl() {
 }
 
 // Returns the signed-in user's display name.
-function getUserName() {
-  return firebase.auth().currentUser.phoneNumber;
+ async function getUserName() {
+      const name= getElderlyProfile("4m5MOEalOLgizAVasEkYG4HjVZo2").then((msg) => {
+        console.log(msg)
+        return msg
+    });
+    return name;
 }
+
+
 
 // Returns true if a user is signed-in.
 function isUserSignedIn() {
@@ -50,12 +95,14 @@ function isUserSignedIn() {
 }
 
 // Saves a new message on the Cloud Firestore.
-function saveMessage(messageText) {
+async function saveMessage(messageText) {
   // Add a new message entry to the Firebase database.
+  console.log(elderlyName)
+  console.log(elderlyProfilePicUrl)
   return firebase.firestore().collection('messages').add({
-    name: getUserName(),
+    name:elderlyName,
     text: messageText,
-    profilePicUrl: getProfilePicUrl(),
+    profilePicUrl:elderlyProfilePicUrl,
     timestamp: firebase.firestore.FieldValue.serverTimestamp()
   }).catch(function(error) {
     console.error('Error writing new message to Firebase Database', error);
@@ -159,7 +206,7 @@ function onMessageFormSubmit(e) {
 function authStateObserver(user) {
   if (user) { // User is signed in!
     console.log(user)
-    userNameElement.textContent = user.phoneNumber;
+    userNameElement.textContent = elderlyName;
   } else { // User is signed out!
     alert("Hello pls sign in")
   }
@@ -247,12 +294,21 @@ function createAndInsertMessage(id, timestamp) {
   return div;
 }
 
+function goBackToAccepted(){
+  const urlStr=window.location.href;
+  const url=new URL(urlStr);
+  const taskId=url.searchParams.get("taskId");
+  window.location.replace('./statusAccepted.html?taskId='+taskId); 
+}
+
 // Displays a Message in the UI.
 function displayMessage(id, timestamp, name, text, picUrl, imageUrl) {
   var div = document.getElementById(id) || createAndInsertMessage(id, timestamp);
   div.querySelector('.name').textContent = name;
   var messageElement = div.querySelector('.message');
-
+  if (picUrl) {
+    div.querySelector('.pic').style.backgroundImage = 'url('+ picUrl+ ')';
+  }
   if (text) { // If the message is text.
     messageElement.textContent = text;
     // Replace all line breaks by <br>.
