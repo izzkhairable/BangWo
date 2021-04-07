@@ -92,47 +92,46 @@
 			width:50vh;
 		}
 
-		.coverDiv {
-            background: rgba(0, 0, 0, .5) no-repeat;
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 999999;
-        }
+		.modal-content {
+			background-color: transparent;
+			border: 0px;
+		}
 	</style>
 </head>
 
 <body class="">
-	<div class="coverDiv" id="coverDiv">
-		<div class="d-flex justify-content-center align-items-center w-100 h-100">
-			<div class="card border border-dark border-2 text-center">
-				<div class="card-body container">
-					<h5 class="card-title">
-						Congratulations! You were awarded a Sticker 
-					</h5>
-					<p class="card-text">
-						This sticker is awarded by the elderly you helped
-					</p>
-					<div class="row" style="">
-                        <div class="col col-xs card m-2 text-white border-dark border-2 bg-green" >
-                            <img src="../assets/images/city-girl-pana.svg" class="category-image d-block card-img-top">
-                        </div>
-                        <div class="sticker-name card-title">
-                            <h4 class="card-text fw-bold">Steady pom pi pi</h4>
-                        </div>
-                    </div>
-					<div class="row mt-3">
-						<a href="taskAccepted.html?taskName=null" type="button" class="btn btn-lg btn-light border-dark border-2 col mx-4">
-							Check Profile
-						</a>
-						<a href="get-location.html?taskName=null" type="button" class="btn btn-lg btn-dark col mx-4">
-							Back
-						</a>
+	<div class="modal fade" id="stickerModal" tabindex="-1" aria-labelledby="stickerModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="card border border-dark border-2 text-center">
+						<div class="card-body container">
+							<h5 class="card-title">
+								Congratulations! You were awarded a Sticker 
+							</h5>
+							<p class="card-text">
+								This sticker is awarded by the elderly you helped
+							</p>
+							<div class="row" id="stickerReceived">
+								<!-- This is where to put the info of the sticker received -->
+								<div class="col col-xs card m-2 text-white border-dark border-2 bg-green" >
+									<img src="../assets/images/city-girl-pana.svg" class="category-image d-block card-img-top">
+								</div>
+								<div class="sticker-name card-title">
+									<h4 class="card-text fw-bold">Steady pom pi pi</h4>
+								</div>
+							</div>
+							<div class="row mt-3">
+								<a href="taskAccepted.html?taskName=null" type="button" class="btn btn-lg btn-light border-dark border-2 col mx-4">
+									Check Profile
+								</a>
+								<a href="#" type="button" class="btn btn-lg btn-dark col mx-4" data-bs-dismiss="modal" aria-label="Close">
+									Back
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
-				
 			</div>
 		</div>
 	</div>
@@ -149,13 +148,13 @@
 		</div>
 		<footer class="container-fluid fixed-bottom text-center mb-3">
 			<div class="d-grid gap-2 m-3">
-				<button id="aNotHome" class="btn btn-lg btn-primary btn-block" onclick="goToAddSticker()">
+				<button class="btn btn-lg btn-primary btn-block">
 					Advise Other Volunteers &nbsp;&nbsp;<i class="far fa-comments"></i>
 				</button>
 			</div>
 			<div class="d-grid gap-2 m-3">
-				<button id="aNotHome" class="btn btn-lg btn-dark btn-block" onclick="goToHome()">
-					Back to Home &nbsp;&nbsp;<i class="fas fa-home"></i>
+				<button class="btn btn-lg btn-dark btn-block" data-bs-toggle="modal" data-bs-target="#stickerModal">
+					Back to Home (Opens receiving of sticker for now)&nbsp;&nbsp;<i class="fas fa-home"></i>
 				</button>
 			</div>
 		</footer>
