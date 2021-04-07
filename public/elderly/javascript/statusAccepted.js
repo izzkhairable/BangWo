@@ -25,6 +25,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 1000);
 });
 
+function openChat(){
+    const urlStr=window.location.href;
+    const url=new URL(urlStr);
+    const taskId=url.searchParams.get("taskId");
+    window.location.replace("./chat.html?taskId="+taskId)
+}
+
 async function getTaskDetails(taskId) {
     const getTaskDetailsFB = firebase
         .functions()

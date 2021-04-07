@@ -1,51 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-		<!-- update the version number as needed -->
-		<script defer src="/__/firebase/8.2.10/firebase-app.js"></script>
-		<!-- include only the Firebase features as you need -->
-		<script defer src="/__/firebase/8.2.10/firebase-auth.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-database.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-firestore.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-functions.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-messaging.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-storage.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-analytics.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-remote-config.js"></script>
-		<script defer src="/__/firebase/8.2.10/firebase-performance.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
-		<link
-			type="text/css"
-			rel="stylesheet"
-			href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css"
-		/>
-		<script defer src="/__/firebase/init.js?useEmulator=true"></script>
-	</head>
 
-	<body>
-		<h1>
-			Second step of your Sign Up. Pls enter your name and upload a profile
-			picture :)
-		</h1>
-		<p>Field 1) Please enter your name:</p>
-		<input type="text" id="usernameInput" />
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<!-- update the version number as needed -->
+	<script defer src="/__/firebase/8.2.10/firebase-app.js"></script>
+	<!-- include only the Firebase features as you need -->
+	<script defer src="/__/firebase/8.2.10/firebase-auth.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-database.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-firestore.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-functions.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-storage.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-analytics.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-remote-config.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-performance.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
+	<script defer src="/__/firebase/init.js?useEmulator=true"></script>
+</head>
 
-		<p id="step2Para">Field 2) Please Upload your profile picture:</p>
-		<input type="file" id="fileInput" accept="image/png, image/jpeg" />
-		<button onclick="getFileDetails()">Upload Profile Image</button>
-		<p id="uploadResult"></p>
+<body>
+	<h1>
+		Second step of your Sign Up. Pls enter your name and upload a profile
+		picture :)
+	</h1>
+	<p>Field 1) Please enter your name:</p>
+	<input type="text" id="usernameInput" />
 
-		<p>Click the button below to submit profile</p>
-		<button id="submitBtn" onclick="submitProfile()">Update Profile!</button>
-		<br />
-		<button style="margin-top: 10px" id="homeBtn" onclick="goHome()">
-			Go Home
-		</button>
-		<p id="resultsPara"></p>
-		<script src="./javascript/signUpStep2.js"></script>
-	</body>
+	<p id="step2Para">Field 2) Please Upload your profile picture:</p>
+	<input type="file" id="fileInput" accept="image/png, image/jpeg" />
+	<button onclick="getFileDetails()">Upload Profile Image</button>
+	<p id="uploadResult"></p>
+
+	<p>Click the button below to submit profile</p>
+	<button id="submitBtn" onclick="submitProfile()">Update Profile!</button>
+	<br />
+	<button style="margin-top: 10px" id="homeBtn" onclick="goHome()">
+		Go Home
+	</button>
+	<p id="resultsPara"></p>
+	<script src="./javascript/signUpStep2.js"></script>
+</body>
+
 </html>

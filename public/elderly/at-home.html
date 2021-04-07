@@ -12,7 +12,6 @@
 	<script defer src="/__/firebase/8.2.10/firebase-database.js"></script>
 	<script defer src="/__/firebase/8.2.10/firebase-firestore.js"></script>
 	<script defer src="/__/firebase/8.2.10/firebase-functions.js"></script>
-	<script defer src="/__/firebase/8.2.10/firebase-messaging.js"></script>
 	<script defer src="/__/firebase/8.2.10/firebase-storage.js"></script>
 	<script defer src="/__/firebase/8.2.10/firebase-analytics.js"></script>
 	<script defer src="/__/firebase/8.2.10/firebase-remote-config.js"></script>
@@ -24,7 +23,11 @@
 
 	<link href="../assets/fontawesome/css/all.css" rel="stylesheet" />
 	<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 	<style type="text/css">
+		* {
+			font-family: 'Montserrat', sans-serif;
+		}
 		.bg-orange {
 			background-color: #f2994a !important;
 		}
@@ -51,10 +54,6 @@
 			border-radius: 50%;
 		}
 
-		.nothing {
-			height: 35px;
-		}
-
 		.card {
 			border-radius: 0.8rem;
 			overflow: clip;
@@ -69,10 +68,10 @@
 		}
 
 		.footer {
-			position: absolute;
+			position: fixed;
 			bottom: 0;
 			width: 100%;
-			height: 120px;
+			height: 90px;
 			line-height: 50px;
 		}
 
@@ -101,13 +100,7 @@
 				</p>
 			</div>
 		</div>
-		<nav class="navbar nav-fill navbar-dark">
-			<span class="navbar-brand nav-item mb-0 h1" id="welcome"></span>
-			<span class="navbar-brand nav-item">
-				<img alt="" id="profile" class="nothing" />
-			</span>
-		</nav>
-		<main class="container">
+		<main class="container mt-4">
 			<div class="d-flex justify-content-between align-items-center">
 				<a onclick="goBack()">
 					<i class="fas fa-2x fa-chevron-circle-left" style="color: black"></i>
@@ -116,14 +109,14 @@
 				<div></div>
 			</div>
 			<div class="text-center container">
-				<h1 class="mt-3">So you at home ah?</h1>
+				<h1 class="mt-3 fw-bold">So you at home ah?</h1>
 				<div class="card border-dark" style="height: 45vh;">
 					<iframe id="iframeEl" height="100%" loading="lazy" allowfullscreen src="">
 					</iframe>
 				</div>
 			</div>
 			<div class="container address-box">
-				<h2>Your Home Address</h2>
+				<h2 class="fw-bold">Your Home Address</h2>
 				<!-- <p id="addressEl">
 				</p> -->
 				<p class="d-flex">
@@ -132,13 +125,13 @@
 
 			</div>
 		</main>
-		<footer class="container text-center mb-2">
-			<div class="d-grid gap-2 mt-3">
+		<footer class="container text-center mb-2 fixed-bottom">
+			<div class="d-grid gap-2 mt-1">
 				<button id="aNotHome" class="btn btn-lg btn-dark btn-block" onclick="createTaskStep2A()">
 					Yes Correct &nbsp;&nbsp;<i class="fas fa-chevron-right"></i>
 				</button>
 			</div>
-			<div id="footer-text">
+			<div id="footer-text" class="my-3">
 				Don't Understand? <a href="#" class="text-danger">Click Here</a>
 			</div>
 		</footer>
