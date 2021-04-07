@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>Status Completed</title>
+	<title>Status Waiting</title>
 
 	<!-- Start of firebase stuff -->
 	<script defer src="/__/firebase/8.2.10/firebase-app.js"></script>
@@ -23,15 +23,22 @@
 
 	<link href="../assets/fontawesome/css/all.css" rel="stylesheet" />
 	<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 	<style type="text/css">
+		* {
+			font-family: 'Montserrat', sans-serif;
+		}
 		.bg-orange {
 			background-color: #f2994a !important;
 		}
 
 		.profile {
-			width: 35px;
-			height: 35px;
+			height: 10vh;
 			border-radius: 50%;
+		}
+
+		.nothing {
+			height: 35px;
 		}
 
 		.card {
@@ -40,7 +47,7 @@
 		}
 
 		.card iframe {
-			height: 30vh;
+			height: 40vh;
 		}
 
 		.btn {
@@ -52,40 +59,62 @@
 		}
 
 		.footer {
-			position: fixed;
+			position: absolute;
 			bottom: 0;
 			width: 100%;
-			height: 150px;
+			height: 115px;
 			line-height: 50px;
 		}
 
 		body {
-			background-color: #FFFFFF;
+			background-color: #2D9CDB;
 		}
 	</style>
 </head>
 
-<body class="">
+<body class="text-white">
 	<main class="container text-center mt-3">
-		<img src="../assets/images/completed.svg" style="height:40vh;"/>
+		<img src="../assets/images/logo.svg" />
 	</main>
-	<div id="message" class="container text-center mt-3">
-		<img src="../assets/images/tick.svg" />
-		<h1 class="mt-4">Volunteer help finish liao!</h1>
-		<h4 class="mt-4">
-			We hope the volunteer has been helpful to you :)
-		</h4>
+	<div id="message" class="container text-center">
+		<h1 class="fw-bold">Make your way to the elderly location</h1>
 	</div>
-	<footer class="container-fluid fixed-bottom text-center mb-3">
-		<div class="d-grid gap-2 m-3">
-			<button id="aNotHome" class="btn btn-lg btn-primary btn-block" onclick="goToAddSticker()">
-				Reward a Sticker &nbsp;&nbsp;<img src="../assets/images/sticker.svg" />
-			</button>
+	<div id="volunteerDetailsContainer" class="container mt-3">
+		<!-- Volunteer name and profile pic code to be inserted here -->
+		<div class="container mt-3">
+			<div class="row justify-content-center">
+				<div class="col text-center col-md-auto my-auto">
+					<h5 class="">Jane Smith</h5>
+					<p>67 Years Old</p>
+				</div>
+				<div class="col col-md-auto m-2">
+					<img src="../assets/images/placeholder-profile.svg" class="profile border border-dark border-2"/>
+				</div>
+			</div>
 		</div>
-		<div class="d-grid gap-2 m-3">
-			<button id="aNotHome" class="btn btn-lg btn-dark btn-block" onclick="goToHome()">
-				Back to Home &nbsp;&nbsp;<i class="fas fa-home"></i>
-			</button>
+	</div>
+	<div class="text-center container">
+		<div class="card border-dark">
+			<div class="card-header text-body border-dark">
+				<!-- Volunteer is __ away code to be inserted here-->
+				<b>You are <span id="volunteerTimeAway">5</span> minutes away</b>
+			</div>
+			<iframe id="iframeEl" height="100%" loading="lazy" allowfullscreen src="">
+			</iframe>
+		</div>
+	</div>
+	<div id="taskDetailsContainer" class="container mt-3"></div>
+	<footer class="container-fluid fixed-bottom text-center">
+		<div class="row">
+			<a href="get-location.html?taskName=null" type="button" class="btn btn-lg btn-dark col mx-4">
+				Arrived &nbsp;&nbsp;<i class="fas fa-map-marker-alt"></i>
+			</a>
+			<a href="get-location.html?taskName=null" type="button" class="btn btn-lg btn-dark col mx-4">
+				Chat &nbsp;&nbsp;<i class="far fa-comment-alt"></i>
+			</a>
+		</div>
+		<div id="footer-text" class="my-3">
+			<a href="#" class="text-white">Advice from Past Volunteers</a>
 		</div>
 	</footer>
 
@@ -100,7 +129,7 @@
 		crossorigin="anonymous"></script>
 	<script src="../assets/js/bootstrap.bundle.min.js"></script>
 	<script src="./javascript/footer.js"></script>
-	<script src="./javascript/statusCompleted.js"></script>
+	<script src="./javascript/statusWaiting.js"></script>
 </body>
 
 </html>
