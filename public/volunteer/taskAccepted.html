@@ -112,19 +112,18 @@
 			height:70vh;
 			width:50vh;
 		}
+		.modal-content {
+			background-color: transparent;
+			border: 0px;
+		}
 	</style>
 </head>
 
 <body class="">
-	<div class="coverDiv" id="coverDiv">
-		<div class="d-flex justify-content-center align-items-start w-100 h-100">
-			<div class="fixed-top back-button">
-				<a onclick="close()" class="" style="color:white;">
-					<i class="fas fa-3x fa-times-circle my-icon"></i>
-				</a>
-			</div>
-			<div class="fixed-top comments">
-				<div class="overflow-auto scroll-area">
+	<div class="modal fade" id="adviceModal" tabindex="-1" aria-labelledby="adviceModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-body">
 					<div class="card border border-dark border-2 m-2 mt-4 bg-lightpurple">
 						<div class="card-body">
 							<p class="card-text">
@@ -251,7 +250,7 @@
 				</a>
 			</div>
 			<div id="footer-text" class="my-3">
-				<a href="#" class="text-white">Advice from Past Volunteers</a>
+				<a href="#" class="text-white" data-bs-toggle="modal" data-bs-target="#adviceModal">Advice from Past Volunteers</a>
 			</div>
 		</footer>
 	</div>
