@@ -3,10 +3,13 @@
 
 <head>
 	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Get Location | Senior</title>
+	<title>User Mainpage | Volunteer</title>
+	<meta charset="UTF-8" />
 
-	<!-- Start of firebase stuff -->
+	<!--  -->
+	<!--Firebase Stuff -->
 	<script defer src="/__/firebase/8.2.10/firebase-app.js"></script>
 	<script defer src="/__/firebase/8.2.10/firebase-auth.js"></script>
 	<script defer src="/__/firebase/8.2.10/firebase-database.js"></script>
@@ -19,15 +22,12 @@
 	<script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
 	<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
 	<script defer src="/__/firebase/init.js?useEmulator=true"></script>
-	<!-- End of firebase stuff -->
+	<!--End of  Firebase Stuff -->
+	<!--  -->
 
 	<link href="../assets/fontawesome/css/all.css" rel="stylesheet" />
 	<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 	<style type="text/css">
-		* {
-			font-family: 'Montserrat', sans-serif;
-		}
 		.bg-orange {
 			background-color: #f2994a !important;
 		}
@@ -61,53 +61,62 @@
 		.btn {
 			border-radius: 0.8rem;
 		}
-
-		.button-group {
-			margin-top: 10vh;
-		}
-
-		.footer {
-			position: fixed;
-			bottom: 0;
-			width: 100%;
-			height: 60px;
-			line-height: 50px;
-		}
 	</style>
 </head>
 
 <body>
-	<nav class="navbar nav-fill navbar-dark">
+	<nav class="navbar nav-fill navbar-dark bg-orange">
 		<span class="navbar-brand nav-item mb-0 h1" id="welcome"></span>
 		<span class="navbar-brand nav-item">
-			<img alt="" id="profile" class="nothing" />
+			<img alt="" id="profile" class="profile" />
 		</span>
 	</nav>
-	<main class="container text-center">
-		<div class="d-flex justify-content-between align-items-center">
-			<a onclick="goBack()">
-				<i class="fas fa-2x fa-chevron-circle-left" style="color: black"></i>
-			</a>
-			<img src="../assets/images/logo.svg" />
-			<div></div>
-		</div>
+	<main class="container">
 		<div class="container">
-			<h1 id="header-text" class="fw-bold">Are you at home?</h1>
+			<img src="../assets/images/logo.svg" />
 		</div>
-		<div class="container button-group">
-			<div class="d-grid gap-2">
-				<a id="aAtHome" class="btn btn-lg btn-dark btn-block">Yes Lah &nbsp;&nbsp;<i
-						class="fas fa-chevron-right"></i></a>
+		<div class="container mt-3 text-center">
+			<h2 id="header-text">New Volunteer Task!</h2>
+		</div>
+		<div class="mt-3 card bg-purple text-white">
+			<div class="card-body">
+				<h5 class="card-title" id="taskName">taskName</h5>
+				<h6 class="card-subtitle mb-2"><i class="fas fa-location-arrow"></i> &nbsp; <span id="">0.25</span>km Away</h6>
+				<p class="card-text" id="taskDescription">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 			</div>
-			<div class="d-grid gap-2 mt-3">
-				<a id="aNotHome" class="btn btn-lg btn-dark btn-block">No Leh &nbsp;&nbsp;<i
-						class="fas fa-chevron-right"></i></a>
+			<div class="container">
+				<div id="uploadedImagesDiv" class="row my-2">
+					<div class="w-25">
+						<div class="card border-dark image rounder">
+							<label for="fileInput" id="inputGroupFileAddon04">
+								<div class="card-img-overlay text-center">
+								</div>
+							</label>
+						</div>
+					</div>
+					<div class="col d-flex">
+						<div class="">
+						</div>
+						<div class="">
+						</div>
+						<div class="">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer">
+				Card footer
 			</div>
 		</div>
 	</main>
-	<footer class="container-fluid fixed-bottom text-center mb-4">
-		<div id="footer-text">
-			Don't Understand? <a href="#" class="text-danger">Click Here</a>
+	<footer class="container-fluid fixed-bottom text-center mb-5 px-4">
+		<div class="row">
+			<a href="get-location.html?taskName=null" type="button" class="btn btn-lg btn-dark col mx-4">
+				Help Out &nbsp;&nbsp;<i class="fas fa-chevron-right"></i>
+			</a>
+			<a href="get-location.html?taskName=null" type="button" class="btn btn-lg btn-dark col mx-4">
+				Decline &nbsp;&nbsp;<i class="fas fa-times"></i>
+			</a>
 		</div>
 	</footer>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -120,8 +129,8 @@
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
 	<script src="../assets/js/bootstrap.bundle.min.js"></script>
-	<!-- <script src="../javascript/welcome.js"></script> -->
-	<script src="./javascript/get-location.js"></script>
+	<script src="./javascript/welcome.js"></script>
+	<script src="./javascript/task-category.js"></script>
 	<script src="./javascript/footer.js"></script>
 </body>
 
