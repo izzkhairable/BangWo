@@ -42,20 +42,27 @@ document.addEventListener('DOMContentLoaded',async function () {
     // return msg;
 
       // Default options are marked with *
-  
-  const response = await fetch("http://localhost:5001/bangwo-d7640/us-central1/tasks-getElderlyProfile", {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({"data":{"elderlyId":'4m5MOEalOLgizAVasEkYG4HjVZo2'}}) // body data type must match "Content-Type" header
-  }).then(response => response.json())
-  .then(data => {
-    console.log(data.result.name)
-    console.log(data.result.profilePicUrl)
-    elderlyName=data.result.name
-    elderlyProfilePicUrl=data.result.profilePicUrl
-  });
+      firebase.auth().onAuthStateChanged(async function (user) {
+        if (user) {
+
+          const response = await fetch("https://us-central1-bangwo-d7640.cloudfunctions.net/volunteerProfile-getVolunteerProfile", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"data":{"volunteerId":user.uid}}) // body data type must match "Content-Type" header
+          }).then(response => response.json())
+          .then(data => {
+            console.log(data.result.name)
+            console.log(data.result.profilePicUrl)
+            elderlyName=data.result.name
+            elderlyProfilePicUrl=data.result.profilePicUrl
+            userNameElement.textContent = elderlyName;
+          });
+        
+        }
+      
+      })
 
   
 })
