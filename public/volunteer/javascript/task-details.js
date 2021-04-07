@@ -1,4 +1,5 @@
 getTaskDetails(getTaskId());
+window.onload = getAllAdvice(getTaskId());
 
 function getTaskId() {
 	//Currently returns placeholder value for testing task
@@ -6,7 +7,7 @@ function getTaskId() {
 }
 
 function getTaskDetails(task_id) {
-		const data = {
+	const data = {
 		"data": {
 			"taskId": task_id
 		}
@@ -22,6 +23,7 @@ function getTaskDetails(task_id) {
 	.then( response => response.json())
 	.then(data => {
 		console.log('Success:', data);
+		//console.log(JSON.stringify(data));
 		displayTaskDetails(data);
 	})
 	.catch((error) => {
@@ -37,23 +39,49 @@ function displayTaskDetails(task_details) {
 	document.getElementById("address").innerHTML = task_details.result.address + ", " + task_details.result.unitNo;
 }
 
-function displayVolunteerAdvice() {
-	var advice_array = retrieveVolunteerAdvice();
-	console.log("in function");
-	if (advice_array.length == 0) {
+function formatAdvice(advice_object) {
+	//console.log(JSON.stringify(advice_object));
+	advice_array = advice_object.result;
+	//console.log(JSON.stringify(advice_array));
+	if (JSON.stringify(advice_array) == "[]") {
 		//Display message to show no volunteer advice exists
-		window.alert("No history of advice from previous volunteers for this user");
+		//console.log("In here");
+		//document.getElementById("card-header").innerHTML = "No advice given for this user yet.";
 	} else {
 		//Display the existing volunteer advice
 		var advice_string = "";
 		for (const advice_set of advice_array) {
-			advice_string += advice_set[0] + ":\n" + advice_set[1] + "\n\n";
+			advice_string += advice_set.title + ":\n" + advice_set.description + "\n\n";
 		}
 		window.alert(advice_string);
 	}
 }
 
-function retrieveVolunteerAdvice() {
+function displayAdvice(elderly_id) {
+		const data = {
+		"data": {
+			"elderlyId": elderly_id
+		}
+	};
+	
+	fetch('https://us-central1-bangwo-d7640.cloudfunctions.net/advice-getAdviceByElderly', {
+		method: 'POST', // or 'PUT'
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(data),
+	})
+	.then( response => response.json())
+	.then(data => {
+		console.log('Success:', data);
+		//console.log(JSON.stringify(data));
+		formatAdvice(data);
+	})
+	.catch((error) => {
+		console.error('Error:', error);
+	});
+	
+	/*
 	var advice_array = [];
 	
 	//Currently returns place holder advice from volunteers
@@ -62,6 +90,33 @@ function retrieveVolunteerAdvice() {
 	advice_array.push(["2 February 2020", "Watch out for the bed bugs..."]);
 	
 	return advice_array;
+	*/
+	
+}
+
+function getAllAdvice(task_id) {
+	const data = {
+		"data": {
+			"taskId": task_id
+		}
+	};
+	
+	fetch('https://us-central1-bangwo-d7640.cloudfunctions.net/tasks-getTaskDetails', {
+		method: 'POST', // or 'PUT'
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(data),
+	})
+	.then( response => response.json())
+	.then(data => {
+		console.log('Success:', data);
+		//console.log(JSON.stringify(data));
+		displayAdvice(data.result.elderlyId);
+	})
+	.catch((error) => {
+		console.error('Error:', error);
+	});
 }
 
 function userArrived() {
