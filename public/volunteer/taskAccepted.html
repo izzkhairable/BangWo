@@ -119,91 +119,23 @@
 	</style>
 </head>
 
-<body class="">
+<body class="" onload='getLocation("directions");'>
 	<div class="modal fade" id="adviceModal" tabindex="-1" aria-labelledby="adviceModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-body">
 					<div class="card border border-dark border-2 m-2 mt-4 bg-lightpurple">
+						
 						<div class="card-body">
 							<p class="card-text">
 								by *********na . 12 March, 2020
 							</p>
-							<h5 class="card-title">
-								Watch for bed begs
+							<h5 id=" hi" class="card-title">
+								Watch for bed bugs
 							</h5>
 						</div>
 					</div>
-					<div class="card border border-dark border-2 m-2 mt-4 bg-lightorange">
-						<div class="card-body">
-							<p class="card-text">
-								by *********na . 12 March, 2020
-							</p>
-							<h5 class="card-title">
-								Watch for bed begs
-							</h5>
-						</div>
-					</div>
-					<div class="card border border-dark border-2 m-2 mt-4 bg-lightgreen">
-						<div class="card-body">
-							<p class="card-text">
-								by *********na . 12 March, 2020
-							</p>
-							<h5 class="card-title">
-								Watch for bed begs
-							</h5>
-						</div>
-					</div>
-					<div class="card border border-dark border-2 m-2 mt-4">
-						<div class="card-body">
-							<p class="card-text">
-								by *********na . 12 March, 2020
-							</p>
-							<h5 class="card-title">
-								Watch for bed begs
-							</h5>
-						</div>
-					</div>
-					<div class="card border border-dark border-2 m-2 mt-4">
-						<div class="card-body">
-							<p class="card-text">
-								by *********na . 12 March, 2020
-							</p>
-							<h5 class="card-title">
-								Watch for bed begs
-							</h5>
-						</div>
-					</div>
-					<div class="card border border-dark border-2 m-2 mt-4">
-						<div class="card-body">
-							<p class="card-text">
-								by *********na . 12 March, 2020
-							</p>
-							<h5 class="card-title">
-								Watch for bed begs
-							</h5>
-						</div>
-					</div>
-					<div class="card border border-dark border-2 m-2 mt-4">
-						<div class="card-body">
-							<p class="card-text">
-								by *********na . 12 March, 2020
-							</p>
-							<h5 class="card-title">
-								Watch for bed begs
-							</h5>
-						</div>
-					</div>
-					<div class="card border border-dark border-2 m-2 mt-4">
-						<div class="card-body">
-							<p class="card-text">
-								by *********na . 12 March, 2020
-							</p>
-							<h5 class="card-title">
-								Watch for bed begs
-							</h5>
-						</div>
-					</div>
+							
 				</div>
 			</div>
 		</div>
@@ -235,7 +167,7 @@
 					<!-- Volunteer is __ away code to be inserted here-->
 					<b>You are <span id="volunteerTimeAway">5</span> minutes away</b>
 				</div>
-				<iframe id="iframeEl" height="100%" loading="lazy" allowfullscreen src="">
+				<iframe id="map-display" height="100%" loading="lazy" allowfullscreen src="">
 				</iframe>
 			</div>
 		</div>
@@ -250,7 +182,7 @@
 				</a>
 			</div>
 			<div id="footer-text" class="my-3">
-				<a href="#" class="text-white" data-bs-toggle="modal" data-bs-target="#adviceModal">Advice from Past Volunteers</a>
+				<a href="#" class="text-white" data-bs-toggle="modal" data-bs-target="#adviceModal" >Advice from Past Volunteers</a>
 			</div>
 		</footer>
 	</div>
@@ -267,6 +199,10 @@
 	<script src="../assets/js/bootstrap.bundle.min.js"></script>
 	<script src="./javascript/footer.js"></script>
 	<script src="./javascript/statusWaiting.js"></script>
+	
+	<script src="javascript/task-details.js"></script>
+	<script src="../map-javascript/map.js"></script>
+	
 </body>
 
 </html>

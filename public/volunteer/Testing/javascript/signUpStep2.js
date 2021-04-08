@@ -57,12 +57,11 @@ function uploadFile(file) {
         () => {
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
                let uploadResult= document.getElementById('uploadResult');
-               uploadResult.innerHTML=uploadResult.innerHTML+'<b>Your profile pic have been uploaded to the URL below:</b><br>';
                uploadResult.innerHTML= uploadResult.innerHTML+ downloadURL;
-                if (document.getElementById('usernameInput').value !== '' ||document.getElementById('username').value !== null) {
+
                     document.getElementById('submitBtn').disabled = false;
                     document.getElementById('homeBtn').disabled = true;
-                }
+                
             });
         }
     );

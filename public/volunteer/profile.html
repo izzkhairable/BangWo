@@ -1,195 +1,49 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>Profile Page</title>
-
-	<!-- Start of firebase stuff -->
-	<script defer src="/__/firebase/8.2.10/firebase-app.js"></script>
-	<script defer src="/__/firebase/8.2.10/firebase-auth.js"></script>
-	<script defer src="/__/firebase/8.2.10/firebase-database.js"></script>
-	<script defer src="/__/firebase/8.2.10/firebase-firestore.js"></script>
-	<script defer src="/__/firebase/8.2.10/firebase-functions.js"></script>
-	<script defer src="/__/firebase/8.2.10/firebase-storage.js"></script>
-	<script defer src="/__/firebase/8.2.10/firebase-analytics.js"></script>
-	<script defer src="/__/firebase/8.2.10/firebase-remote-config.js"></script>
-	<script defer src="/__/firebase/8.2.10/firebase-performance.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
-	<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
-	<script defer src="/__/firebase/init.js?useEmulator=true"></script>
-	<!-- End of firebase stuff -->
-
-	<link href="../assets/fontawesome/css/all.css" rel="stylesheet" />
-	<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-	<style type="text/css">
-		* {
-			font-family: 'Montserrat', sans-serif;
-		}
-		
-		.coverDiv {
-            background: rgba(0, 0, 0, .5) no-repeat;
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 999999;
-        }
-
-		.bg-orange {
-			background-color: #f2994a !important;
-		}
-		.bg-lightpurple {
-			background-color: #E9E7FC;
-		}
-		.bg-lightorange {
-			background-color: #FFE8E8;
-		}
-		.bg-lightgreen {
-			background-color: #D6FCF7;
-		}
-		.bg-blue {
-			background-color: #1947E5;
-		}
-
-		.profile {
-			height: 10vh;
-			border-radius: 50%;
-		}
-
-		.nothing {
-			height: 35px;
-		}
-
-		.card {
-			border-radius: 0.8rem;
-			overflow: clip;
-		}
-
-		.card iframe {
-			height: 40vh;
-		}
-
-		.btn {
-			border-radius: 0.8rem;
-		}
-
-		.button-group {
-			margin-top: 10vh;
-		}
-
-		.footer {
-			position: fixed;
-			bottom: 0;
-			width: 100%;
-			height: 115px;
-			line-height: 50px;
-			z-index: 100;
-		}
-
-		.back-button {
-			top: 5vh;
-			left: 10vh;
-			right: 100%;
-		}
-
-		.my-icon {
-     		text-shadow: 0 0 4px #000;
-		}
-
-		.comments {
-			top: 15vh;
-			left: auto;
-			right: auto;
-		}
-		
-		.scroll-area {
-			height:70vh;
-			width:50vh;
-		}
-		.modal-content {
-			background-color: transparent;
-			border: 0px;
-		}
-		.rounder {
-			border-radius: 0.8rem;
-		}
-		.top-sharp {
-			border-top-left-radius: 0rem;
-			border-top-right-radius: 0rem;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | BangWo</title>
 </head>
+<body>
+	
+	<div>
 
-<body class="">
-	<div class="text-center">
-		<div id="message" class="container top-sharp rounder text-center bg-blue text-white mx-0">
-			<img src="../assets/images/placeholder-profile.svg" class="profile border border-dark border-2 my-3"/>
-			<h1 class="fw-bold">Katrisa Feona</h1>
-			<div class="row my-3">
-				<div class="col">
-					12 Completed Tasks
-				</div>
-				<div class="col">
-					5 Stickers Earned
-				</div>
-			</div>
+		<div>
+			<img id="profile-picture" alt="profile-picture">
 		</div>
-		<div id="volunteerDetailsContainer" class="container mt-3">
-			<!-- Volunteer name and profile pic code to be inserted here -->
-			<div class="container mt-3">
-				<div class="row justify-content-center">
-					<div class="col text-center col-md-auto my-auto">
-						<h5 class="">Jane Smith</h5>
-						<p>67 Years Old</p>
-					</div>
-					<div class="col col-md-auto m-2">
-						
-					</div>
-				</div>
-			</div>
+
+		
+		<h1 id="name"></h1>
+		
+		<div>
+			<ul>
+				<li id="tasks-completed"></li>
+				<li id="stickers-earned"></li>
+			</ul>
 		</div>
-		<div class="text-center container">
-			<div class="card border-dark">
-				<div class="card-header text-body border-dark">
-					<!-- Volunteer is __ away code to be inserted here-->
-					<b>You are <span id="volunteerTimeAway">5</span> minutes away</b>
-				</div>
-				<iframe id="iframeEl" height="100%" loading="lazy" allowfullscreen src="">
-				</iframe>
-			</div>
+		
+		<br>
+		
+		<div>
+			<h2>Sticker Collection</h2>
+			<div id="sticker-list"></div>
 		</div>
-		<div id="taskDetailsContainer" class="container mt-3"></div>
-		<footer class="container-fluid fixed-bottom text-center">
-			<div class="row">
-				<a href="get-location.html?taskName=null" type="button" class="btn btn-lg btn-dark col mx-4">
-					Arrived &nbsp;&nbsp;<i class="fas fa-map-marker-alt"></i>
-				</a>
-				<a href="get-location.html?taskName=null" type="button" class="btn btn-lg btn-dark col mx-4">
-					Chat &nbsp;&nbsp;<i class="far fa-comment-alt"></i>
-				</a>
-			</div>
-			<div id="footer-text" class="my-3">
-				<a href="#" class="text-white" data-bs-toggle="modal" data-bs-target="#adviceModal">Advice from Past Volunteers</a>
-			</div>
-		</footer>
+		
+		<br>
+		
+		<!--
+		<div>
+			<h2>Tasks Completed</h2>
+			<div id="task-list"></div>
+		</div>
+		-->
+		
+		
 	</div>
-
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-		crossorigin="anonymous"></script>
-	<script src="../assets/js/bootstrap.bundle.min.js"></script>
-	<script src="./javascript/footer.js"></script>
-	<script src="./javascript/statusWaiting.js"></script>
+	
 </body>
+
+<script src="javascript/profile-volunteer.js"></script>
 
 </html>
