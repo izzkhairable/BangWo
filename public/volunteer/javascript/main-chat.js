@@ -140,9 +140,9 @@ function loadMessages() {
 function saveImageMessage(file) {
   // 1 - We add a message with a loading icon that will get updated with the shared image.
   firebase.firestore().collection('messages').add({
-    name: getUserName(),
+    name: elderlyName,
     imageUrl: LOADING_IMAGE_URL,
-    profilePicUrl: getProfilePicUrl(),
+    profilePicUrl: elderlyProfilePicUrl,
     timestamp: firebase.firestore.FieldValue.serverTimestamp()
   }).then(function(messageRef) {
     // 2 - Upload the image to Cloud Storage.
