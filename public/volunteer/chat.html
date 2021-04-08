@@ -18,7 +18,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="Learn how to use the Firebase platform on the Web">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Friendly Chat</title>
+  <title>Bangwo Volunteer Chat</title>
 
   <!-- Disable tap highlight on IE -->
   <meta name="msapplication-tap-highlight" content="no">
@@ -54,12 +54,104 @@
   <!-- TODO: Enable First Input Delay polyfill library. -->
   <script
     type="text/javascript">!function (n, e) { var t, o, i, c = [], f = { passive: !0, capture: !0 }, r = new Date, a = "pointerup", u = "pointercancel"; function p(n, c) { t || (t = c, o = n, i = new Date, w(e), s()) } function s() { o >= 0 && o < i - r && (c.forEach(function (n) { n(o, t) }), c = []) } function l(t) { if (t.cancelable) { var o = (t.timeStamp > 1e12 ? new Date : performance.now()) - t.timeStamp; "pointerdown" == t.type ? function (t, o) { function i() { p(t, o), r() } function c() { r() } function r() { e(a, i, f), e(u, c, f) } n(a, i, f), n(u, c, f) }(o, t) : p(o, t) } } function w(n) { ["click", "mousedown", "keydown", "touchstart", "pointerdown"].forEach(function (e) { n(e, l, f) }) } w(n), self.perfMetrics = self.perfMetrics || {}, self.perfMetrics.onFirstInputDelay = function (n) { c.push(n), s() } }(addEventListener, removeEventListener);</script>
+  <!-- Start of firebase stuff -->
+	<script defer src="/__/firebase/8.2.10/firebase-app.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-auth.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-database.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-firestore.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-functions.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-storage.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-analytics.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-remote-config.js"></script>
+	<script defer src="/__/firebase/8.2.10/firebase-performance.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
+	<script defer src="/__/firebase/init.js?useEmulator=true"></script>
+	<!-- End of firebase stuff -->
+
+	<link href="../assets/fontawesome/css/all.css" rel="stylesheet" />
+	<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+	<style type="text/css">
+		* {
+			font-family: 'Montserrat', sans-serif;
+		}
+		.bg-orange {
+			background-color: #f2994a !important;
+		}
+
+		.profile {
+			width: 55px;
+			height: 55px;
+			border-radius: 50%;
+		}
+
+		.card {
+			border-radius: 0.8rem;
+			overflow: clip;
+		}
+
+		.card iframe {
+			height: 30vh;
+		}
+
+		.btn {
+			border-radius: 0.8rem;
+		}
+
+		.button-group {
+			margin-top: 10vh;
+		}
+
+		.footer {
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+			height: 115px;
+			line-height: 50px;
+		}
+
+	</style>
 </head>
 
 <body>
-  <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <div class="pt-4 border-bottom border-2 border-dark sticky-top bg-white">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <a onclick="goBackToAccepted()">
+          <i class="fas fa-2x fa-chevron-circle-left" style="color: black"></i>
+        </a>
+        <img src="../assets/images/logo.svg" />
+        <div></div>
+      </div>
+      <div class="text-center my-3" id="user-name"></div>
+      <div hidden id="user-pic"></div>
+    </div>
+  </div>
+  <div id="messages-card" class="container">
+    <div class="">
+      <div id="messages"></div>
+      <form id="message-form" action="#">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="message" autocomplete="off">
+          <label class="mdl-textfield__label" for="message">Message...</label>
+        </div>
+        <button id="submit" disabled type="submit"
+          class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+          Send
+        </button>
+      </form>
+      <form id="image-form" action="#">
+        <input id="mediaCapture" type="file" accept="image/*" capture="camera">
+        <button id="submitImage" title="Add an image"
+          class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
+          <i class="material-icons">image</i>
+        </button>
+      </form>
+    </div>
+  </div>
+  <!-- <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
-    <!-- Header section containing logo -->
     <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
       <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
         <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
@@ -76,7 +168,6 @@
     <main class="mdl-layout__content mdl-color--grey-100">
       <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
 
-        <!-- Messages container -->
         <div id="messages-card"
           class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
           <div class="mdl-card__supporting-text mdl-color-text--grey-600">
@@ -109,7 +200,7 @@
 
       </div>
     </main>
-  </div>
+  </div> -->
 
   <!-- Import and configure the Firebase SDK -->
   <!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
@@ -124,6 +215,19 @@
   <!-- <script src="/__/firebase/init.js"></script> -->
   <script src="/__/firebase/init.js?useEmulator=true"></script>
   <script src="./javascript/main-chat.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+  crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  crossorigin="anonymous"></script>
+  <script src="../assets/js/bootstrap.bundle.min.js"></script>
+  <script src="./javascript/footer.js"></script>
+  <script src="./javascript/statusInProgress.js"></script>
 </body>
 
 </html>
