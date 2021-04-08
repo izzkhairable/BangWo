@@ -115,39 +115,48 @@
   </head>
 
 <body>
-  <div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center">
-      <a onclick="goBackToAccepted()">
-        <i class="fas fa-2x fa-chevron-circle-left" style="color: black"></i>
-      </a>
-      <img src="../assets/images/logo.svg" />
-      <div></div>
-    </div>
-    <div class="text-center my-2" id="user-name"></div>
-  </div>
-  
-  <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
-
-    <!-- Header section containing logo -->
-    <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
-      <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
-        <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-          <h3><i class="material-icons">chat_bubble_outline</i> Bang Wo Chat</h3>
-        </div>
-        <div id="user-container">
-          <button class="button" onclick="goBackToAccepted()">Close Chat</button>
-          <div hidden id="user-pic"></div>
-          <div id="user-name"></div>
-        </div>
+  <div class="pt-4 border-bottom border-2 border-dark sticky-top bg-white">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <a onclick="goBackToAccepted()">
+          <i class="fas fa-2x fa-chevron-circle-left" style="color: black"></i>
+        </a>
+        <img src="../assets/images/logo.svg" />
+        <div></div>
       </div>
-    </header>
+      <div class="text-center my-3" id="user-name"></div>
+      <div hidden id="user-pic"></div>
+    </div>
+  </div>
+  <div id="messages-card" class="container">
+    <div class="">
+      <div id="messages"></div>
+      <form id="message-form" action="#">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="message" autocomplete="off">
+          <label class="mdl-textfield__label" for="message">Message...</label>
+        </div>
+        <button id="submit" disabled type="submit"
+          class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+          Send
+        </button>
+      </form>
+      <form id="image-form" action="#">
+        <input id="mediaCapture" type="file" accept="image/*" capture="camera">
+        <button id="submitImage" title="Add an image"
+          class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
+          <i class="material-icons">image</i>
+        </button>
+      </form>
+    </div>
+  </div>
+  <!-- <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
     <main class="mdl-layout__content mdl-color--grey-100">
-      <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
+      <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid"> -->
 
         <!-- Messages container -->
-        <div id="messages-card"
-          class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
+        <!-- <div id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
           <div class="mdl-card__supporting-text mdl-color-text--grey-600">
             <div id="messages">
             </div>
@@ -169,16 +178,16 @@
               </button>
             </form>
           </div>
-        </div>
+        </div> -->
 
         <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
           <div class="mdl-snackbar__text"></div>
           <button class="mdl-snackbar__action" type="button"></button>
         </div>
 
-      </div>
+      <!-- </div>
     </main>
-  </div>
+  </div> -->
 
   <!-- Import and configure the Firebase SDK -->
   <!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
