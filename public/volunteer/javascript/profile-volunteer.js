@@ -1,15 +1,7 @@
 //var user = getUserSession();
 var user_id = "UEus7Fjf00Q9C4vFUwBtcnVznjp2";
-displayUserDetails(user_id);
-
-/*
-document.title = user_details.name + "'s Profile | BangWo";
-document.getElementById("name").innerHTML = user_details.name;
-document.getElementById("tasks-completed").innerHTML = "Tasks completed: " + user_details.tasksCompleted;
-document.getElementById("stickers-earned").innerHTML = "Stickers earned: " + user_details.stickersEarned;
-displayUserStickersEarned(sticker_list);
-displayUserTasksCompleted(task_list);
-*/
+getUserDetails(user_id);
+getUserTasksNo(user_id);
 
 /*
 function getUserSession() {
@@ -25,7 +17,7 @@ function getUserSession() {
 }
 */
 
-function displayUserDetails(user_id) {
+function getUserDetails(user_id) {
 	const data = {
 		"data": {
 			"volunteerId": user_id
@@ -52,7 +44,7 @@ function displayUserDetails(user_id) {
 
 function displayVolunteerProfile(profile_info) {
 	let name;
-	let tasks_completed = 0;
+	let stickers_table = "";
 	let stickers_earned = 0;
 	let picture_url = "";
 	
@@ -66,30 +58,57 @@ function displayVolunteerProfile(profile_info) {
 	} 
 	if (profile_info.stickers) {
 		//Displays all stickers, counts total
+		stickers_table += "<table><tr>";
+		for (const sticker_link in profile_info) {
+			stickers_earned += 1;
+			//console.log(stickers_earned);
+			//console.log(stickers_table);
+			if (stickers_earned != 1 && (stickers_earned - 1) % 3 == 0) {
+				stickers_table += "</tr>";
+				stickers_table += "<td><img href='" + sticker_link + "'></td>";
+			} else {
+				stickers_table += "<td><img href='" + sticker_link + "'></td>";
+			}
+		}
+		stickers_table += "</table>";
+		document.getElementById("sticker-list").innerHTML = stickers_table;
+		console.log(stickers_table);
 	} else {
 		;document.getElementById("sticker-list").innerHTML = "<p>No stickers collected yet</p>";
 	}
 	
 	document.title = name + "'s Profile";
 	document.getElementById("name").innerHTML = name;
-	document.getElementById("tasks-completed").innerHTML = "Tasks completed: " + tasks_completed;
 	document.getElementById("stickers-earned").innerHTML = "Stickers earned: " + stickers_earned;
 	
 }
 
-function retrieveStickerList() {
-	var sticker_list = [];
+function getUserTasksNo(user_id) {
+	const data = {
+		"data": {
+			"volunteerId": user_id
+		}
+	};
 	
-	return sticker_list;
+	fetch('https://us-central1-bangwo-d7640.cloudfunctions.net/volunteerProfile-getNumCompletedTasksByVolunteer', {
+		method: 'POST', // or 'PUT'
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(data),
+	})
+	.then( response => response.json())
+	.then(data => {
+		console.log('Success:', data);
+		//console.log(JSON.stringify(data.result));
+		document.getElementById("tasks-completed").innerHTML = "Tasks completed: " + JSON.stringify(data.result);
+	})
+	.catch((error) => {
+		console.error('Error:', error);
+	});
 }
 
-function retrieveTaskList() {
-	var task_list = [];
-	
-	return task_list;
-}
-
-function displayUserStickersEarned(sticker_list) {
+function displayUserStickers(sticker_list) {
 	if (sticker_list.length==0) {
 		//Display that user has no stickers
 		document.getElementById("sticker-list").innerHTML = "<p>No stickers collected yet</p>";
