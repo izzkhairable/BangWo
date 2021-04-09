@@ -276,7 +276,7 @@ exports.acceptTask = functions.https.onCall(async (data) => {
         if (doc.exists) {
           const accepting = await task
               .update({
-                status: "accepted",
+                taskStatus: "accepted",
                 volunteerId: volunteerId,
                 startTime: new Date().getHours().toString() + ":" + new Date().getMinutes().toString(),
               })

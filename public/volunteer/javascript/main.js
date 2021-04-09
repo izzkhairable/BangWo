@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 async function getAvailableTasks() {
+    console.log("Get Av")
     const getAvailableTasksFB = firebase
         .functions()
         .httpsCallable('tasks-getAvailableTasks');
@@ -43,7 +44,9 @@ async function getAvailableTasks() {
             notifyMe()
             isCalled=true
         }
-        window.location.replace('./main-got-task.html');
+        const taskId=resultData.data.taskId
+        // consolel.log(taskId)
+        window.location.replace('./main-got-task.html?taskId='+taskId);
     }
     console.log(resultData)
     return resultData;

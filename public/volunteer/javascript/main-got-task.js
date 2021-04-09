@@ -1,4 +1,5 @@
 let isCalled=false;
+let volunteerId;
 // request permission on page load
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -8,9 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
 				alert("You are not logged in. Redirecting to sign up page....")
         }
 		getVolunteerProfile(user.uid).then((msg) => {
-            console.log(msg.name)
+            // console.log(msg.name)
             var name=msg.name;
 			var welcome_message = 'Welcome, ' + name;
+            volunteerId=user.uid
+            document.getElementById('volunteerId').innerText=volunteerId
 			var profilePicUrl=msg.profilePicUrl;
             if(name==null || profilePicUrl==null || !name || !profilePicUrl){
                 window.location.replace('./Testing/loginORsignUpStep1.html');
@@ -41,6 +44,7 @@ async function getAvailableTasks() {
     document.getElementById("taskDescription").innerText=msg.taskDescription
     document.getElementById("img1").remove();
     document.getElementById("img2").remove();
+    document.getElementById("taskId").innerHTML=msg.taskId
 
     const later=`<div class="card bg-creme border-dark image rounder w-25 m-2 p-2">
     <img class="taskImages" src="../assets/images/placeholder.svg" class="p-2" />
@@ -69,4 +73,27 @@ await getVolunteerProfileFB({
     console.log(msg)
 });
 return msg;
+}
+
+
+async function goAcceptTask(){
+    alert("Hello")
+    const taskId=document.getElementById("taskId").innerText
+    const volunteerId=document.getElementById('volunteerId').innerText
+    console.log("volunteer id",volunteerId)
+    console.log("task id",taskId)
+
+    const acceptTaskFB = firebase
+    .functions()
+    .httpsCallable('tasks-acceptTask');
+    let msg = '';
+    await acceptTaskFB({
+        volunteerId: volunteerId,
+        taskId:taskId
+    }).then((result) => {
+        msg = result.data;
+        console.log(msg)
+    });
+    window.location.replace('taskAccepted.html?taskId='+taskId)
+    return msg;
 }
