@@ -125,7 +125,7 @@
 	</style>
 </head>
 
-<body class="" onload='getLocation("directions");'>
+<body>
 	<div class="modal fade" id="adviceModal" tabindex="-1" aria-labelledby="adviceModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
 			<div class="modal-content">
@@ -158,12 +158,11 @@
 			<div class="container mt-3">
 				<div class="row justify-content-center">
 					<div class="col text-center col-md-auto my-auto">
-						<h5 class="">Jane Smith</h5>
-						<p>67 Years Old</p>
+						<h5 id="elderlyName">Jane Smith</h5>
+						<p id="elderlyAge">67 Years Old</p>
 					</div>
 					<div class="col col-md-auto m-2">
-						<img src="../assets/images/placeholder-profile.svg"
-							class="profile border border-dark border-2" />
+						<img id="elderlyProfilePic" class="profile border border-dark border-2" />
 					</div>
 				</div>
 			</div>
@@ -178,13 +177,13 @@
 				</iframe>
 			</div>
 		</div>
-		<div id="taskDetailsContainer" class="container mt-3"></div>
-		<footer class="container-fluid fixed-bottom text-center">
+		<div id="taskDetailsContainer" class="container mt-3 mb-5"></div>
+		<footer class="container-fluid text-center">
 			<div class="row">
 				<a href="get-location.html?taskName=null" type="button" class="btn btn-lg btn-dark col mx-4">
 					Arrived &nbsp;&nbsp;<i class="fas fa-map-marker-alt"></i>
 				</a>
-				<a href="chat.html" type="button" class="btn btn-lg btn-dark col mx-4">
+				<a id="chatBtn" class="btn btn-lg btn-dark col mx-4">
 					Chat &nbsp;&nbsp;<i class="far fa-comment-alt"></i>
 				</a>
 			</div>
@@ -205,10 +204,6 @@
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
 	<script src="../assets/js/bootstrap.bundle.min.js"></script>
-	<script src="./javascript/footer.js"></script>
-	<script src="./javascript/statusWaiting.js"></script>
-
-	<!-- <script src="javascript/task-details.js"></script> -->
 	<script src="../map-javascript/map.js"></script>
 
 </body>

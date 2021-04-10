@@ -304,8 +304,8 @@ function createAndInsertMessage(id, timestamp) {
 function goBackToAccepted(){
   const urlStr=window.location.href;
   const url=new URL(urlStr);
-  const taskId=url.searchParams.get("taskId");
-  window.location.replace('./statusAccepted.html?taskId='+taskId); 
+  const taskId=url.searchParams.get("taskid");
+  window.location.replace('./taskAccepted.html?taskId='+taskId); 
 }
 
 // Displays a Message in the UI.

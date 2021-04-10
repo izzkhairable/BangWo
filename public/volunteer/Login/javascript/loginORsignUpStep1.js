@@ -17,7 +17,7 @@ const step3btn=`
 const addTaskBtn=`
 <a href="../main.html">
 <button class="btn btn-lg btn-primary">
-   Add New Task
+   Find New Task
 </button>
 </a>
 `

@@ -244,13 +244,7 @@ exports.getElderlyProfile = functions.https.onCall(async (data) => {
       .then((doc) => {
         if (doc.exists) {
           const result = doc.data();
-          return {
-            name: result.name,
-            phoneNo: result.phoneNo,
-            profilePicUrl: result.profilePicUrl,
-            address: result.address,
-            unitNo: result.unitNo,
-          };
+          return result;
         } else {
           console.log("Elderly does not exist");
         }
