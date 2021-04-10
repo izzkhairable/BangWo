@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     firebase.auth().onAuthStateChanged(function (user) {
         if (!user) {
             alert("You are not logged in. Redirecting to sign up page....")
-            window.location.replace('./Testing/loginORsignUpStep1.html');
+            window.location.replace('./Login/loginORsignUpStep1.html');
             return
         }else{
             getElderlyProfile(user.uid).then(async (msg) => {
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 var unitNo=msg.unitNo;
                 if(name==null || profilePicUrl==null || address==null || !name || !profilePicUrl || !address){
                     alert("Your sign up is not completed, Pls complete it. Redirecting to sign up page....")
-                    window.location.replace('./Testing/loginORsignUpStep1.html');
+                    window.location.replace('./Login/loginORsignUpStep1.html');
                     return
                 }
                 const urlStr=window.location.href;

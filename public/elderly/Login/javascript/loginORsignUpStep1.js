@@ -84,8 +84,8 @@ document.addEventListener('DOMContentLoaded', function () {
             if (user) {
                 checkAccountType(user.uid).then((result)=>{
                     if(result=='volunteer'){
-                        alert("You have an existing volunteer account. Redirecting to elderly page....")
-                        window.location.replace('../volunteer/loginORsignUpStep1.html');
+                        alert("You have an existing volunteer account. Redirecting to volunteer page....")
+                        window.location.replace('../../volunteer/Login/loginORsignUpStep1.html');
                         return
                 
                     }else{

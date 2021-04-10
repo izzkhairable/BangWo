@@ -1,3 +1,4 @@
+let imageCount=0
 function getFileDetails() {
     let file = document.getElementById('fileInput');
     let txt=''
@@ -5,6 +6,10 @@ function getFileDetails() {
         if (file.files.length == 0) {
             txt = 'Select at least one image';
         } else {
+            document.getElementById('step2Para').innerHTML=`
+            <div class="spinner-border" role="status">
+                <span class=""></span>
+            </div>`
             uploadFile(file.files[0]);
         }
     } else {
@@ -55,21 +60,25 @@ function uploadFile(file) {
             }
         },
         () => {
-            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-               let uploadResult= document.getElementById('uploadResult');
-               uploadResult.innerHTML= uploadResult.innerHTML+ downloadURL;
-
-                    document.getElementById('submitBtn').disabled = false;
-                    document.getElementById('homeBtn').disabled = true;
-                
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {        
+                imageCount+=1
+                const mainCarousel=document.getElementById("uploadedImagesDiv")
+                document.getElementById('step2Para').innerHTML=``
+             
+                if(imageCount==1){
+                 mainCarousel.innerHTML=`
+                 <div class="img-wrap w-25 mx-3 mb-2" id="imgDiv${imageCount}">
+                 <button id="clear" class="btn btn-secondary btn-sm" onclick="deleteImage('imgDiv${imageCount}')">X</button>
+                 <img src="${downloadURL}" class="w-100 photosUrl" alt="...">
+                 </div>
+                 `
+                }
             });
         }
     );
 }
 
 async function submitProfile() {
-    document.getElementById('submitBtn').disabled = true;
-
     await firebase.auth().onAuthStateChanged(async function (user) {
         if (user) {
             document.getElementById('resultsPara').innerHTML =
@@ -79,34 +88,60 @@ async function submitProfile() {
     });
 }
 
+function deleteImage(el) {
+    document.getElementById(el).remove()
+    //document.getElementById(el).innerHTML=``
+    imageCount-=1;
+    if(imageCount==0){
+        document.getElementById("uploadedImagesDiv").innerHTML=`
+        <div class="w-25">
+            <div class="card border-dark image rounder">
+                <label for="fileInput" id="inputGroupFileAddon04">
+                    <div class="card-img-overlay text-center">
+                        <i class="fas fa-plus card-text center"></i>
+                    </div>
+                </label>	
+            </div>
+        </div>
+        <div class="col d-flex">
+            <div class="">
+            </div>
+            <div class="">
+            </div>
+            <div class="">
+            </div>
+        </div>
+        `
+       }
+  }
+
 async function pushProfile(user) {
     const addNewUserFinalStep = firebase
         .functions()
         .httpsCallable('signUpVolunteer-signUpStep2');
+    const photoUrl=document.getElementsByClassName('photosUrl')[0].src;
 
-    const profilePicUrl = document.getElementById('uploadResult').innerText;
     const name = document.getElementById('usernameInput').value;
     const msg = await addNewUserFinalStep({
         uid: user.uid,
         name: name,
-        profilePicUrl: profilePicUrl,
+        profilePicUrl: photoUrl,
     }).then((result) => {
         return result.data;
     });
-    document.getElementById('resultsPara').innerHTML ='This is your updated profile<br>' + JSON.stringify(msg);
-    document.getElementById('submitBtn').disabled = true;
-    document.getElementById('homeBtn').disabled = false;
+    goAddress();
     return msg;
 }
 
-function goHome() {
+function goAddress() {
     window.location.replace('./loginORsignUpStep1.html');
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('submitBtn').disabled = true;
-    document.getElementById('homeBtn').disabled = true;
+async function finishUp(){
+    await submitProfile()
+}
 
+document.addEventListener('DOMContentLoaded', function () {
     firebase.auth().onAuthStateChanged(function (user) {
         if (!user) {
             window.location.replace('./loginORsignUpStep1.html');

@@ -18,20 +18,31 @@
 	<script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
 	<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
 	<script defer src="/__/firebase/init.js?useEmulator=true"></script>
+	<link href="../../assets/fontawesome/css/all.css" rel="stylesheet" />
+	<link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
 <body>
-	<div id="message">
-		<h2>Welcome Elderly</h2>
-		<h1>You at home ah?</h1>
+
+	<div id="message" class="container text-center">
+		<img src="../../assets/images/logo.svg" />
+		<h2>Welcome Volunteer</h2>
+		<p id="resultsPara">
+			Please Log In or Sign Up With You Phone Number
+		</p>
+		<div id="mainContainer"></div>
 	</div>
-	<button>
-		<a id="aAtHome"">Yes Lah</a>
-		</button>
-		<button>
-			<a id=" aNotHome">No Ley</a>
-	</button>
-	<script src="./javascript/createNewTaskStep1.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+	<script src="../../assets/js/bootstrap.bundle.min.js"></script>
+	<script src="./javascript/loginORsignUpStep1.js"></script>
 </body>
 
 </html>

@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
      firebase.auth().onAuthStateChanged(function (user) {
         if (!user) {
-                window.location.replace('./Testing/loginORsignUpStep1.html');
+                window.location.replace('./Login/loginORsignUpStep1.html');
 				alert("You are not logged in. Redirecting to sign up page....")
         }
 		getVolunteerProfile(user.uid).then((msg) => {
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('volunteerId').innerText=volunteerId
 			var profilePicUrl=msg.profilePicUrl;
             if(name==null || profilePicUrl==null || !name || !profilePicUrl){
-                window.location.replace('./Testing/loginORsignUpStep1.html');
+                window.location.replace('./Login/loginORsignUpStep1.html');
 				alert("Your sign up is not completed, Pls complete it. Redirecting to sign up page....")
             }
 			document.getElementById("welcome").innerHTML = welcome_message;
