@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 async function getAvailableTasks() {
-    console.log("Get Av")
     const getAvailableTasksFB = firebase
         .functions()
         .httpsCallable('tasks-getAvailableTasks');
@@ -40,10 +39,10 @@ async function getAvailableTasks() {
     })
     console.log(resultData.data.length)
     if(resultData.data.length>0){
-        if(isCalled===false){
-            notifyMe()
-            isCalled=true
-        }
+        // if(isCalled===false){
+        //     notifyMe()
+        //     isCalled=true
+        // }
         const taskId=resultData.data.taskId
         // consolel.log(taskId)
         window.location.replace('./main-got-task.html?taskId='+taskId);
@@ -53,21 +52,21 @@ async function getAvailableTasks() {
 }
    
    
-function notifyMe() {
-    if (!Notification) {
-        alert('Desktop notifications not available in your browser. Try Chromium.');
-        return;
-       }
-       if (Notification.permission !== 'granted')
-        Notification.requestPermission();
-    var notification = new Notification('Notification title', {
-    icon: '../../assets/images/logo.svg',
-    body: 'Hey an elderly is in need of your help!',
-    });
-    notification.onclick = function() {
-    window.open('./main-got-task.html');
-    };
-}
+// function notifyMe() {
+//     if (!Notification) {
+//         alert('Desktop notifications not available in your browser. Try Chromium.');
+//         return;
+//        }
+//        if (Notification.permission !== 'granted')
+//         Notification.requestPermission();
+//     var notification = new Notification('Notification title', {
+//     icon: '../../assets/images/logo.svg',
+//     body: 'Hey an elderly is in need of your help!',
+//     });
+//     notification.onclick = function() {
+//     window.open('./main-got-task.html');
+//     };
+// }
 
 async function getVolunteerProfile(uid) {
 const getVolunteerProfileFB = firebase
