@@ -13,12 +13,7 @@ exports.getVolunteerProfile = functions.https.onCall(async (data) => {
       .then((doc) => {
         if (doc.exists) {
           const result = doc.data();
-          return {
-            name: result.name,
-            volunteerId: result.volunteerId,
-            stickers: result.stickers,
-            profilePicUrl: result.profilePicUrl,
-          };
+          return result;
         } else {
           console.log("Volunteer does not exist");
         }

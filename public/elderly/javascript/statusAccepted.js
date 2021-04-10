@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
 
     
 
-    firebase.auth().onAuthStateChanged(function (user) {
+   await firebase.auth().onAuthStateChanged( async function (user) {
         if (!user) {
                 window.location.replace('./loginORsignUpStep1.html'); 
                 return
@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const urlStr=window.location.href;
         const url=new URL(urlStr);
         const taskId=url.searchParams.get("taskId");
-        getTaskDetails(taskId);
+        const data=await getTaskDetails(taskId)
+       await getVolunteerDetails(data)
     });
 
     setInterval(async function() {
@@ -42,11 +43,8 @@ async function getTaskDetails(taskId) {
     }).then((result) => {
         console.log(result)
         const taskDetailsContainer=document.getElementById("taskDetailsContainer")
-        const resultData=result.data
-        // for(label in resultData){
-        // //     taskDetailsContainer.innerHTML=taskDetailsContainer.innerHTML+`<p>${label}: ${resultData[label]}</p>`    
-        // console.log(label);
-        // }
+         resultData=result.data
+
         taskDetailsContainer.innerHTML=`
         <h4 class="mb-3">Task: ${resultData.taskName}</h4>
         <p><b>Comments:</b> ${resultData.taskDescription}</p>
@@ -57,9 +55,24 @@ async function getTaskDetails(taskId) {
         const url=`https://www.google.com/maps/embed/v1/place?key=AIzaSyBUcwKDHwnPlhLlJBZCNulc-abORf42qdA&q=${address.split(" ").join("+")},Singapore`
         console.log(url);
         iframeEl.src=url;
+        resultData=result
     });
     console.log(resultData)
     return resultData;
+}
+
+async function getVolunteerDetails(data){
+    const getVolunteerDetailsFB = firebase
+    .functions()
+    .httpsCallable('volunteerProfile-getVolunteerProfile');
+    getVolunteerDetailsFB({
+        volunteerId: data.data.volunteerId
+    }).then((data)=>{
+        console.log("Volunteer data", data)
+        document.getElementById('volunteerName').innerText=data.data.name
+        document.getElementById('volunteerOccupation').innerText=data.data.occupation
+        document.getElementById('volunteerProfilePic').src=data.data.profilePicUrl
+    })
 }
 
 async function getTaskStatus(taskId) {
@@ -74,3 +87,4 @@ async function getTaskStatus(taskId) {
     });
     return resultData;
 }
+
