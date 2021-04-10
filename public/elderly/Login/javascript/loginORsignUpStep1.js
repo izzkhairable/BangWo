@@ -1,14 +1,14 @@
-const signOutBtn=`<button class="btn btn-dark" id="signOutBtn" onclick="signMeOut()">Sign Out</button>`
+const signOutBtn=`<button class="btn btn-dark btn-lg" id="signOutBtn" onclick="signMeOut()">Sign Out</button>`
 
 const step2btn=`      <a href="./signUpStep2.html">
-                        <button class="btn btn-dark" id="secondStepBtn" >
+                        <button class="btn btn-dark btn-lg" id="secondStepBtn" >
                             Add Name & Profile Picture
                         </button>
                         </a>`
 
 const step3btn=`
                     <a  href="./signUpStep3.html">
-                        <button class="btn btn-dark" id="ThirdStepBtn" >
+                        <button class="btn btn-dark btn-lg" id="ThirdStepBtn" >
                         Add Home Address
                         </button>
                     </a>
@@ -16,7 +16,7 @@ const step3btn=`
 
 const addTaskBtn=`
 <a href="../main-senior.html">
-<button class="btn btn-primary">
+<button class="btn btn-primary btn-lg">
    Add New Task
 </button>
 </a>
