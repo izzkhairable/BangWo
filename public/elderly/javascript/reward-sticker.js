@@ -45,57 +45,37 @@ async function getElderlyProfile(uid) {
 }
 
 function stickerSelected(stickerName){
-    let stickerId= stickerName.split (" ").join("-")
-    const stickerDiv=document.getElementById(stickerId)
-    const stickersDiv=document.getElementsByClassName("sticker")
 
-    for(sticker of stickersDiv){
-        if(sticker.classList.contains("border-danger")){
-            sticker.classList.remove("border-danger")
-            sticker.classList.remove("border-5")
-            sticker.classList.add("border-dark")
-        }
-    }
-
-    if(stickerDiv.classList.contains("border-danger")){
-        stickerDiv.classList.remove("border-danger")
-        stickerDiv.classList.remove("border-5")
-        stickerDiv.classList.add("border-dark")
-    }else{
-        stickerDiv.classList.remove("border-dark")
-        stickerDiv.classList.add("border-danger")
-        stickerDiv.classList.add("border-5")
-    }  
     const stickerDisplay=document.getElementById("sticker-display")
     stickerDisplay.innerHTML=stickerName
 
 }
 
 async function addSticker(){
-    const stickersDiv=document.getElementsByClassName("sticker")
-    let stickerName
-    for(sticker of stickersDiv){
-        if(sticker.classList.contains("border-danger")){
-            stickerName=sticker.id.split('-').join(' ')
-        }
-    }
-    if(stickerName==null){
+    const coverDiv=document.getElementById('coverDiv');
+    coverDiv.style.display='block';
+    const stickerName=document.getElementById('sticker-display').innerText;
+    if(stickerName=="Select Sticker"){
         const noSelectAlert= document.getElementById('no-select-alert')
         noSelectAlert.classList.remove("d-none")
         return
     }
-
     const addStickerFB= firebase
     .functions()
     .httpsCallable('stickers-addSticker');
     let msg = '';
     await addStickerFB({
-        volunteerId:"zmETkZXqo2SwqwyGXD4sG9hHUSh2",
+        volunteerId:"eWw8fBFekngLN242Ai6DbNLWLRj1",
         stickerName: stickerName
     }).then((result) => {
         msg = result.data;
         console.log(msg)
-        window.location.replace('./stickerRewarded.html');
+        const urlStr=window.location.href;
+        const url=new URL(urlStr);
+        const taskId=url.searchParams.get("taskId");
+        const coverDiv=document.getElementById('coverDiv');
+        coverDiv.style.display='none';
+        window.location.replace('./stickerRewarded.html?taskId'+taskId);
     });
     return msg;
 }
