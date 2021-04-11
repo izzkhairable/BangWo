@@ -77,7 +77,6 @@ return msg;
 
 
 async function goAcceptTask(){
-    alert("Hello")
     const taskId=document.getElementById("taskId").innerText
     const volunteerId=document.getElementById('volunteerId').innerText
     console.log("volunteer id",volunteerId)

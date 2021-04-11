@@ -26,7 +26,6 @@
 let elderlyName;
 let elderlyProfilePicUrl;
 document.addEventListener('DOMContentLoaded',async function () {
-    // console.log("hello")
     // const getElderlyProfileFB =firebase
     // .functions()
     // .httpsCallable('tasks-getElderlyProfile');

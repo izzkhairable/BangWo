@@ -81,7 +81,6 @@ async function addSticker(){
     }
     if(stickerName==null){
         const noSelectAlert= document.getElementById('no-select-alert')
-        console.log("Hello")
         noSelectAlert.classList.remove("d-none")
         return
     }
