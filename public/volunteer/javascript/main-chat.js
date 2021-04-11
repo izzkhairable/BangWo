@@ -25,7 +25,7 @@
 // Signs-out of Friendly Chat.
 let elderlyName;
 let elderlyProfilePicUrl;
-document.addEventListener('DOMContentLoaded',async function () {s
+document.addEventListener('DOMContentLoaded',async function () {
     // const getElderlyProfileFB =firebase
     // .functions()
     // .httpsCallable('tasks-getElderlyProfile');

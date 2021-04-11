@@ -23,11 +23,14 @@
 
 	<link href="../assets/fontawesome/css/all.css" rel="stylesheet" />
 	<link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+		rel="stylesheet">
 	<style type="text/css">
 		* {
 			font-family: 'Montserrat', sans-serif;
 		}
+
 		.bg-orange {
 			background-color: #f2994a !important;
 		}
@@ -78,18 +81,18 @@
 		<img src="../assets/images/logo.svg" />
 	</main>
 	<div id="message" class="container text-center">
-		<h1 class="fw-bold">Have fun helping the elderly!</h1>
+		<h1 class="fw-bold">Have fun helping out the elderly!</h1>
 	</div>
 	<div id="volunteerDetailsContainer" class="container mt-3">
 		<!-- Volunteer name and profile pic code to be inserted here -->
 		<div class="container mt-3">
 			<div class="row justify-content-center">
 				<div class="col text-center col-md-auto my-auto">
-					<h5 class="">Jane Smith</h5>
-					<p>67 Years Old</p>
+					<h5 id="elderlyName">Jane Smith</h5>
+					<p id="elderlyAge">67 Years Old</p>
 				</div>
 				<div class="col col-md-auto m-2">
-					<img src="../assets/images/placeholder-profile.svg" class="profile border border-dark border-2"/>
+					<img id="elderlyProfilePic" class="profile border border-dark border-2" />
 				</div>
 			</div>
 		</div>
@@ -98,16 +101,16 @@
 		<div class="card border-dark">
 			<div class="card-header text-body border-dark">
 				<!-- Volunteer is __ away code to be inserted here-->
-				<b>You have arrived</b>
+				<b>You have arrived!</b>
 			</div>
-			<iframe id="iframeEl" height="100%" loading="lazy" allowfullscreen src="">
+			<iframe id="map-display" height="100%" loading="lazy" allowfullscreen src="">
 			</iframe>
 		</div>
 	</div>
 	<div id="taskDetailsContainer" class="container mt-3"></div>
 	<footer class="container-fluid fixed-bottom text-center">
 		<div class="row">
-			<a href="get-location.html?taskName=null" type="button" class="btn btn-lg btn-dark col mx-4">
+			<a id="completedBtn" onclick="goCompletedTask()" type="button" class="btn btn-lg btn-dark col mx-4">
 				Task Completed &nbsp;&nbsp;<i class="far fa-check-circle"></i>
 			</a>
 		</div>
@@ -126,8 +129,7 @@
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
 	<script src="../assets/js/bootstrap.bundle.min.js"></script>
-	<script src="./javascript/footer.js"></script>
-	<script src="./javascript/statusWaiting.js"></script>
+	<script src="./javascript/taskInProgress.js"></script>
 </body>
 
 </html>

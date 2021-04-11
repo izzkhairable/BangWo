@@ -13,6 +13,18 @@ document.addEventListener('DOMContentLoaded', function () {
         getTaskDetails(taskId);
     });
 
+    setInterval(async function() {
+
+        const urlStr=window.location.href;
+        const url=new URL(urlStr);
+        const taskId=url.searchParams.get("taskId");
+        const task=await getTaskStatus(taskId)
+        console.log("Task data",task)
+        if(task.data.taskStatus!="finding"){
+            window.location.replace('./statusAccepted.html?taskId='+taskId); 
+        }
+    }, 1000);
+
 });
 
 async function getTaskDetails(taskId) {

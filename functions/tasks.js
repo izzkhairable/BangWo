@@ -307,7 +307,7 @@ exports.taskInProgress = functions.https.onCall(async (data) => {
         if (doc.exists) {
           const arriving = await task
               .update({
-                status: "inProgress",
+                taskStatus: "inProgress",
               })
               .then(() => {
                 return "Volunteer Help In Progress (Volunteer has successfully reached destination)";
@@ -332,7 +332,7 @@ exports.taskInProgress = functions.https.onCall(async (data) => {
 exports.taskCompleted = functions.https.onCall(async (data) => {
   const taskId = data.taskId;
   const task = firestore.collection("task").doc(taskId);
-  const endTime = new Date().getHours().toString() + "-" + new Date().getMinutes().toString();
+  const endTime = new Date().getHours().toString() + ":" + new Date().getMinutes().toString();
 
   const completed = await task
       .get()
@@ -343,7 +343,7 @@ exports.taskCompleted = functions.https.onCall(async (data) => {
         if (doc.exists) {
           const completing = await task
               .update({
-                status: "completed",
+                taskStatus: "completed",
                 endTime: endTime,
               })
               .then(() => {

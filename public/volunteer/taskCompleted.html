@@ -28,29 +28,29 @@
 			background-color: #f2994a !important;
 		}
 
-        .bg-creme {
-            background-color: #ffbd12 !important;
-        }
+		.bg-creme {
+			background-color: #ffbd12 !important;
+		}
 
-        .bg-green {
-            background-color: #00c6ae !important;
-        }
+		.bg-green {
+			background-color: #00c6ae !important;
+		}
 
-        .bg-pink {
-            background-color: #ff89bb !important;
-        }
+		.bg-pink {
+			background-color: #ff89bb !important;
+		}
 
-        .bg-purple {
-            background-color: #9b51e0 !important;
-        }
+		.bg-purple {
+			background-color: #9b51e0 !important;
+		}
 
-        .bg-red {
-            background-color: #F95A2C !important;
-        }
-        
-        .bg-blue {
-            background-color: #2C6BDB !important;
-        }
+		.bg-red {
+			background-color: #F95A2C !important;
+		}
+
+		.bg-blue {
+			background-color: #2C6BDB !important;
+		}
 
 		.profile {
 			width: 35px;
@@ -86,10 +86,10 @@
 		body {
 			background-color: #FFFFFF;
 		}
-		
+
 		.scroll-area {
-			height:70vh;
-			width:50vh;
+			height: 70vh;
+			width: 50vh;
 		}
 
 		.modal-content {
@@ -107,25 +107,28 @@
 					<div class="card border border-dark border-2 text-center">
 						<div class="card-body container">
 							<h5 class="card-title">
-								Congratulations! You were awarded a Sticker 
+								Congratulations! You were awarded a Sticker
 							</h5>
 							<p class="card-text">
 								This sticker is awarded by the elderly you helped
 							</p>
 							<div class="row" id="stickerReceived">
 								<!-- This is where to put the info of the sticker received -->
-								<div class="col col-xs card m-2 text-white border-dark border-2 bg-green" >
-									<img src="../assets/images/city-girl-pana.svg" class="category-image d-block card-img-top">
+								<div class="col col-xs card m-2 text-white border-dark border-2 bg-green">
+									<img src="../assets/images/gift-cuate.svg"
+										class="category-image d-block card-img-top">
 								</div>
 								<div class="sticker-name card-title">
-									<h4 class="card-text fw-bold">Steady pom pi pi</h4>
+									<h2 class="card-text fw-bold" id="stickerName">Sticker: </h2>
 								</div>
 							</div>
 							<div class="row mt-3">
-								<a href="taskAccepted.html?taskName=null" type="button" class="btn btn-lg btn-light border-dark border-2 col mx-4">
+								<a href="taskAccepted.html?taskName=null" type="button"
+									class="btn btn-lg btn-light border-dark border-2 col mx-4">
 									Check Profile
 								</a>
-								<a href="#" type="button" class="btn btn-lg btn-dark col mx-4" data-bs-dismiss="modal" aria-label="Close">
+								<a href="#" type="button" class="btn btn-lg btn-dark col mx-4" data-bs-dismiss="modal"
+									aria-label="Close">
 									Back
 								</a>
 							</div>
@@ -137,7 +140,7 @@
 	</div>
 	<main class="">
 		<div class="container text-center mt-3">
-			<img src="../assets/images/completed.svg" style="height:40vh;"/>
+			<img src="../assets/images/completed.svg" style="height:40vh;" />
 		</div>
 		<div id="message" class="container text-center mt-3">
 			<img src="../assets/images/tick.svg" />
@@ -153,7 +156,7 @@
 				</button>
 			</div>
 			<div class="d-grid gap-2 m-3">
-				<button class="btn btn-lg btn-dark btn-block" data-bs-toggle="modal" data-bs-target="#stickerModal">
+				<button class="btn btn-lg btn-dark btn-block" onclick="goToHome()">
 					Back to Home (Opens receiving of sticker for now)&nbsp;&nbsp;<i class="fas fa-home"></i>
 				</button>
 			</div>

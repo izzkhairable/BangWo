@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 		 const urlStr=window.location.href;
 		 const url=new URL(urlStr);
 		 const taskId=url.searchParams.get("taskId");
-		 document.getElementById('chatBtn').href='./chat.html?taskid='+taskId
 		 const data=await getTaskDetails(taskId)
 		 getElderlyDetails(data)
 		getLocation()
@@ -91,4 +90,28 @@ async function displayMapDirections(user_location) {
 	var api_key = "?key=" + retrieveApiKey();
 	document.getElementById("map-display").setAttribute("src", url + api_key + `&origin=${user_location.coords.latitude},${user_location.coords.longitude}` +`&destination=${address},Singapore`);	
 }
+
+
+async function goCompletedTask(){
+    console.log("In Progress Liao")
+    const urlStr=window.location.href;
+    const url=new URL(urlStr);
+    const taskId=url.searchParams.get("taskId");
+    const completedTaskFB = firebase
+    .functions()
+    .httpsCallable('tasks-taskCompleted');
+    let msg = '';
+    await completedTaskFB({
+        taskId:taskId
+    }).then((result) => {
+        msg = result.data;
+        console.log(msg)
+        const urlStr=window.location.href;
+        const url=new URL(urlStr);
+        const taskId=url.searchParams.get("taskId");
+        window.location.replace( './taskCompleted.html?taskId='+taskId)
+    });
+    return msg;
+}
+
 
