@@ -1,7 +1,11 @@
 Last Updated: 14 April 2021
+
 Team: CS460 Team 6, Singapore Management University (SMU)
+
 Members: Mohamed Izzat Khair, Joshua Tseng, Sebastin Goh, Sheffield Lok
+
 Sponsor Organisation: Woodlands Health Campus (WHC)
+
 
 # BangWo Volunteer Matching System (v1.0)
 
@@ -11,6 +15,7 @@ BangWo is the volunteer crowd-sourcing app for the elderly to find help in their
 This app is a proof-of-concept prototype built for the sponsoring organisation, WHC. This project falls under the SMU-X programme for the module CS460: Foundations of Cyber-Physical Systems. BangWo is a mobile-friendly, progressive web app built using HTML, CSS (Bootstrap), and Javascript.
 
 Special thanks to our project mentor and facilitator,  Pius Lee, for guidance in this project!
+
 
 ## Key Features
 * Account sign-up and login for elderly and volunteer users
@@ -22,10 +27,12 @@ Special thanks to our project mentor and facilitator,  Pius Lee, for guidance in
 * Fun, descriptive stickers the elderly users can give to volunteers after the successful completion of a task
 * “Help” sections for users throughout key areas of the app in case the user is unsure of how to proceed
 
+
 ## Dependencies
 * Google Maps API Key: Used for location services. A new API Key will be needed to set up and inserted into the Javascript code to enable this functionality. Refer to: [Google Maps API Documentation](https://developers.google.com/maps/documentation/javascript/get-api-key)
 * Bootstrap v4.3.1: Used for styling of the app. Download link: [Bootstrap official site](https://getbootstrap.com/docs/4.3/getting-started/download/)
 * Firebase Hosting: The app’s database and APIs were hosted on Firebase. Refer to: [Google Firebase documentation](https://firebase.google.com/docs)
+
 
 ## Future Steps
 Below is a list of features and steps for WHC to follow to ensure continuity and improvement of the BangWo app. We hope this list proves helpful for the future Programme Manager of this initiative for drafting technical requirements.
