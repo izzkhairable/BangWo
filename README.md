@@ -22,17 +22,17 @@ Special thanks to our project mentor and facilitator,  Pius Lee, for guidance in
 * “Help” sections for users throughout key areas of the app in case the user is unsure of how to proceed
 
 ## Dependencies
-* Google Maps API Key: Used for location services. A new API Key will be needed to set up and inserted into the Javascript code to enable this functionality. Refer to: Google Maps API documentation.
-* Bootstrap CSS: Used for styling of the app.
-* Firebase Hosting: The app’s database and APIs were hosted on Firebase.
+* Google Maps API Key: Used for location services. A new API Key will be needed to set up and inserted into the Javascript code to enable this functionality. Refer to: [Google Maps API Documentation](https://developers.google.com/maps/documentation/javascript/get-api-key)
+* Bootstrap v4.3.1: Used for styling of the app. Download link: [Bootstrap official site](https://getbootstrap.com/docs/4.3/getting-started/download/)
+* Firebase Hosting: The app’s database and APIs were hosted on Firebase. Refer to: [Google Firebase documentation](https://firebase.google.com/docs)
 
 ## Future Steps
 Below is a list of features and steps for WHC to follow to ensure continuity and improvement of the BangWo app. We hope this list proves helpful for the future Programme Manager of this initiative for drafting technical requirements.
 * Creation of Google Maps API key. This new key will need to be inserted into select pages of Javascript code that call on the Google Maps API.
 * Deployment to a cloud hosting service such as Firebase, Azure, or AWS. URLs for API calls will need to be changed accordingly.
 * Implementation of the following key aspects of the app, which were either out of scope or left out due to time constraints:
-* Creation of tasks that can be scheduled ahead of time. Tasks currently can only be posted in real time.
-* Creation of a privacy policy and user terms and conditions
-* User moderation system to report bad actors and ensure user safety
-* Admin interface and dashboard to monitor key metrics and perform master actions like user bans
-* Translation for multiple languages (Malay, Mandarin Chinese, Tamil)
+  1. Creation of tasks that can be scheduled ahead of time. Tasks currently can only be posted in real time.
+  1. Creation of a privacy policy and user terms and conditions
+  1. User moderation system to report bad actors and ensure user safety
+  1. Admin interface and dashboard to monitor key metrics and perform master actions like user bans
+  1. Translation for multiple languages (Malay, Mandarin Chinese, Tamil)
