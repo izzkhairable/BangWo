@@ -25,7 +25,6 @@ Special thanks to our project mentor and facilitator,  Pius Lee, for guidance in
 * Chat functionality between elderly and volunteer users
 * An “Advice” section for volunteers to provide useful tips to other future volunteers
 * Fun, descriptive stickers the elderly users can give to volunteers after the successful completion of a task
-* “Help” sections for users throughout key areas of the app in case the user is unsure of how to proceed
 
 
 ## Dependencies
