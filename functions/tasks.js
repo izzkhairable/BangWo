@@ -3,38 +3,48 @@ const admin = require("firebase-admin");
 const firestore = admin.firestore();
 /* eslint-disable max-len */
 
-// Elderly mainpage: Choose Task Category (Name) --> Step 1
-exports.createTaskStep1 = functions.https.onCall(async (data) => {
+/**
+ * The First step of creating a new task adding the taskName to the Firestore collection
+ * @param {string} taskName - The name of the task select e.g. changing light bulb
+ * @param {string} elderlyId - The unique id of the elderly user, each uid is unique regardless of user type.
+ * @returns {object} - An object containing response msg, status and task data sent
+ */
+exports.createTaskStep1 = functions.https.onCall(async (data)s => {
   const taskId = Date.now().toString() +"-"+data.elderlyId;
   const taskName = data.taskName;
   const elderlyId = data.elderlyId;
-  const volunteerId = null;
 
-  const returnTaskData = firestore
+  const returnTaskData = await firestore
       .collection("task")
       .doc(taskId)
       .set({
         taskId: taskId,
         taskName: taskName,
         elderlyId: elderlyId,
-        volunteerId: volunteerId,
+        volunteerId: null,
       })
-      .then(async (doc) => {
+      .then(async () => {
         return {
-          msg: "Task has been created with Task Category (Name)",
+          msg: `Task has been created with Task Name: ${taskName}`,
           status: 200,
           taskData: {
             taskId: taskId,
             taskName: taskName,
             elderlyId: elderlyId,
-            volunteerId: volunteerId,
+            volunteerId: null,
           },
         };
       });
   return returnTaskData;
 });
 
-// Add task address and unit no--> Step 2
+/**
+ * The Second step of creating a new task adding the address & unitNo to the Firestore collection
+ * @param {string} taskId - The unique id of the current task, taskId is unique combination of (dateTimeTaskCreated-ElderlyId)
+ * @param {string} address - The address of the elderly current location
+ * @param {string} unitNo -  The unit number of the elderly current location
+ * @returns {object} - An object containing response msg, status and task data updated on Firebases
+ */
 exports.createTaskStep2= functions.https.onCall(async (data) => {
   const taskId = data.taskId;
   const address = data.address;
@@ -54,17 +64,17 @@ exports.createTaskStep2= functions.https.onCall(async (data) => {
                 unitNo: unitNo,
               })
               .then(() => {
-                return "Task address and unit number has been added";
+                return `Task address:${address} and unit number:${unitNo} has been added`;
               })
               .catch((error) => {
-                console.error("Error updating task address and unit no: ", error);
+                console.error(`Error updating task address:${address} and unit no:${unitNo}  `, error);
                 return "Error updating task address and unit no";
               });
           return returnTaskAddress;
         }
       })
       .catch((error) => {
-        console.log("There is no such task that has been created yet: ", error);
+        console.log("Task doesn't exist based on the task id provided: ", error);
       });
 
   const updatedTask = await task
@@ -73,7 +83,7 @@ exports.createTaskStep2= functions.https.onCall(async (data) => {
         return doc.data();
       })
       .catch((error) => {
-        console.log("Error getting document:", error);
+        console.log("Error getting the newly updated task:", error);
       });
 
   return {
@@ -83,7 +93,13 @@ exports.createTaskStep2= functions.https.onCall(async (data) => {
   };
 });
 
-// Add task name, description and photos
+/**
+ * The Third/last step of creating a new task adding the taskDescription & taskPhotoUrl to the Firestore collection
+ * @param {string} taskId - The unique id of the current task, taskId is unique combination of (dateTimeTaskCreated-ElderlyId)
+ * @param {string} taskDescription - The description of the task
+ * @param {string} taskPhotoUrls -  The img url of the photos relating to the task that is already uploaded to Firebase storage
+ * @returns {string} - The string contain status of updating the task data to Firebase
+ */
 exports.createTaskStep3 = functions.https.onCall(async (data) => {
   const taskId = data.taskId;
   const taskDescription = data.taskDescription;
@@ -125,12 +141,20 @@ exports.createTaskStep3 = functions.https.onCall(async (data) => {
   return status;
 });
 
-// Add task name, description and photos
+/**
+ * The Third/last step of creating a new task adding the taskName, taskDescription & taskPhotoUrl to the Firestore collection
+ * The function is invoked when the elderly user selected "Help with other task", giving them the ability to define they own task name
+ * @param {string} taskId - The unique id of the current task, taskId is unique combination of (dateTimeTaskCreated-ElderlyId)
+ * @param {string} taskName - The name of the task
+ * @param {string} taskDescription - The description of the task
+ * @param {string} taskPhotoUrls -  The img url of the photos relating to the task that is already uploaded to Firebase storage
+ * @returns {string} - The string contain status of updating the task data to Firebase
+ */
 exports.createTaskStep3wName = functions.https.onCall(async (data) => {
   const taskId = data.taskId;
+  const taskName = data.taskName;
   const taskDescription = data.taskDescription;
   const taskPhotoUrls = data.taskPhotoUrls;
-  const taskName = data.taskName;
   const task = firestore.collection("task").doc(taskId);
 
   const status = await task
@@ -169,72 +193,41 @@ exports.createTaskStep3wName = functions.https.onCall(async (data) => {
   return status;
 });
 
-// Get task details
+/**
+ * Get the task details from Firestore by taskId
+ * @param {string} taskId - The unique id of the current task, taskId is unique combination of (dateTimeTaskCreated-ElderlyId)
+ * @returns {object} - The object containing the full task details
+ */
 exports.getTaskDetails = functions.https.onCall(async (data) => {
   const taskId = data.taskId;
   const task = firestore.collection("task").doc(taskId);
-
   const returnTaskDetails = await task
       .get()
       .then((doc) => {
         if (doc.exists) {
           return doc.data();
         } else {
-          console.log("The task does not exist");
+          console.log(`Task doesn't exist based on the task id ${taskId} provided`);
+          return {
+            msg: `Task doesn't exist based on the task id ${taskId} provided`
+          }
         }
       })
       .catch((error) => {
-        console.log("Error retrieving task details, task may not exist", error);
+        console.log(`Error retrieving task details for task id ${taskId}, task may not exist`, error);
+        return {
+          msg: `Error retrieving task details for task id ${taskId}, task may not exist`,
+          error: error
+        }
       });
   return returnTaskDetails;
 });
 
-// Elderly mainpage: Create task (One-time update, not in figma)
-exports.addNewTask = functions.https.onCall(async (data, context) => {
-  // Unique taskId generator
-  const taskId = new Date().toString() + data.elderlyId;
-  const taskName = data.taskName;
-  const taskDescription = data.taskDescription;
-  const taskPhotoUrl = data.taskPhotoUrl;
-  const elderlyId = data.elderlyId;
-  const volunteerId = data.volunteerId;
-  const address = data.address;
-  const unitNo = data.unitNo;
-  const taskStatus = data.taskStatus;
-  // 2021-04-07
-  const date = new Date().getFullYear().toString + "-" + new Date().getMonth().toString + "-" + new Date().getDate().toString();
-  // e.g 14:00
-  const startTime = new Date().getHours().toString() + ":" + new Date().getMinutes().toString();
-  const endTime = data.endTime;
-
-  const returnTask = firestore
-      .collection("task")
-      .doc(taskId)
-      .set({
-        address: address,
-        elderlyId: elderlyId,
-        taskDescription: taskDescription,
-        taskId: taskId,
-        taskName: taskName,
-        taskPhotoUrl: taskPhotoUrl,
-        unitNo: unitNo,
-        volunteerId: volunteerId,
-        taskStatus: taskStatus,
-        date: date,
-        startTime: startTime,
-        endTime: endTime,
-      })
-      .then(async (doc) => {
-        console.log({
-          msg: "Task has been created",
-          status: 200,
-        });
-        return "Task has been created";
-      });
-  return returnTask;
-});
-
-// Volunteer retrieves elderly profile
+/**
+ * Get the elderly full profile from Firestore to be displayed on the volunteer side
+ * @param {string} elderlyId - The unique id of the elderly user, each uid is unique regardless of user type.
+ * @returns {object} - The object containing the full elderly profile
+ */
 exports.getElderlyProfile = functions.https.onCall(async (data) => {
   const elderlyId = data.elderlyId;
   const elderlyUsers = firestore.collection("elderlyUsers").doc(elderlyId);
@@ -246,16 +239,28 @@ exports.getElderlyProfile = functions.https.onCall(async (data) => {
           const result = doc.data();
           return result;
         } else {
-          console.log("Elderly does not exist");
+          console.log(`Elderly does not exist with elderlyId:${elderlyId} provided`);
+          return {
+            msg: `Elderly does not exist with elderlyId:${elderlyId} provided`
+          }
         }
       })
       .catch((error) => {
-        console.log("Error retrieving elderly profile", error);
+        console.log(`Error retrieving elderly profile ${elderlyId}`, error);
+        return {
+          msg: `Error retrieving elderly profile ${elderlyId}`,
+          error: error
+        }
       });
   return returnElderlyProfile;
 });
 
-// Volunteer accepts task success
+/**
+ * When the volunteer accepts a task this function would be invoke to update the status of the task to accepted
+ * @param {string} volunteerId - The unique id of the volunteer user, each uid is unique regardless of user type.
+ * @param {string} taskId - The unique id of the current task, taskId is unique combination of (dateTimeTaskCreated-ElderlyId)
+ * @returns {string} The string contains the status of updating the task to accepted
+ */
 exports.acceptTask = functions.https.onCall(async (data) => {
   const volunteerId = data.volunteerId;
   const taskId = data.taskId;
@@ -275,29 +280,33 @@ exports.acceptTask = functions.https.onCall(async (data) => {
                 startTime: new Date().getHours().toString() + ":" + new Date().getMinutes().toString(),
               })
               .then(() => {
-                return "Yay! We found you a volunteer! (VolunteerId successfully updated to task)";
+                return `Task status for ${taskId} successfully updated to accepted`;
               })
               .catch((error) => {
-                console.error("Error accepting task ", error);
-                return "Error accepting task";
+                console.error(`Error updating task status for ${taskId} to accepted`, error);
+                return `Error accepting task ${taskId}`, error;
               });
           return accepting;
         }
       })
       .catch((error) => {
         console.log(
-            "Error getting task, task may not have been created before.",
+            `Error updating task status for ${taskId} to accepted, task may not have been created before.`,
             error,
         );
+        return `Error updating task status for ${taskId} to accepted, task may not have been created before.`,error
       });
   return accepted;
 });
 
-// Volunteer arrives, task in progress
+/**
+ * When the volunteer selects that they have arrived this function would be invoke to update the status of the task to inProgress
+ * @param {string} taskId - The unique id of the current task, taskId is unique combination of (dateTimeTaskCreated-ElderlyId)
+ * @returns {string} The string contains the status of updating the task to inProgress
+ */
 exports.taskInProgress = functions.https.onCall(async (data) => {
   const taskId = data.taskId;
   const task = firestore.collection("task").doc(taskId);
-
   const inProgress = await task
       .get()
       .then((doc) => {
@@ -313,22 +322,27 @@ exports.taskInProgress = functions.https.onCall(async (data) => {
                 return "Volunteer Help In Progress (Volunteer has successfully reached destination)";
               })
               .catch((error) => {
-                console.error("Error reaching destination ", error);
-                return "Error reaching destination";
+                  console.error(`Error updating task status for ${taskId} to inProgress`, error);
+                  return `Error updating task to inProgress for task ${taskId}`, error;
               });
           return arriving;
         }
       })
       .catch((error) => {
-        console.log(
-            "Error changing status, task may not have been created before.",
+          console.log(
+            `Error updating task status for ${taskId} to inProgress, task may not have been created before.`,
             error,
         );
+        return `Error updating task status for ${taskId} to inProgress, task may not have been created before.`,error
       });
   return inProgress;
 });
 
-// Task completed
+/**
+ * When the volunteer selects that the task have been completed a task this function would be invoke to update the status of the task to completed
+ * @param {string} taskId - The unique id of the current task, taskId is unique combination of (dateTimeTaskCreated-ElderlyId)
+ * @returns {string} The string contains the status of updating the task to completed
+ */
 exports.taskCompleted = functions.https.onCall(async (data) => {
   const taskId = data.taskId;
   const task = firestore.collection("task").doc(taskId);
@@ -350,22 +364,26 @@ exports.taskCompleted = functions.https.onCall(async (data) => {
                 return "Yay! Task completed!";
               })
               .catch((error) => {
-                console.error("Error completing task ", error);
-                return "Error completing task";
-              });
+                console.error(`Error updating task status for ${taskId} to completed`, error);
+                return `Error updating task to completed for task ${taskId}`, error;
+            });
           return completing;
         }
       })
       .catch((error) => {
         console.log(
-            "Error completing task, task may not exist in the first place",
-            error,
-        );
+          `Error updating task status for ${taskId} to completed, task may not have been created before.`,
+          error,
+      );
+      return `Error updating task status for ${taskId} to completed, task may not have been created before.`,error
       });
   return completed;
 });
 
-// Retrieve all tasks that are currently unfulfilled (i.e. not work in progress and not completed)
+/**
+ * Get all of the task with status "finding" to be displayed on the volunteer side for the volunteer to accept the task
+ * @returns {object} an array of object containing task details for tasks with status "finding"
+ */
 exports.getAvailableTasks = functions.https.onCall(async (data) => {
   const taskStatus = "finding";
   const tasks = firestore.collection("task").where("taskStatus", "==", taskStatus);
@@ -381,7 +399,7 @@ exports.getAvailableTasks = functions.https.onCall(async (data) => {
         return result;
       })
       .catch((error) => {
-        console.log("Error retrieving task", error);
+        console.log("Error retrieving tasks", error);
       });
   return returnAvailableTasks;
 });
