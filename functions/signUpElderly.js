@@ -3,6 +3,13 @@ const admin = require("firebase-admin");
 const firestore = admin.firestore();
 
 /* eslint-disable max-len */
+
+/**
+ * Acts as a sign up and login function all-in-one & adds elderly user UID & Phone Number to the Firestore collection.
+ * @param {string} uid - The unique id of the elderly user, each uid is unique regardless of user type.
+ * @param {string} phoneNo - The phoneNo of the elderly user
+ * @returns {object} An object containing reponse msg, status and elderly user data sent
+ */
 exports.loginORsignUpStep1 = functions.https.onCall((data) => {
   const uid = data.uid;
   const phoneNo = data.phoneNo;
@@ -32,7 +39,7 @@ exports.loginORsignUpStep1 = functions.https.onCall((data) => {
               .then(() => {
                 const finalMsg={
                   status: 200,
-                  msg: "You are new elderly user, your (Auto-Generated)UID and PhoneNo added to our database",
+                  msg: "You are new elderly user, your (Auto-Generated) UID and PhoneNo added to our database",
                   isPreviouslyUser: false,
                   isSignUpCompleted: false,
                   profileData: {
@@ -52,6 +59,14 @@ exports.loginORsignUpStep1 = functions.https.onCall((data) => {
   return returnData;
 });
 
+
+/**
+ * For the second step of the signup all-in-one & adds elderly user name, profilePicUrl to the Firestore collection by elderly uid.
+ * @param {string} uid - The unique id of the elderly user, each uid is unique regardless of user type.
+ * @param {string} name - The name of elderly user
+ * @param {string} profilePicUrl - The profilePicUrl which is the url of the image uplodated to Firebase storage
+ * @returns {object} An object containing reponse msg, status and eldelry user data sent
+ */
 exports.signUpStep2 = functions.https.onCall(async (data) => {
   const uid = data.uid;
   const name = data.name;
@@ -100,12 +115,19 @@ exports.signUpStep2 = functions.https.onCall(async (data) => {
   };
 });
 
+
+/**
+ * For the third/last step of the signup all-in-one & adds elderly user address & unit number Firestore collection by elderly uid.
+ * @param {string} uid - The unique id of the elderly user, each uid is unique regardless of user type.
+ * @param {string} address- The address of elderly user
+ * @param {string} unitNo - The unitNo of elderly user
+ * @returns {object} An object containing reponse msg, status and elderly user data sent
+ */
 exports.signUpStep3 = functions.https.onCall(async (data) => {
   const uid = data.uid;
   const address = data.address;
   const unitNo = data.unitNo;
   const user = firestore.collection("elderlyUsers").doc(uid);
-
 
   const status = await user
       .get()
@@ -133,7 +155,6 @@ exports.signUpStep3 = functions.https.onCall(async (data) => {
         console.log("Error getting document:", error);
       });
 
-
   const updatedData = await user
       .get()
       .then((doc) => {
@@ -142,7 +163,6 @@ exports.signUpStep3 = functions.https.onCall(async (data) => {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-
 
   return {
     status: 200,

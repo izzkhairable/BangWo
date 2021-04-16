@@ -9,7 +9,7 @@ const firestore = admin.firestore();
  * @param {string} volunteerId - The unique id of the volunteer.
  * @param {string} title - The title of the new advice.
  * @param {string} description - The description of the advice.
- * @returns {object} An object containing reponse msg, status and data sent
+ * @returns {object} An object containing reponse msg, status and advice data sent
  */
 exports.sendAdvice = functions.https.onCall(async (data) => {
   const elderlyId = data.elderlyId;
