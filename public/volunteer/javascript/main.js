@@ -1,5 +1,3 @@
-let isCalled=false;
-// request permission on page load
 document.addEventListener('DOMContentLoaded', function() {
 
      firebase.auth().onAuthStateChanged(function (user) {
@@ -20,54 +18,29 @@ document.addEventListener('DOMContentLoaded', function() {
 			document.getElementById("profile").src = profilePicUrl;
 			return msg.name
 		});
-
         setInterval(async function() {
             getAvailableTasks()
         }, 1000);
     });
 });
 
-
 async function getAvailableTasks() {
     const getAvailableTasksFB = firebase
         .functions()
         .httpsCallable('tasks-getAvailableTasks');
     let resultData = '';
-
     await getAvailableTasksFB ().then((result) => {
         resultData=result
     })
     console.log(resultData.data.length)
     if(resultData.data.length>0){
-        // if(isCalled===false){
-        //     notifyMe()
-        //     isCalled=true
-        // }
         const taskId=resultData.data.taskId
-        // consolel.log(taskId)
         window.location.replace('./main-got-task.html?taskId='+taskId);
     }
     console.log(resultData)
     return resultData;
 }
    
-   
-// function notifyMe() {
-//     if (!Notification) {
-//         alert('Desktop notifications not available in your browser. Try Chromium.');
-//         return;
-//        }
-//        if (Notification.permission !== 'granted')
-//         Notification.requestPermission();
-//     var notification = new Notification('Notification title', {
-//     icon: '../../assets/images/logo.svg',
-//     body: 'Hey an elderly is in need of your help!',
-//     });
-//     notification.onclick = function() {
-//     window.open('./main-got-task.html');
-//     };
-// }
-
 async function getVolunteerProfile(uid) {
 const getVolunteerProfileFB = firebase
     .functions()

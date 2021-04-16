@@ -9,7 +9,7 @@ const firestore = admin.firestore();
  * @param {string} elderlyId - The unique id of the elderly user, each uid is unique regardless of user type.
  * @returns {object} - An object containing response msg, status and task data sent
  */
-exports.createTaskStep1 = functions.https.onCall(async (data)s => {
+exports.createTaskStep1 = functions.https.onCall(async (data) => {
   const taskId = Date.now().toString() +"-"+data.elderlyId;
   const taskName = data.taskName;
   const elderlyId = data.elderlyId;
@@ -209,16 +209,16 @@ exports.getTaskDetails = functions.https.onCall(async (data) => {
         } else {
           console.log(`Task doesn't exist based on the task id ${taskId} provided`);
           return {
-            msg: `Task doesn't exist based on the task id ${taskId} provided`
-          }
+            msg: `Task doesn't exist based on the task id ${taskId} provided`,
+          };
         }
       })
       .catch((error) => {
         console.log(`Error retrieving task details for task id ${taskId}, task may not exist`, error);
         return {
           msg: `Error retrieving task details for task id ${taskId}, task may not exist`,
-          error: error
-        }
+          error: error,
+        };
       });
   return returnTaskDetails;
 });
@@ -241,16 +241,16 @@ exports.getElderlyProfile = functions.https.onCall(async (data) => {
         } else {
           console.log(`Elderly does not exist with elderlyId:${elderlyId} provided`);
           return {
-            msg: `Elderly does not exist with elderlyId:${elderlyId} provided`
-          }
+            msg: `Elderly does not exist with elderlyId:${elderlyId} provided`,
+          };
         }
       })
       .catch((error) => {
         console.log(`Error retrieving elderly profile ${elderlyId}`, error);
         return {
           msg: `Error retrieving elderly profile ${elderlyId}`,
-          error: error
-        }
+          error: error,
+        };
       });
   return returnElderlyProfile;
 });
@@ -294,7 +294,7 @@ exports.acceptTask = functions.https.onCall(async (data) => {
             `Error updating task status for ${taskId} to accepted, task may not have been created before.`,
             error,
         );
-        return `Error updating task status for ${taskId} to accepted, task may not have been created before.`,error
+        return `Error updating task status for ${taskId} to accepted, task may not have been created before.`, error;
       });
   return accepted;
 });
@@ -322,18 +322,18 @@ exports.taskInProgress = functions.https.onCall(async (data) => {
                 return "Volunteer Help In Progress (Volunteer has successfully reached destination)";
               })
               .catch((error) => {
-                  console.error(`Error updating task status for ${taskId} to inProgress`, error);
-                  return `Error updating task to inProgress for task ${taskId}`, error;
+                console.error(`Error updating task status for ${taskId} to inProgress`, error);
+                return `Error updating task to inProgress for task ${taskId}`, error;
               });
           return arriving;
         }
       })
       .catch((error) => {
-          console.log(
+        console.log(
             `Error updating task status for ${taskId} to inProgress, task may not have been created before.`,
             error,
         );
-        return `Error updating task status for ${taskId} to inProgress, task may not have been created before.`,error
+        return `Error updating task status for ${taskId} to inProgress, task may not have been created before.`, error;
       });
   return inProgress;
 });
@@ -366,16 +366,16 @@ exports.taskCompleted = functions.https.onCall(async (data) => {
               .catch((error) => {
                 console.error(`Error updating task status for ${taskId} to completed`, error);
                 return `Error updating task to completed for task ${taskId}`, error;
-            });
+              });
           return completing;
         }
       })
       .catch((error) => {
         console.log(
-          `Error updating task status for ${taskId} to completed, task may not have been created before.`,
-          error,
-      );
-      return `Error updating task status for ${taskId} to completed, task may not have been created before.`,error
+            `Error updating task status for ${taskId} to completed, task may not have been created before.`,
+            error,
+        );
+        return `Error updating task status for ${taskId} to completed, task may not have been created before.`, error;
       });
   return completed;
 });

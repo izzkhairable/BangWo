@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
             window.location.replace('./Login/loginORsignUpStep1.html');
             return
         }else{
-
             getElderlyProfile(user.uid).then((msg) => {
                 var name=msg.name;
                 var profilePicUrl=msg.profilePicUrl;
@@ -23,8 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         } 
     });
-
-
 });
 
 async function getElderlyProfile(uid) {
@@ -53,13 +50,11 @@ async function createTaskStep2B() {
     const createTaskStep2FB = firebase
         .functions()
         .httpsCallable('tasks-createTaskStep2');
-
     const urlStr=window.location.href;
     const url=new URL(urlStr);
     const taskId=url.searchParams.get("taskId");
     const address=document.getElementById("currentAddress").value;
     const unitNo=document.getElementById("unitNo").value;
-
     await createTaskStep2FB ({
         taskId: taskId,
         address: address,

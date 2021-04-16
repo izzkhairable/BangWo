@@ -1,11 +1,3 @@
-function getProfile() {
-	return "https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg";
-}
-
-function getLogo() {
-	return "https://4m4you.com/wp-content/uploads/2020/06/logo-placeholder.png";
-}
-
 document.addEventListener('DOMContentLoaded', function () {
     firebase.auth().onAuthStateChanged(function (user) {
         if (!user) {

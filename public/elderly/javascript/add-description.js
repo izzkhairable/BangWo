@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 var name=msg.name;
                 var profilePicUrl=msg.profilePicUrl;
                 var address=msg.address;
-                var unitNo=msg.unitNo;
                 if(name==null || profilePicUrl==null || address==null || !name || !profilePicUrl || !address){
                     alert("Your sign up is not completed, Pls complete it. Redirecting to sign up page....")
                     window.location.replace('./Login/loginORsignUpStep1.html');
@@ -35,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         } 
     });
-
     coverDiv.style.display='none';
 });
 
@@ -52,8 +50,6 @@ async function getElderlyProfile(uid) {
     });
     return msg;
 }
-
-
 
 function getFileDetails() {
     let files = document.getElementById('fileInput');
@@ -153,8 +149,6 @@ function uploadFile(file) {
                 `
                }else{
                 var add = "image"+imageCount.toString();
-                // var add = add.concat(toString(imageCount));
-                // console.log(toString(imageCount));
                 document.getElementById(add).innerHTML=`
                 <div class="card border-dark image rounder" id="imgDiv${imageCount}">
                     <img src="${downloadURL}" class="card-img photosUrl" alt="...">
@@ -163,12 +157,6 @@ function uploadFile(file) {
                     </div>
                 </div>
                 `
-                // mainCarousel.innerHTML= mainCarousel.innerHTML+'
-                // <div class="img-wrap w-25 mx-3 mb-2" id="imgDiv${imageCount}">
-                // <button id="clear" class="btn btn-secondary btn-sm" onclick="deleteImage('imgDiv${imageCount}')">X</button>
-                // <img src="${downloadURL}" class="w-100 photosUrl" alt="...">
-                // </div>
-                // `
                }
             });
         }
@@ -246,11 +234,9 @@ async function createTaskStep3() {
             return result.data;
         });
     }
-
     window.location.replace(`./statusWaiting.html?taskId=${taskId}`); 
     return msg;
 }
-
 
 async function getTaskDetails(taskId) {
     const getTaskDetailsFB = firebase
@@ -267,11 +253,7 @@ async function getTaskDetails(taskId) {
     return resultData;
 }
 
-
 function goBack() {
     window.history.back();
-  }
-
-function displayCarousel(){
-    const mainCarousel=document.getElementsById("main-carousel")
 }
+

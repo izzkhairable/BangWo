@@ -11,9 +11,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 		 const data=await getTaskDetails(taskId)
 		 getElderlyDetails(data)
 		getLocation()
-		
 	 });
- 
  });
 
  async function getElderlyDetails(data){

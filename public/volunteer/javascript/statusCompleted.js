@@ -1,6 +1,5 @@
 let isCalled=false;
 let volunteerId;
-// request permission on page load
 document.addEventListener('DOMContentLoaded', async function() {
 
      firebase.auth().onAuthStateChanged(async function (user) {
@@ -13,16 +12,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             console.log(msg)
             return msg
         });
-
-        
-        
         setInterval( async ()=>{
         
             await getVolunteerStickers(user.uid).then((msg) => {
                 volunteerId=user.uid
                 console.log(msg)
-                console.log("This is stickers",stickers)
-
                 if(msg.length>stickers.length){
                     console.log("Awarded New Stickers!")
                     if(document.getElementById('stickerName').innerText!="Sticker: "+stickers[stickers.length-1]){

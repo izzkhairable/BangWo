@@ -14,16 +14,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 var name=msg.name;
                 var profilePicUrl=msg.profilePicUrl;
                 var address=msg.address;
-                var unitNo=msg.unitNo;
                 if(name==null || profilePicUrl==null || address==null || !name || !profilePicUrl || !address){
                     alert("Your sign up is not completed, Pls complete it. Redirecting to sign up page....")
                     window.location.replace('./Login/loginORsignUpStep1.html');
                     return
                 }
-                const taskNameInput=document.getElementById('allTaskName');
-                const urlStr=window.location.href;
-                const url=new URL(urlStr);
-                const taskId=url.searchParams.get("taskId");
             });
         } 
     });
@@ -45,10 +40,8 @@ async function getElderlyProfile(uid) {
 }
 
 function stickerSelected(stickerName){
-
     const stickerDisplay=document.getElementById("sticker-display")
     stickerDisplay.innerHTML=stickerName
-
 }
 
 async function addSticker(){

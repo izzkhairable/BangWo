@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-
-    
-
     firebase.auth().onAuthStateChanged(function (user) {
         if (!user) {
                 window.location.replace('./loginORsignUpStep1.html'); 
@@ -12,9 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const taskId=url.searchParams.get("taskId");
         getTaskDetails(taskId);
     });
-
     setInterval(async function() {
-
         const urlStr=window.location.href;
         const url=new URL(urlStr);
         const taskId=url.searchParams.get("taskId");
@@ -24,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
             window.location.replace('./statusAccepted.html?taskId='+taskId); 
         }
     }, 1000);
-
 });
 
 async function getTaskDetails(taskId) {
@@ -65,7 +59,6 @@ async function getTaskStatus(taskId) {
     });
     return resultData;
 }
-
 
 function retryFindVolunteer(){
     const urlStr=window.location.href;

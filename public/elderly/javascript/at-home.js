@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
             window.location.replace('./Login/loginORsignUpStep1.html');
             return
         }else{
-
             getElderlyProfile(user.uid).then((msg) => {
                 var name=msg.name;
                 var profilePicUrl=msg.profilePicUrl;
@@ -22,8 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 const iframeEl=document.getElementById("iframeEl");
                 const addressEl=document.getElementById("addressEl");
                 const unitNoEl=document.getElementById("unitNoEl");
-
-                
                 addressEl.innerHTML= addressEl.innerHTML+`<p id="addresDataEl">${address}</p>`;
                 unitNoEl.innerHTML=unitNoEl.innerHTML+`<p id="unitNoDataEl">${unitNo}</p>`;
                 const url=`https://www.google.com/maps/embed/v1/place?key=AIzaSyBUcwKDHwnPlhLlJBZCNulc-abORf42qdA&q=${address.split(" ").join("+")},Singapore`
@@ -33,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         } 
     });
-    
 });
 
 async function getElderlyProfile(uid) {
@@ -54,13 +50,11 @@ async function createTaskStep2A() {
     const createTaskStep2FB = firebase
         .functions()
         .httpsCallable('tasks-createTaskStep2');
-
     const urlStr=window.location.href;
     const url=new URL(urlStr);
     const taskId=url.searchParams.get("taskId");
     const address=document.getElementById("addressEl").innerText;
     const unitNo=document.getElementById("unitNoEl").innerText;
-
     await createTaskStep2FB ({
         taskId: taskId,
         address: address,
@@ -75,7 +69,6 @@ async function createTaskStep2A() {
     });
     return
 }
-
 
 function goBack() {
     window.history.back();

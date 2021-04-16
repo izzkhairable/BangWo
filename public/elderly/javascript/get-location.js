@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const url=new URL(urlStr);
             const taskName=url.searchParams.get("taskname");
             createTaskStep1(user.uid,taskName);
-            // document.getElementById("header-text").innerHTML = "Are you at home?";
         } 
     });
 });
@@ -38,7 +37,6 @@ async function getElderlyProfile(uid) {
     });
     return msg;
 }
-
 
 async function createTaskStep1(elderlyId, taskName) {
     const createTaskStep1FB = firebase

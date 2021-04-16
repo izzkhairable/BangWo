@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded', async function () {
-
-    
-
    await firebase.auth().onAuthStateChanged( async function (user) {
         if (!user) {
                 window.location.replace('./loginORsignUpStep1.html'); 

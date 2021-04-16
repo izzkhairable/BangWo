@@ -2,7 +2,6 @@ let isCalled=false;
 let volunteerId;
 // request permission on page load
 document.addEventListener('DOMContentLoaded', function() {
-
      firebase.auth().onAuthStateChanged(function (user) {
         if (!user) {
                 window.location.replace('./Login/loginORsignUpStep1.html');
@@ -27,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
 });
-
 
 async function getAvailableTasks() {
     const getAvailableTasksFB = firebase
@@ -58,8 +56,6 @@ async function getAvailableTasks() {
     }
     return;
 }
-   
-   
 
 async function getVolunteerProfile(uid) {
 const getVolunteerProfileFB = firebase
@@ -74,7 +70,6 @@ await getVolunteerProfileFB({
 });
 return msg;
 }
-
 
 async function goAcceptTask(){
     const taskId=document.getElementById("taskId").innerText

@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded',async function () {
-
-    
-
     await firebase.auth().onAuthStateChanged(async function (user) {
         if (!user) {
                 window.location.replace('./loginORsignUpStep1.html'); 
@@ -13,7 +10,6 @@ document.addEventListener('DOMContentLoaded',async function () {
        const data=await getTaskDetails(taskId);
         await getVolunteerDetails(data)
     });
-
     setInterval(async function() {
         const urlStr=window.location.href;
         const url=new URL(urlStr);

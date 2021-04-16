@@ -18,13 +18,5 @@
   },
   "storage": {
     "rules": "storage.rules"
-  },
-  "emulators": {
-    "firestore": {
-      "port": "5668"
-    },
-    "hosting": {
-      "port": "6002"
-    }
   }
 }
