@@ -3,6 +3,12 @@ const admin = require("firebase-admin");
 const firestore = admin.firestore();
 /* eslint-disable max-len */
 
+/**
+ * Acts as a sign up and login function all-in-one & adds volunteer user UID & Phone Number to the Firestore collection.
+ * @param {string} uid - The unique id of the volunteer user, each uid is unique regardless of user type.
+ * @param {string} phoneNo - The phoneNo of the volunteer user
+ * @returns {object} An object containing reponse msg, status and volunteer user data sent
+ */
 exports.loginORsignUpStep1 = functions.https.onCall((data) => {
   const uid = data.uid;
   const phoneNo = data.phoneNo;
@@ -50,6 +56,13 @@ exports.loginORsignUpStep1 = functions.https.onCall((data) => {
   return returnData;
 });
 
+/**
+ * For the second step/last step of the signup all-in-one & adds volunteer user name, profilePicUrl to the Firestore collection by volunteer uid.
+ * @param {string} uid - The unique id of the volunteer user, each uid is unique regardless of user type.
+ * @param {string} name - The name of volunteer user
+ * @param {string} profilePicUrl - The profilePicUrl which is the url of the image uploaded to Firebase storage
+ * @returns {object} An object containing reponse msg, status and volunteer user data sent
+ */
 exports.signUpStep2 = functions.https.onCall(async (data) => {
   const uid = data.uid;
   const name = data.name;
