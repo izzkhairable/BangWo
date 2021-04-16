@@ -3,16 +3,22 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const firestore = admin.firestore();
 
-
-// sendAdvice
+/**
+ * Volunteer who has completed task with the elderly could post new advice to future volunteers only once they have successfully helped the elderly
+ * @param {string} elderlyId - The unique ID for each elderly.
+ * @param {string} volunteerId - The unique id of the volunteer.
+ * @param {string} title - The title of the new advice.
+ * @param {string} description - The description of the advice.
+ * @returns {object} An object containing reponse msg, status and data sent
+ */
 exports.sendAdvice = functions.https.onCall(async (data) => {
   const elderlyId = data.elderlyId;
   const volunteerId = data.volunteerId;
-  const adviceId = elderlyId + volunteerId + Date.now().toString();
   const title = data.title;
   const description = data.description;
+  const adviceId = elderlyId + volunteerId + Date.now().toString();
 
-  const adviceSent = firestore
+  const adviceSent =await firestore
       .collection("advice")
       .doc(adviceId)
       .set({
@@ -22,7 +28,7 @@ exports.sendAdvice = functions.https.onCall(async (data) => {
         title: title,
         description: description,
       })
-      .then(async (doc) => {
+      .then(async () => {
         return {
           msg: "You have successfully submitted an advice",
           status: 200,
@@ -39,7 +45,11 @@ exports.sendAdvice = functions.https.onCall(async (data) => {
   return adviceSent;
 });
 
-// Retrieve all advice past volunteers have submitted about an elderly user
+/**
+ * Retrieving past advices inputted for a specific elderly
+ * @param {string} elderlyId - The unique ID for each elderly.
+ * @returns {object} An array of objects each objects represents the advices
+ */
 exports.getAdviceByElderly = functions.https.onCall(async (data) => {
   const elderlyId = data.elderlyId;
   const advices = firestore.collection("advice").where("elderlyId", "==", elderlyId);
